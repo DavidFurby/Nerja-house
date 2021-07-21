@@ -1,20 +1,21 @@
 import Link from "next/link";
-import { Navbar, Container, Nav } from "react-bootstrap"
+import navStyles from "../styles/Nav.module.css"
 const NavigationBar = () => {
     return (
-        <Navbar>
-            <Container>
-                <Navbar.Brand><Link href="/">Nerja hus</Link></Navbar.Brand>
-                <Nav className="me-auto">
-                    <Nav.Item>
+        <nav className={navStyles.nav}>
+            <ul>
+                <li>
+                    <Link href="/">Nerja hus</Link>
+                </li>
+            
+                <li>
                     <Link href="/book">Boka</Link>
-                    </Nav.Item>
-                    <Nav.Item>
+                </li>
+                <li>
                     <Link href="/readMore">Läs mer</Link>
-                    </Nav.Item>
-                </Nav>
-            </Container>
-        </Navbar>
+                </li>
+            </ul>
+        </nav>
     );
 };
 

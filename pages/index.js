@@ -1,19 +1,21 @@
-import { Container } from 'react-bootstrap'
 import Image from "next/image"
 import Pool from "../public/images/Pool.PNG"
-import Altan from "../public/images/kök.png"
+import Altan from "../public/images/Altan.png"
 import tak from "../public/images/tak.png"
 import vardagsrum from "../public/images/vardagsrum.png"
+import HomeStyle from "../styles/Home.module.css"
+
 export default function Home() {
+  let imageArr = [Pool, Altan, tak, vardagsrum]
   return (
-    <Container>
-            <Image src={Pool} alt="Picture of the author" />
-            <Image src={Altan} alt="Picture of the author" />
-
-            <Image src={tak} alt="Picture of the author" />
-
-            <Image src={vardagsrum} alt="Picture of the author" />
-
-    </Container>
+    <div className={HomeStyle.container}>
+      {imageArr.map((data, index) => {
+        return (
+          <div className={HomeStyle.item}>
+          <Image  key={index} src={data} alt={index}  />
+          </div>
+        )
+      })}
+    </div>
   )
 }
