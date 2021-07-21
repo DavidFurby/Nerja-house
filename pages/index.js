@@ -1,8 +1,8 @@
 import Image from "next/image"
 import pool from "../public/images/Pool.PNG"
 import balcony from "../public/images/Altan.png"
-import ceiling from "../public/images/tak.png"
-import livingRoom from "../public/images/vardagsrum.png"
+import ceiling from "../public/images/tak.PNG"
+import livingRoom from "../public/images/vardagsrum.PNG"
 import HomeStyle from "../styles/Home.module.css"
 
 export default function Home() {
