@@ -13,11 +13,11 @@ const experience = () => {
                 Nerja bjuder på makalös natur där ni kan vandra, springa, cykla, snorkla och dyka. Padel- och tennisanläggningar på gångavstånd och närmaste golfbana inom15 min med bil. Besöker ni Nerja i december till maj har ni drygt en timmes körning till Sierra Nevada som är Europas sydligaste skidanläggning. Med bil tar det ca 50 min från/till Malaga flygplats. Goda parkeringsmöjligheter finns
                 utanför huset.<br /> <br />
                 I hyran ingår slutstädning, el/vatten, lakan och handdukar samt wifi.
-Bytesdag: Lördag om inte annat avtalas. Hör av er om ni vill se fler bilder, veta mer om huset eller vilka veckor som är lediga för uthyrning (Blocketkalendern används inte). Huset är
-turistlicensregistrerat enligt nya bestämmelser för uthyrning - licensnummer
-VFT/MA/06517
-<br/><br/>
-Hyra varierar mellan 7 000-24 000 kr per vecka beroende på antal gäster och säsong.<br/><br/>
+                Bytesdag: Lördag om inte annat avtalas. Hör av er om ni vill se fler bilder, veta mer om huset eller vilka veckor som är lediga för uthyrning (Blocketkalendern används inte). Huset är
+                turistlicensregistrerat enligt nya bestämmelser för uthyrning - licensnummer
+                VFT/MA/06517
+                <br /><br />
+                Hyra varierar mellan 7 000-24 000 kr per vecka beroende på antal gäster och säsong.<br /><br />
             </p>
         </div>
     );

@@ -1,7 +1,7 @@
 const experience = () => {
     return (
         <div className="container">
-           <p>Book</p>
+           <h2>Boka tid hos oss</h2>
         </div>
     );
 }
