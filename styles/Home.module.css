@@ -50,8 +50,7 @@
 }
 
 .cardContent {
-  --padding: 2rem;
-  padding: var(--padding);
+  padding: 2rem; 
   position: relative;
   background: linear-gradient(hsl(0 0% 0% / 0), hsl(0 0% 0% / 0.8));
 
@@ -78,4 +77,25 @@
     transform: translateY(0);
   }
   
+}
+
+@media (max-width: 600px) {
+  .card {
+    width: 18rem;
+    height: 18rem;
+    align-self: center;
+  }
+  .container {
+    padding: 0;
+  }
+  .cardContent {
+    padding: 1rem; 
+  }
+ .title {
+  font-size: 1rem;
+
+ }
+ .subText {
+   font-size: 0.8rem; 
+ }
 }

@@ -12,7 +12,7 @@ export default function Home() {
       {
         cards.map((card, index) => {
           return (
-            <div className={HomeStyle.card} key={index} style={{ backgroundImage: "url(" + card.image.src + ")", alignSelf: index % 2 === 0 ? "flex-end" : "flex-start" }}>
+            <div className={HomeStyle.card} key={index} style={{ backgroundImage: "url(" + card.image.src + ")" }}>
               <div className={HomeStyle.cardContent}>
                 <h2 className={HomeStyle.title}>{card.title}</h2>
                 <p className={HomeStyle.subText}>{card.subText}</p>
