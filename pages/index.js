@@ -3,12 +3,19 @@ import balcony from "../public/images/Altan.png"
 import ceiling from "../public/images/tak.PNG"
 import livingRoom from "../public/images/vardagsrum.PNG"
 import HomeStyle from "../styles/Home.module.css"
+import { getUsers } from "../utils/users"
+import { useEffect } from "react"
 
 export default function Home() {
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
   const cards = [{ title: "Pool", subText: "Lorem ipsum dolor sit amet", image: pool }, { title: "balcony", subText: "Lorem ipsum dolor sit amet", image: balcony }, { title: "Ceiling", subText: "Lorem ipsum dolor sit amet", image: ceiling }, { title: "Living Room", subText: "Lorem ipsum dolor sit amet", image: livingRoom }]
   return (
     <div className={HomeStyle.container} >
-
+  
       {
         cards.map((card, index) => {
           return (
