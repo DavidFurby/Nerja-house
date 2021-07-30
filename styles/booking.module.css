@@ -1,0 +1,23 @@
+.calendarContainer {
+    padding: 2rem; 
+    background: black; 
+    border-radius: 2rem;
+    color: white; 
+    width: 40rem;
+
+}
+.monthSelection {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+.calendar {
+    background: white; 
+    color: black; 
+}
+.days {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}

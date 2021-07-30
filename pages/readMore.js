@@ -1,6 +1,7 @@
+import readMoreStyle from "../styles/readMore.module.css"
 const experience = () => {
     return (
-        <div className="container">
+        <div className={readMoreStyle.container}>
             <p>Välkomna till ett härligt hus där ni kan njuta av sol från morgon till kväll.
                 <br /> <br />
                 Huset är byggt 2002 och beläget i en liten, lugn och blomsterprydd förening med en gemensam och välskött pool. Huset är fördelat på 3 plan samt takterass. Totalt åtta sängplatser och ytterligare två sovplatser i bäddsoffa.<br /><br />

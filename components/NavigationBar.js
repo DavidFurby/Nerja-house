@@ -9,7 +9,7 @@ const NavigationBar = () => {
                 </li>
             
                 <li>
-                    <Link href="/book">Boka</Link>
+                    <Link href="/booking">Boka</Link>
                 </li>
                 <li>
                     <Link href="/readMore">Läs mer</Link>

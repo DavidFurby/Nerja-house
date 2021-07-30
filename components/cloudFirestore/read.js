@@ -1,14 +1,15 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
-
+import { useUser } from '../../utils/firebase/useUser'
 const ReadToCloudFirestore = () => {
 
+    let {user} = useUser(); 
     const readData = () => {
         try {
             firebase
                 .firestore()
                 .collection('myCollection')
-                .doc("my_item") // leave as .doc() for a random unique doc name to be assigned
+                .doc(user.id) // leave as .doc() for a random unique doc name to be assigned
                 .onSnapshot(function (doc) {
                     console.log(doc.data());
                 })
