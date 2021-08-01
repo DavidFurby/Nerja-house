@@ -1,62 +1,146 @@
-import React from 'react'
-import { useState, useEffect } from 'react';
+import React from "react";
+import { useState, useEffect } from "react";
 
-import classes from "../styles/booking.module.css"
+import classes from "../styles/booking.module.css";
+
 export const Calendar = () => {
-    let [currentMonthDays, setCurrentMonthDays] = useState([]);
-    let [currentMonth, setCurrentMonth] = useState("");
+    let [currentMonth, setCurrentMonth] = useState({});
+    let [months, setMonths] = useState([]);
+    let [loading, setLoading] = useState(true)
+    let [] = useState("");
+    const monthNames = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+    ];
+    const weekDays = ["mon", "tue", "wed", "thur", "fri", "sat", "sun"];
+    const weeksInMonth = [1, 2, 3, 4, 5, 6];
 
-    const monthNames = ["January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-];
-    const getMonth = () => {
-        let date = new Date();
-        let monthNumber = date.getMonth();
-
-        setCurrentMonth({name: monthNames[monthNumber], number: monthNumber})
-        getDays(monthNumber);
-    }
-
-    const getDays = (monthNumber) => {
+    const getMonths = async () => {
         let date = new Date();
         let year = date.getFullYear();
-        let daysInMonth = new Date(year, monthNumber, 0).getDate();
 
-        let temp = []
-        for (let i = 0; i < daysInMonth; i++) {
-            temp.push(i);
+        let monthList = [];
+        for (let i = 0; i <= 12; i++) {
+            let date = new Date(year, i +1, 0);
+            let dayList = [];
+            for (let j = 1; j <= date.getDate(); j++) {
+                let currentDate = new Date(year, i, j)
+                dayList.push(currentDate);
+            }
+            monthList.push({ month: date.getMonth(), days: dayList });
         }
-        setCurrentMonthDays(temp);
-    }
+        setMonths(monthList);
+        let currentDate = new Date().getMonth();
+        for (let i = 0; i <= monthList.length; i++) {
+            if (currentDate === i) {
+                for (let j = 0; j <= monthNames.length; j++) {
+                    if (j === currentDate) {
+                        await setCurrentMonth({ days: monthList[i].days, monthName: monthNames[j], monthNumber: date.getMonth() })
+                    }
+                }
+            }
+        }
+    };
 
-   const setMonth = (selection) => {
-        if(selection) {
-            setCurrentMonth(currentMonth.number < 11 ? {name: monthNames[currentMonth.number + 1], number: currentMonth.number + 1} : {name: monthNames[0], number: 0})
-            getDays(currentMonth.number)
+    const handleChangeMonth = (selection) => {
+        if (selection) {
+            setCurrentMonth(
+                currentMonth.monthNumber < 11
+                    ? {
+                        monthName: monthNames[currentMonth.monthNumber + 1],
+                        monthNumber: currentMonth.monthNumber + 1,
+                        days: months[currentMonth.monthNumber + 1].days,
+                    }
+                    : { monthName: monthNames[0], monthNumber: 0, days: months[0].days }
+            );
         } else {
-            setCurrentMonth(currentMonth.number > 0 ? {name: monthNames[currentMonth.number - 1], number: currentMonth.number - 1} : {name: monthNames[11], number: 11})
-            getDays(currentMonth.number)
+            setCurrentMonth(
+                currentMonth.monthNumber > 0
+                    ? {
+                        monthName: monthNames[currentMonth.monthNumber - 1],
+                        monthNumber: currentMonth.monthNumber - 1,
+                        days: months[currentMonth.monthNumber - 1].days,
 
+                    }
+                    : { monthName: monthNames[11], monthNumber: 11, days: months[11].days }
+            );
         }
-    }
+    };
+
     useEffect(() => {
-        getMonth();
-    }, [])
+        getMonths();
+        setTimeout(() => {
+            setLoading(false);
+        }, 200);
+    }, []);
+
+
     return (
-        <div className={classes.calendarContainer}>
-            <section className={classes.monthSelection}>
-                <button onClick={() => setMonth(false)}>left</button>
-                <p>{currentMonth.name}</p>
-                <button onClick={() => setMonth(true)}>right</button>
-            </section>
-            <div className={classes.calendar}>
-                <div className={classes.days} >
-                    {currentMonthDays.map((day, index) => {
-                        return (<p key={index} style={{padding: "1rem"}}>{day}</p>
-                        )
-                    })}
+        <>
+            {!loading ? (
+                <div className={classes.calendarContainer}>
+                    <section className={classes.monthSelection}>
+                        <button onClick={() => handleChangeMonth(false)}><p>left</p></button>
+                        <p>{currentMonth.monthName}</p>
+                        <button onClick={() => handleChangeMonth(true)}><p>right</p></button>
+                    </section>
+
+                    <table className={classes.calendar}>
+                        <thead>
+                            <tr>
+                                {weekDays.map((weekDay, index) => {
+                                    return <th key={index}><p>{weekDay}</p></th>;
+                                })}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {weeksInMonth.map((weekDay, index) => {
+                                let days = months[currentMonth.monthNumber].days;
+
+                                let dayList = [];
+                                for (let i = 0; i < days.length; i++) {
+                                    let fillerPositions = days[i].getDay() === 0 ? 6 : days[i].getDay()
+                                    if (i === 0 && days[i].getDay() !== 1) {
+                                        for (let j = 0; j < fillerPositions; j++) {
+                                            dayList.push("");
+                                        }
+                                        dayList.push(days[i].getDate());
+                                    } else if (i === days.length - 1 && days[i].getDay() !== 0) {
+                                        dayList.push(days[i].getDate());
+
+                                        let remainingWeek = 7 - days[i].getDay(); 
+                                        for (let t = 0; t < remainingWeek; t++) {
+                                            dayList.push("");
+                                        }
+                                    }
+                                    else {
+                                        dayList.push(days[i].getDate())
+                                    }
+                                }
+                                console.log(index);
+                                let sliceDaysInWeeks = dayList.slice(index === 0 ? 0 : 7 * index, index === 0 ? 7: 7 * index + 7);
+                                return <tr key={index}>{sliceDaysInWeeks.map((days, dayIndex) => {
+                                    return <th key={dayIndex}>{days}</th>
+                                })}</tr>
+                            })}
+
+                        </tbody>
+                    </table>
                 </div>
-            </div>
-        </div>
-    )
+            ) : null}
+
+        </>
+    );
 }
+
+

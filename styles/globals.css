@@ -14,7 +14,6 @@ body {
     font-size: 1.3125rem;
     line-height: 1.5; 
     background: var(--clr-neutral-100); 
-    
 }
 .content {
   margin-left: 2rem;

@@ -1,23 +1,37 @@
 .calendarContainer {
-    padding: 2rem; 
-    background: black; 
+    padding: 2rem;
+    background: black;
     border-radius: 2rem;
-    color: white; 
-    width: 40rem;
+    color: white;
+    width: fit-content;
+    max-width: 50rem;
 
 }
+
 .monthSelection {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
 }
+
 .calendar {
-    background: white; 
-    color: black; 
+    background: white;
+    color: black;
 }
+
 .days {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.weekDays {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
 }
