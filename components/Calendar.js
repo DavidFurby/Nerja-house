@@ -4,10 +4,13 @@ import { useState, useEffect } from "react";
 import classes from "../styles/booking.module.css";
 
 export const Calendar = () => {
-    let [currentMonth, setCurrentMonth] = useState({});
+    let [currentMonth, setCurrentMonth] = useState();
     let [months, setMonths] = useState([]);
-    let [loading, setLoading] = useState(true)
+    let [loading, setLoading] = useState(true);
+    let [rentedDates, setRentedDates] = useState();
     let [] = useState("");
+    let [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+    let currentDate = new Date();
     const monthNames = [
         "January",
         "February",
@@ -25,60 +28,91 @@ export const Calendar = () => {
     const weekDays = ["mon", "tue", "wed", "thur", "fri", "sat", "sun"];
     const weeksInMonth = [1, 2, 3, 4, 5, 6];
 
-    const getMonths = async () => {
-        let date = new Date();
-        let year = date.getFullYear();
-
+    const getMonthsForYear = async (date, launch) => {
+        let currentYear = date.getFullYear();
         let monthList = [];
         for (let i = 0; i <= 12; i++) {
-            let date = new Date(year, i +1, 0);
+            let date = new Date(currentYear, i + 1, 0);
             let dayList = [];
             for (let j = 1; j <= date.getDate(); j++) {
-                let currentDate = new Date(year, i, j)
+                let currentDate = new Date(currentYear, i, j)
                 dayList.push(currentDate);
             }
             monthList.push({ month: date.getMonth(), days: dayList });
         }
         setMonths(monthList);
+        if (launch) {
+            getCurrentMonth(monthList, date);
+
+        }
+    };
+
+    const getCurrentMonth = (monthList, date) => {
         let currentDate = new Date().getMonth();
         for (let i = 0; i <= monthList.length; i++) {
             if (currentDate === i) {
                 for (let j = 0; j <= monthNames.length; j++) {
                     if (j === currentDate) {
-                        await setCurrentMonth({ days: monthList[i].days, monthName: monthNames[j], monthNumber: date.getMonth() })
+                        setCurrentMonth({ days: monthList[i].days, monthName: monthNames[j], monthNumber: date.getMonth() })
                     }
                 }
             }
         }
-    };
+    }
 
+
+    const getRentedDates = () => {
+
+    }
     const handleChangeMonth = (selection) => {
         if (selection) {
-            setCurrentMonth(
-                currentMonth.monthNumber < 11
-                    ? {
+            if (currentMonth.monthNumber < 11) {
+                setCurrentMonth(
+                    {
                         monthName: monthNames[currentMonth.monthNumber + 1],
                         monthNumber: currentMonth.monthNumber + 1,
                         days: months[currentMonth.monthNumber + 1].days,
                     }
-                    : { monthName: monthNames[0], monthNumber: 0, days: months[0].days }
-            );
+                )
+            } else {
+                setCurrentMonth(
+                    {
+                        monthName: monthNames[0], monthNumber: 0, days: months[0].days
+                    }
+                )
+                setCurrentYear(currentYear + 1)
+                let newYear = new Date(currentYear + 1, 0, 1)
+                getMonthsForYear(newYear, false)
+            }
+
+
         } else {
-            setCurrentMonth(
-                currentMonth.monthNumber > 0
-                    ? {
+            if (currentMonth.monthNumber > 0) {
+                setCurrentMonth(
+                    {
                         monthName: monthNames[currentMonth.monthNumber - 1],
                         monthNumber: currentMonth.monthNumber - 1,
                         days: months[currentMonth.monthNumber - 1].days,
-
                     }
-                    : { monthName: monthNames[11], monthNumber: 11, days: months[11].days }
-            );
+
+                );
+            } else {
+                setCurrentMonth({
+                    monthName: monthNames[11], monthNumber: 11, days: months[11].days
+
+                })
+                setCurrentYear(currentYear - 1);
+                let pastYear = new Date(currentYear - 1, 12, 0)
+                getMonthsForYear(pastYear, false)
+            }
+
+
         }
     };
 
     useEffect(() => {
-        getMonths();
+        getMonthsForYear(currentDate, true);
+        getRentedDates();
         setTimeout(() => {
             setLoading(false);
         }, 200);
@@ -89,6 +123,9 @@ export const Calendar = () => {
         <>
             {!loading ? (
                 <div className={classes.calendarContainer}>
+                    <section style={{ display: "flex", justifyContent: "center" }}>
+                        <p>{currentYear}</p>
+                    </section>
                     <section className={classes.monthSelection}>
                         <button onClick={() => handleChangeMonth(false)}><p>left</p></button>
                         <p>{currentMonth.monthName}</p>
@@ -118,7 +155,7 @@ export const Calendar = () => {
                                     } else if (i === days.length - 1 && days[i].getDay() !== 0) {
                                         dayList.push(days[i].getDate());
 
-                                        let remainingWeek = 7 - days[i].getDay(); 
+                                        let remainingWeek = 7 - days[i].getDay();
                                         for (let t = 0; t < remainingWeek; t++) {
                                             dayList.push("");
                                         }
@@ -127,8 +164,7 @@ export const Calendar = () => {
                                         dayList.push(days[i].getDate())
                                     }
                                 }
-                                console.log(index);
-                                let sliceDaysInWeeks = dayList.slice(index === 0 ? 0 : 7 * index, index === 0 ? 7: 7 * index + 7);
+                                let sliceDaysInWeeks = dayList.slice(index === 0 ? 0 : 7 * index, index === 0 ? 7 : 7 * index + 7);
                                 return <tr key={index}>{sliceDaysInWeeks.map((days, dayIndex) => {
                                     return <th key={dayIndex}>{days}</th>
                                 })}</tr>
