@@ -1,12 +1,18 @@
 import { Calendar } from "../components/Calendar"
+import { useBooking } from "../utils/firebase/context/BookingContext";
 
-const bookinging = () => {
+const booking = () => {
+    let { bookedDates } = useBooking();
+
     return (
-        <div className="container">
-            <h2>Boka tid hos oss</h2>
-            <Calendar />
-        </div>
+        <>
+            {bookedDates.length > 0 ? <div className="container">
+                <h2>Boka tid hos oss</h2>
+                <Calendar bookedDates={bookedDates} />
+            </div> : null}
+
+        </>
     );
 }
 
-export default bookinging;
+export default booking;

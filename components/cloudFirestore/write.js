@@ -21,7 +21,7 @@ const WriteToCloudFirestore = () => {
                 })
                 .then(alert('Data was successfully sent to cloud firestore!'))
         } catch (error) {
-            console.log(error)
+            (error)
             alert(error)
         }
     }

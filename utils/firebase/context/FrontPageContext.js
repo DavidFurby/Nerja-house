@@ -20,7 +20,7 @@ const useFrontPage = () => {
 
              
             } catch (err) {
-                console.log(err);
+                (err);
             }
         }
     }

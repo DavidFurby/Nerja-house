@@ -11,11 +11,11 @@ const ReadToCloudFirestore = () => {
                 .collection('myCollection')
                 .doc(user.id) // leave as .doc() for a random unique doc name to be assigned
                 .onSnapshot(function (doc) {
-                    console.log(doc.data());
+                    (doc.data());
                 })
             alert("Data was successfully read")
         } catch (error) {
-            console.log(error);
+            (error);
             alert(error);
         }
     }

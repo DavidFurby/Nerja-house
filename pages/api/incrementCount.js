@@ -2,7 +2,7 @@ import firebase from 'firebase/app'
 import 'firebase/database'
 
 const incrementCount = async (req, res) => {
-    console.log(req)
+    (req)
     const ref = firebase.database().ref('counts').child(req.query.id);
     const { snapshot } = await ref.transaction((count) => {
         if (count === null) {
