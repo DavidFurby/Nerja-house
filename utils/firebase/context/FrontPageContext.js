@@ -1,6 +1,6 @@
 import firebase from "firebase/app"
 import "firebase/firestore"
-import React, { useContext, useState, useEffect, createContext } from "react";
+import React, { useState, useEffect } from "react";
 import initFirebase from "../../firebase/initFirebase";
 
 initFirebase(); 

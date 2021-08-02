@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import classes from "../styles/booking.module.css";
 
 export const Calendar = ({bookedDates}) => {
-    console.log(bookedDates); 
     let [currentMonth, setCurrentMonth] = useState();
     let [months, setMonths] = useState([]);
     let [loading, setLoading] = useState(true);
