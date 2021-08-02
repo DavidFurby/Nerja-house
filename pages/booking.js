@@ -1,15 +1,15 @@
 import { Calendar } from "../components/Calendar"
 import { useBooking } from "../utils/firebase/context/BookingContext";
-
+import classes from "../styles/booking.module.css"
 const booking = () => {
     let { bookedDates } = useBooking();
-
+    console.log(bookedDates)
     return (
         <>
-            {bookedDates.length > 0 ? <div className="container">
-                <h2>Boka tid hos oss</h2>
-                <Calendar bookedDates={bookedDates} />
-            </div> : null}
+            {bookedDates.length > 0 ?
+                <div className={classes.container}>
+                    <Calendar bookedDates={bookedDates} />
+                </div> : null}
 
         </>
     );

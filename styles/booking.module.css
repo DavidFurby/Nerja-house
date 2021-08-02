@@ -1,11 +1,22 @@
 .calendarContainer {
-    padding: 2rem;
+    margin: 2rem;
     background: black;
     border-radius: 2rem;
     color: white;
     width: fit-content;
-    max-width: 60rem;
+    background: rgba(0, 0, 0, 0.4);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
+}
+
+
+.container {
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover; 
+    display:flex;
+    align-items: center;
+    justify-content: left;
 }
 
 .monthSelection {
@@ -13,12 +24,14 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+
 }
 
 .calendar {
     background: white;
     color: black;
-    width: 50rem;
+    width: 40rem;
+    
 }
 
 .days {
@@ -36,3 +49,18 @@
     align-items: center;
 
 }
+@media (max-width: 600px) {
+    .calendar {
+      width: 10rem;
+      font-size: 20px;
+    }
+    .container {
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover; 
+        display:flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+  }

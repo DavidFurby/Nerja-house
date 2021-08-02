@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 
 import classes from "../styles/booking.module.css";
 
-export const Calendar = (bookedDates) => {
+export const Calendar = ({bookedDates}) => {
+    console.log(bookedDates); 
     let [currentMonth, setCurrentMonth] = useState();
     let [months, setMonths] = useState([]);
     let [loading, setLoading] = useState(true);
@@ -62,7 +63,7 @@ export const Calendar = (bookedDates) => {
             dates.push(currentDate);
             currentDate = addDays.call(currentDate, 1)
         }
-        return dates; 
+        return dates;
     }
 
     const getCurrentMonth = (monthList, date) => {
@@ -77,9 +78,6 @@ export const Calendar = (bookedDates) => {
             }
         }
     }
-
-
-
     const handleChangeMonth = (selection) => {
         if (selection) {
             if (currentMonth.monthNumber < 11) {
@@ -125,10 +123,33 @@ export const Calendar = (bookedDates) => {
 
         }
     };
+    const setEmptyDates = () => {
+        const days = months[currentMonth.monthNumber].days;
+        let dayList = [];
+        for (let i = 0; i < days.length; i++) {
+            const fillerPositions = days[i].day === 0 ? 6 : days[i].day
+            if (i === 0 && days[i].day !== 1) {
+                for (let j = 0; j < fillerPositions; j++) {
+                    dayList.push("");
+                }
+                dayList.push(days[i]);
+            } else if (i === days.length - 1 && days[i].day !== 0) {
+                dayList.push(days[i]);
+
+                let remainingWeek = 7 - days[i].day
+                for (let t = 0; t < remainingWeek; t++) {
+                    dayList.push("");
+                }
+            }
+            else {
+                dayList.push(days[i])
+            }
+        }
+        return dayList;
+    }
 
     useEffect(() => {
         getMonthsForYear(currentDate, true);
-        getDatesBetweenRentedDays();
         setTimeout(() => {
             setLoading(false);
         }, 200);
@@ -158,39 +179,20 @@ export const Calendar = (bookedDates) => {
                         </thead>
                         <tbody>
                             {weeksInMonth.map((weekDay, index) => {
-                                const days = months[currentMonth.monthNumber].days;
 
-                                let dayList = [];
-                                for (let i = 0; i < days.length; i++) {
-                                    const fillerPositions = days[i].day === 0 ? 6 : days[i].day
-                                    if (i === 0 && days[i].day !== 1) {
-                                        for (let j = 0; j < fillerPositions; j++) {
-                                            dayList.push("");
-                                        }
-                                        dayList.push(days[i]);
-                                    } else if (i === days.length - 1 && days[i].day !== 0) {
-                                        dayList.push(days[i]);
-
-                                        let remainingWeek = 7 - days[i].day
-                                        for (let t = 0; t < remainingWeek; t++) {
-                                            dayList.push("");
-                                        }
-                                    }
-                                    else {
-                                        dayList.push(days[i])
-                                    }
-                                }
+                                const dayList = setEmptyDates(weekDay);
                                 const sliceDaysInWeeks = dayList.slice(index === 0 ? 0 : 7 * index, index === 0 ? 7 : 7 * index + 7);
 
                                 return <tr key={index}>{sliceDaysInWeeks.map((day, dayIndex) => {
-                                    for (let i = 0; i < bookedDates.bookedDates.length; i++) {
-                                        const rentedDates = getDatesBetweenRentedDays(bookedDates.bookedDates[i].from, bookedDates.bookedDates[i].to);
+                                    for (let i = 0; i < bookedDates.length; i++) {
+                                        const rentedDates = getDatesBetweenRentedDays(bookedDates[i].from, bookedDates[i].to);
                                         for (let j = 0; j < rentedDates.length; j++) {
-                                            if(rentedDates[j].getFullYear() === day.year && rentedDates[j].getMonth() === day.month && rentedDates[j].getDate() === day.date) {
-                                                day.booking = true; 
+                                            if (rentedDates[j].getFullYear() === day.year && rentedDates[j].getMonth() === day.month && rentedDates[j].getDate() === day.date) {
+                                                day.booking = true;
                                             }
                                         }
                                     }
+
                                     return <th key={dayIndex}><p style={{ color: day.booking ? "green" : "red" }}>{day.date}</p></th>
                                 })}</tr>
                             })}
