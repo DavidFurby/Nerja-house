@@ -1,8 +1,8 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
-import {useUser} from "../../utils/firebase/useUser"
+import {UseUser} from "../../utils/firebase/useUser"
 const WriteToCloudFirestore = () => {
-    const {user} = useUser(); 
+    const {user} = UseUser(); 
     const sendData = () => {
         try {
             firebase

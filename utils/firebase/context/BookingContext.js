@@ -5,7 +5,7 @@ import initFirebase from "../../firebase/initFirebase";
 
 initFirebase();
 
-const useBooking = () => {
+const UseBooking = () => {
     const [bookedDates, setBookedDates] = useState([]);
 
    
@@ -35,6 +35,6 @@ const useBooking = () => {
     return { bookedDates }
 }
 
-export { useBooking }
+export { UseBooking }
 
 

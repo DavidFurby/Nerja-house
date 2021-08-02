@@ -8,7 +8,7 @@ import { mapUserData } from "./mapUserData"
 
 initFirebase()
 
-const useUser = () => {
+const UseUser = () => {
     const [user, setUser] = useState()
     const router = useRouter()
 
@@ -50,4 +50,4 @@ const useUser = () => {
     return { user, logout }
 }
 
-export { useUser }
+export { UseUser }

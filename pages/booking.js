@@ -1,8 +1,8 @@
 import { Calendar } from "../components/Calendar"
-import { useBooking } from "../utils/firebase/context/BookingContext";
+import { UseBooking } from "../utils/firebase/context/BookingContext";
 import classes from "../styles/booking.module.css"
 const booking = () => {
-    let { bookedDates } = useBooking();
+    let { bookedDates } = UseBooking();
     console.log(bookedDates)
     return (
         <>

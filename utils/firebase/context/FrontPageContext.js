@@ -5,7 +5,7 @@ import initFirebase from "../../firebase/initFirebase";
 
 initFirebase(); 
 
-const useFrontPage = () => {
+const UseFrontPage = () => {
     const [frontPageImages, setFrontPageImages] = useState([]);
     async function fetchImages() {
         const images = await firebase.firestore().collection("frontPageImages").get();
@@ -30,6 +30,6 @@ const useFrontPage = () => {
     return {frontPageImages}
 }
 
-export {useFrontPage}
+export {UseFrontPage}
 
 

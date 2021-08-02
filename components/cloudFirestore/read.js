@@ -1,9 +1,9 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
-import { useUser } from '../../utils/firebase/useUser'
+import { UseUser } from '../../utils/firebase/useUser'
 const ReadToCloudFirestore = () => {
 
-    let {user} = useUser(); 
+    let {user} = UseUser(); 
     const readData = () => {
         try {
             firebase

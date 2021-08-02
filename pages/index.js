@@ -1,9 +1,9 @@
 
 import HomeStyle from "../styles/Home.module.css"
-import { useFrontPage } from "../utils/firebase/context/FrontPageContext"
+import { UseFrontPage } from "../utils/firebase/context/FrontPageContext"
 
 export default function Home() {
-  const {frontPageImages} = useFrontPage(); 
+  const {frontPageImages} = UseFrontPage(); 
   return (
     <div className={HomeStyle.container} >
       {
