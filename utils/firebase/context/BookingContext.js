@@ -8,9 +8,9 @@ initFirebase();
 const UseBooking = () => {
     const [bookedDates, setBookedDates] = useState([]);
 
-   
 
-    async function fetchBookings() {
+
+    const fetchBookings = async () => {
         const dates = await firebase.firestore().collection("bookedDates").get();
         if (dates) {
             try {
@@ -29,10 +29,19 @@ const UseBooking = () => {
             }
         }
     }
+    const addNewBooking = async (booking) => {
+        console.log(booking)
+        try {
+            firebase.firestore().collection("bookedDates").add(booking);
+            return { success: true, msg: "Ny bokning har lagts till" }
+        } catch (err) {
+            return { success: false, msg: err }
+        }
+    }
     useEffect(() => {
         fetchBookings();
     }, [])
-    return { bookedDates }
+    return { bookedDates, addNewBooking, }
 }
 
 export { UseBooking }
