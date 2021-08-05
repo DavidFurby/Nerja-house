@@ -3,6 +3,7 @@ import { UseBooking } from "../utils/firebase/context/BookingContext";
 import classes from "../styles/booking.module.css"
 const booking = () => {
     let { bookedDates } = UseBooking();
+    
     return (
         <>
             {bookedDates.length > 0 ?

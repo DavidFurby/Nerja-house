@@ -30,7 +30,7 @@ const UseBooking = () => {
         }
     }
     const addNewBooking = async (booking) => {
-        console.log(booking)
+        (booking)
         try {
             firebase.firestore().collection("bookedDates").add(booking);
             return { success: true, msg: "Ny bokning har lagts till" }
