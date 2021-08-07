@@ -26,6 +26,7 @@ const UseFrontPage = () => {
     }
     useEffect(() => {
         fetchImages(); 
+    
     }, [])
     return {frontPageImages}
 }

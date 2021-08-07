@@ -5,10 +5,10 @@ import { UseBooking } from "../utils/firebase/context/BookingContext";
 const Admin = () => {
     let [startDate, setStartDate] = useState("");
     let [endDate, setEndDate] = useState("");
-    let { addNewBooking, bookedDates } = UseBooking();
+    let { addNewBooking, fetchBookings } = UseBooking();
     let [loading, setLoading] = useState(false);
     let [minimumDate, setMinimumDate] = useState("");
-
+    let [bookedDates, setBookedDates] = useState([]); 
     const setDates = () => {
         let minimumDate = new Date();
         const year = minimumDate.getFullYear();
@@ -18,8 +18,6 @@ const Admin = () => {
         day = ifSingleDigit(day);
         minimumDate = year + "-" + month + "-" + day;
         setMinimumDate(minimumDate);
-        setStartDate(minimumDate);
-        setEndDate(minimumDate);
     }
     const ifSingleDigit = (number) => {
         if (number.toString().length < 2) {
@@ -31,13 +29,25 @@ const Admin = () => {
     const handleNewBooking = (e) => {
         e.preventDefault();
 
-        const from = sliceDate(startDate)
-        const to = sliceDate(endDate)
-        const booking = { from, to }
-        addNewBooking(booking);
+        if (startDate.length && endDate.length) {
+            const from = toDateType(startDate)
+            const to = toDateType(endDate)
+
+            for (let i = 0; i < bookedDates.length; i++) {
+                const rentedDates = getDatesBetweenRentedDays(bookedDates[i].from, bookedDates[i].to);
+                if (rentedDates[i].getTime() === from.getTime() || rentedDates[i].getTime() === to.getTime()) {
+                    return alert("tid redan bokad")
+                }
+            }
+            const booking = { from, to }
+            addNewBooking(booking);
+            alert("bokning lagd")
+        } else {
+            alert("måste ange ett datum för start och slut av bokning")
+        }
     }
 
-    const sliceDate = (date) => {
+    const toDateType = (date) => {
         let year = date.slice(0, 4);
         let month = date.slice(5, 7)
         let day = date.slice(8, 11);
@@ -55,14 +65,40 @@ const Admin = () => {
         }
     }
 
+    const getDatesBetweenRentedDays = (from, to) => {
+        const dates = [];
+        let currentDate = from;
+        if(from !== to) {
+            const addDays = function (days) {
+                const date = new Date(this.valueOf());
+                date.setDate(date.getDate() + days)
+                return date
+            }
+            while (currentDate <= to) {
+                dates.push(currentDate);
+                currentDate = addDays.call(currentDate, 1)
+            }
+        } else {
+            dates.push(from)
+            dates.push(to)
+        }
+        return dates;
 
+    }
+
+const getBookedDates = async () => {
+    const tempBookings = await fetchBookings();
+    if(tempBookings) {
+        setBookedDates(tempBookings); 
+    }
+}
     useEffect(() => {
         setDates();
+        getBookedDates();
         setTimeout(() => {
             setLoading(false);
         }, 200);
     }, []);
-
     return (
         <>
             {loading ? null : <div>
@@ -71,13 +107,13 @@ const Admin = () => {
                 </div>
                 <section>
 
-                    <Calendar bookedDates={bookedDates} />
+                    <Calendar bookedDates={bookedDates} getDatesBetweenRentedDays={getDatesBetweenRentedDays} />
                 </section>
                 <form onSubmit={handleNewBooking}>
                     <div>
                         <label>
                             start datum
-                            <input type="date" min={minimumDate} value={startDate} onChange={(startDate) => handleChangeDate(startDate, true)} />
+                            <input type="date" min={minimumDate} max={endDate} value={startDate} onChange={(startDate) => handleChangeDate(startDate, true)} />
                         </label>
 
 
@@ -85,7 +121,7 @@ const Admin = () => {
                     <div>
                         <label>
                             slut datum
-                            <input type="date" min={minimumDate} value={endDate} onChange={(endDate) => handleChangeDate(endDate, false)} />
+                            <input type="date" min={startDate ? startDate : minimumDate} value={endDate} onChange={(endDate) => handleChangeDate(endDate, false)} />
                         </label>
                     </div>
 

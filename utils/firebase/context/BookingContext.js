@@ -1,15 +1,10 @@
 import firebase from "firebase/app"
 import "firebase/firestore"
-import React, { useContext, useState, useEffect, createContext } from "react";
 import initFirebase from "../../firebase/initFirebase";
 
 initFirebase();
 
 const UseBooking = () => {
-    const [bookedDates, setBookedDates] = useState([]);
-
-
-
     const fetchBookings = async () => {
         const dates = await firebase.firestore().collection("bookedDates").get();
         if (dates) {
@@ -21,7 +16,7 @@ const UseBooking = () => {
                     const id = date.id;
                     return { id, ...data };
                 });
-                setBookedDates(bookedDatesInformation)
+                return bookedDatesInformation
 
 
             } catch (err) {
@@ -38,10 +33,8 @@ const UseBooking = () => {
             return { success: false, msg: err }
         }
     }
-    useEffect(() => {
-        fetchBookings();
-    }, [])
-    return { bookedDates, addNewBooking, }
+
+    return { fetchBookings, addNewBooking }
 }
 
 export { UseBooking }

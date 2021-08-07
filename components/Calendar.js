@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 import classes from "../styles/booking.module.css";
 
-export const Calendar = ({bookedDates}) => {
+export const Calendar = ({bookedDates, getDatesBetweenRentedDays}) => {
     let [currentMonth, setCurrentMonth] = useState();
     let [months, setMonths] = useState([]);
     let [loading, setLoading] = useState(true);
@@ -49,21 +49,6 @@ export const Calendar = ({bookedDates}) => {
 
         }
     };
-
-    const getDatesBetweenRentedDays = (from, to) => {
-        const dates = [];
-        let currentDate = from;
-        const addDays = function (days) {
-            const date = new Date(this.valueOf());
-            date.setDate(date.getDate() + days)
-            return date
-        }
-        while (currentDate <= to) {
-            dates.push(currentDate);
-            currentDate = addDays.call(currentDate, 1)
-        }
-        return dates;
-    }
 
     const getCurrentMonth = (monthList, date) => {
         let currentDate = new Date().getMonth();
@@ -153,8 +138,6 @@ export const Calendar = ({bookedDates}) => {
             setLoading(false);
         }, 200);
     }, []);
-
-
     return (
         <>
             {!loading ? (
