@@ -1,8 +1,11 @@
 import { Calendar } from "../components/Calendar"
 import { UseBooking } from "../utils/firebase/context/BookingContext";
 import classes from "../styles/booking.module.css"
+import { useEffect, useState } from "react";
 const booking = () => {
-    let { bookedDates } = UseBooking();
+    let { fetchBookings } = UseBooking();
+    let [loading, setLoading] = useState(false);
+    let [bookedDates, setBookedDates] = useState([]); 
 
     const getDatesBetweenRentedDays = (from, to) => { 
         const dates = [];
@@ -18,12 +21,25 @@ const booking = () => {
         }
         return dates;
     }
+    const getBookedDates = async () => {
+        const tempBookings = await fetchBookings();
+        if(tempBookings) {
+            console.log(tempBookings)
+            setBookedDates(tempBookings); 
+        }
+    }
+    useEffect(() => {
+        getBookedDates();
+        setTimeout(() => {
+            setLoading(false);
+        }, 200);
+    }, [])
     return (
         <>
-            {bookedDates ?
+            {loading ?
                 <div className={classes.container}>
                     <Calendar bookedDates={bookedDates} getDatesBetweenRentedDays={getDatesBetweenRentedDays} />
-                </div> : null}
+                </div> : <p>missing</p>}
 
         </>
     );

@@ -5,6 +5,7 @@ import initFirebase from "../../firebase/initFirebase";
 initFirebase();
 
 const UseBooking = () => {
+
     const fetchBookings = async () => {
         const dates = await firebase.firestore().collection("bookedDates").get();
         if (dates) {
@@ -24,6 +25,7 @@ const UseBooking = () => {
             }
         }
     }
+    
     const addNewBooking = async (booking) => {
         (booking)
         try {

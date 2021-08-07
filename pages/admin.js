@@ -8,7 +8,8 @@ const Admin = () => {
     let { addNewBooking, fetchBookings } = UseBooking();
     let [loading, setLoading] = useState(false);
     let [minimumDate, setMinimumDate] = useState("");
-    let [bookedDates, setBookedDates] = useState([]); 
+    let [bookedDates, setBookedDates] = useState([]);
+
     const setDates = () => {
         let minimumDate = new Date();
         const year = minimumDate.getFullYear();
@@ -35,6 +36,7 @@ const Admin = () => {
 
             for (let i = 0; i < bookedDates.length; i++) {
                 const rentedDates = getDatesBetweenRentedDays(bookedDates[i].from, bookedDates[i].to);
+                console.log(rentedDates)
                 if (rentedDates[i].getTime() === from.getTime() || rentedDates[i].getTime() === to.getTime()) {
                     return alert("tid redan bokad")
                 }
@@ -68,7 +70,7 @@ const Admin = () => {
     const getDatesBetweenRentedDays = (from, to) => {
         const dates = [];
         let currentDate = from;
-        if(from !== to) {
+        if (from.getTime() !== to.getTime()) {
             const addDays = function (days) {
                 const date = new Date(this.valueOf());
                 date.setDate(date.getDate() + days)
@@ -82,16 +84,17 @@ const Admin = () => {
             dates.push(from)
             dates.push(to)
         }
+        console.log(dates); 
         return dates;
 
     }
 
-const getBookedDates = async () => {
-    const tempBookings = await fetchBookings();
-    if(tempBookings) {
-        setBookedDates(tempBookings); 
+    const getBookedDates = async () => {
+        const tempBookings = await fetchBookings();
+        if (tempBookings) {
+            setBookedDates(tempBookings);
+        }
     }
-}
     useEffect(() => {
         setDates();
         getBookedDates();
