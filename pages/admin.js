@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Calendar } from "../components/Calendar";
 import { UseBooking } from "../utils/firebase/context/BookingContext";
 
 const Admin = () => {
+    const isMounted = useRef(false);
+
     let [startDate, setStartDate] = useState("");
     let [endDate, setEndDate] = useState("");
     let { addNewBooking, fetchBookings } = UseBooking();
@@ -36,7 +38,6 @@ const Admin = () => {
 
             for (let i = 0; i < bookedDates.length; i++) {
                 const rentedDates = getDatesBetweenRentedDays(bookedDates[i].from, bookedDates[i].to);
-                console.log(rentedDates)
                 if (rentedDates[i].getTime() === from.getTime() || rentedDates[i].getTime() === to.getTime()) {
                     return alert("tid redan bokad")
                 }
@@ -84,7 +85,7 @@ const Admin = () => {
             dates.push(from)
             dates.push(to)
         }
-        console.log(dates); 
+        (dates);
         return dates;
 
     }
@@ -96,18 +97,22 @@ const Admin = () => {
         }
     }
     useEffect(() => {
+        isMounted.current = true;
         setDates();
         getBookedDates();
+
         setTimeout(() => {
             setLoading(false);
         }, 200);
-    }, []);
+
+        return () => (isMounted.current = false)
+    }, [fetchBookings]);
+
+
     return (
         <>
             {loading ? null : <div>
-                <div>
-                    <p>adminPage</p>
-                </div>
+
                 <section>
 
                     <Calendar bookedDates={bookedDates} getDatesBetweenRentedDays={getDatesBetweenRentedDays} />

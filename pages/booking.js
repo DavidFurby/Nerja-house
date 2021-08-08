@@ -4,7 +4,7 @@ import classes from "../styles/booking.module.css"
 import { useEffect, useState } from "react";
 const booking = () => {
     let { fetchBookings } = UseBooking();
-    let [loading, setLoading] = useState(false);
+    let [loading, setLoading] = useState(true);
     let [bookedDates, setBookedDates] = useState([]); 
 
     const getDatesBetweenRentedDays = (from, to) => { 
@@ -24,7 +24,6 @@ const booking = () => {
     const getBookedDates = async () => {
         const tempBookings = await fetchBookings();
         if(tempBookings) {
-            console.log(tempBookings)
             setBookedDates(tempBookings); 
         }
     }
@@ -36,10 +35,10 @@ const booking = () => {
     }, [])
     return (
         <>
-            {loading ?
+            {loading ? null :
                 <div className={classes.container}>
                     <Calendar bookedDates={bookedDates} getDatesBetweenRentedDays={getDatesBetweenRentedDays} />
-                </div> : <p>missing</p>}
+                </div>}
 
         </>
     );
