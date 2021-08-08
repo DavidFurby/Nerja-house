@@ -1,5 +1,7 @@
+import { useRouter } from "next/router";
 import React, { useEffect, useState, useRef } from "react";
 import { Calendar } from "../components/Calendar";
+import { UseAuth } from "../utils/firebase/context/AuthContext";
 import { UseBooking } from "../utils/firebase/context/BookingContext";
 
 const Admin = () => {
@@ -11,9 +13,12 @@ const Admin = () => {
     let [loading, setLoading] = useState(false);
     let [minimumDate, setMinimumDate] = useState("");
     let [bookedDates, setBookedDates] = useState([]);
+    let { currentUser } = UseAuth();
+    let [user, setUser] = useState("");
+    const router = useRouter();
 
     const setDates = () => {
-        if(isMounted) {
+        if (isMounted) {
             let minimumDate = new Date();
             const year = minimumDate.getFullYear();
             let month = minimumDate.getMonth() + 1;
@@ -98,24 +103,32 @@ const Admin = () => {
             setBookedDates(tempBookings);
         }
     }
+    const getCurrentUser = async () => {
+        let tempUser = await currentUser;
+        await setUser(tempUser)
+
+    }
+
     useEffect(() => {
+        if (!loading && !currentUser) {
+            router.push('/')
+
+        }
+        getCurrentUser();
         isMounted.current = true;
-
-            setDates();
-            getBookedDates();
-
+        setDates();
+        getBookedDates();
+      
         setTimeout(() => {
             setLoading(false);
         }, 200);
 
+
         return () => (isMounted.current = false)
-    }, []);
-
-
+    }, [currentUser]);
     return (
         <>
-            {loading ? null : <div>
-
+            {!loading && user ? <div>
                 <section>
 
                     <Calendar bookedDates={bookedDates} getDatesBetweenRentedDays={getDatesBetweenRentedDays} />
@@ -138,7 +151,7 @@ const Admin = () => {
 
                     <input type="submit" value="Lägg till en ny bokning" />
                 </form>
-            </div>}
+            </div> : null}
 
         </>
 

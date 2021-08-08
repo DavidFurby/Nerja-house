@@ -2,6 +2,7 @@ import { Calendar } from "../components/Calendar"
 import { UseBooking } from "../utils/firebase/context/BookingContext";
 import classes from "../styles/booking.module.css"
 import { useEffect, useState, useRef } from "react";
+
 const booking = () => {
     const isMounted = useRef(false);
     let { fetchBookings } = UseBooking();
