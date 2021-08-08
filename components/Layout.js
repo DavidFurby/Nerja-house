@@ -11,7 +11,6 @@ const Layout = ({ children }) => {
             <Navbar />
             <BackgroundShapes />
             {children}
-            < Footer />
         </div>);
 }
 

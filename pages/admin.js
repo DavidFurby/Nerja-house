@@ -13,14 +13,16 @@ const Admin = () => {
     let [bookedDates, setBookedDates] = useState([]);
 
     const setDates = () => {
-        let minimumDate = new Date();
-        const year = minimumDate.getFullYear();
-        let month = minimumDate.getMonth() + 1;
-        month = ifSingleDigit(month);
-        let day = minimumDate.getDate();
-        day = ifSingleDigit(day);
-        minimumDate = year + "-" + month + "-" + day;
-        setMinimumDate(minimumDate);
+        if(isMounted) {
+            let minimumDate = new Date();
+            const year = minimumDate.getFullYear();
+            let month = minimumDate.getMonth() + 1;
+            month = ifSingleDigit(month);
+            let day = minimumDate.getDate();
+            day = ifSingleDigit(day);
+            minimumDate = year + "-" + month + "-" + day;
+            setMinimumDate(minimumDate);
+        }
     }
     const ifSingleDigit = (number) => {
         if (number.toString().length < 2) {
@@ -92,21 +94,22 @@ const Admin = () => {
 
     const getBookedDates = async () => {
         const tempBookings = await fetchBookings();
-        if (tempBookings) {
+        if (tempBookings && isMounted) {
             setBookedDates(tempBookings);
         }
     }
     useEffect(() => {
         isMounted.current = true;
-        setDates();
-        getBookedDates();
+
+            setDates();
+            getBookedDates();
 
         setTimeout(() => {
             setLoading(false);
         }, 200);
 
         return () => (isMounted.current = false)
-    }, [fetchBookings]);
+    }, []);
 
 
     return (

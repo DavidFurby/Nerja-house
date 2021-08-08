@@ -21,6 +21,7 @@
 
 
 
+
 .subText {
   position: relative;
   font-size: 1rem;
@@ -46,7 +47,7 @@
   flex-direction: column;
   justify-content: flex-end;
   overflow: hidden;
-
+  animation: slideInFromBottom 2s;
 }
 
 .cardContent {
@@ -54,6 +55,16 @@
   position: relative;
   background: linear-gradient(hsl(0 0% 0% / 0), hsl(0 0% 0% / 0.8));
 
+}
+@keyframes slideInFromBottom {
+
+  0% {
+    transform: translate(0, 200%);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
 }
 
 
