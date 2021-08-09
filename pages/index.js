@@ -14,7 +14,7 @@ const Home = () => {
     AOS.refresh();
     setTimeout(() => {
       setLoading(false);
-    }, 200);
+    }, 500);
   }, []);
 
   return (
