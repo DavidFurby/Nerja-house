@@ -1,20 +1,19 @@
 .calendarContainer {
     margin: 2rem;
-    background: black;
-    border-radius: 2rem;
     color: white;
+    border-radius: 2rem;
     width: fit-content;
-    background: rgba(0, 0, 0, 0.4);
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-
+    color: black;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  padding: 15px;
 }
 
 
 .container {
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-size: cover; 
-    display:flex;
+    background-size: cover;
+    display: flex;
     align-items: center;
     justify-content: left;
 }
@@ -26,12 +25,15 @@
     align-items: center;
 
 }
+.calendarDates {
+    margin: 1rem;
+}
 
 .calendar {
     background: white;
     color: black;
     width: 40rem;
-    
+
 }
 
 .days {
@@ -49,18 +51,35 @@
     align-items: center;
 
 }
+.button {
+    background-color: #00A8D1; 
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 10px;
+}
+.button:active {
+    background-color: #9CD4E1; 
+
+}
+
 @media (max-width: 600px) {
     .calendar {
-      width: 10rem;
-      font-size: 20px;
+        width: 10rem;
+        font-size: 20px;
     }
+
     .container {
         background-repeat: no-repeat;
         background-attachment: fixed;
-        background-size: cover; 
-        display:flex;
+        background-size: cover;
+        display: flex;
         align-items: center;
         justify-content: center;
     }
-    
-  }
+
+}

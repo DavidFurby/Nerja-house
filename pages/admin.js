@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState, useRef } from "react";
 import { Calendar } from "../components/Calendar";
+import Spinner from "../components/Spinner";
 import { UseAuth } from "../utils/firebase/context/AuthContext";
 import { UseBooking } from "../utils/firebase/context/BookingContext";
 
@@ -14,7 +15,7 @@ const Admin = () => {
   let [bookedDates, setBookedDates] = useState([]);
   let { currentUser } = UseAuth();
   let [user, setUser] = useState();
-  let [loading, setLoading]  = useState(true);
+  let [loading, setLoading] = useState(true);
   const router = useRouter();
 
   const setDates = () => {
@@ -108,15 +109,14 @@ const Admin = () => {
     }
   };
 
-
   useEffect(() => {
-    if(!currentUser && !loading) {
-        router.push("/")
+    if (!currentUser && !loading) {
+      router.push("/");
     }
     setDates();
     getBookedDates();
     setTimeout(() => {
-        setLoading(false); 
+      setLoading(false);
     }, 2000);
   }, [currentUser, loading]);
   return (
@@ -157,7 +157,9 @@ const Admin = () => {
             <input type="submit" value="Lägg till en ny bokning" />
           </form>
         </div>
-      ) : null}
+      ) : (
+        <Spinner />
+      )}
     </>
   );
 };

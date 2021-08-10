@@ -1,0 +1,51 @@
+.waveDiv {
+    height: 10%;
+    width:100%;
+    position:fixed;
+    bottom:0;
+    left:0;
+  
+  }
+  .wave {
+    border-radius: 100%;
+    background: linear-gradient(to bottom, #9CD4E1 0%, #ffffff 90%); 
+    position: absolute;
+    top: 50px;
+    width: 200%;
+    height: 120px;
+    animation: wave 7s cubic-bezier( 0.36, 0.45, 0.63, 0.53) infinite;
+    transform: translate3d(0, 0, 0);
+    animation-direction: alternate;
+    opacity: 0.2;
+  
+  }
+  
+  
+  .wave:nth-of-type(1) {
+    width: 200%;
+    background: linear-gradient(to bottom, #00A8D1 0%, #ffffff 90%); 
+
+    animation: wave 7s cubic-bezier( 0.36, 0.45, 0.63, 0.53) infinite, swell 7s ease -1.25s infinite;
+    opacity: 0.1;
+    animation-direction: alternate;
+  
+  }
+  @keyframes wave {
+    0% {
+      margin-left: 0;
+      transform: scale(1)  
+    }
+  
+    100% {
+      margin-left: -10%;
+      transform: scale(0.9) 
+    }
+  }
+  @keyframes swell {
+    0%, 100% {
+      transform: translate3d(0,-20%,0);
+    }
+    50% {
+      transform: translate3d(0,-12%,0);
+    }
+  }
