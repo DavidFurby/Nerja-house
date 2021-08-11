@@ -192,21 +192,24 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
                 return (
                   <tr key={index}>
                     {sliceDaysInWeeks.map((day, dayIndex) => {
-                      for (let i = 0; i < bookedDates.length; i++) {
-                        const rentedDates = getDatesBetweenRentedDays(
-                          bookedDates[i].from,
-                          bookedDates[i].to
-                        );
-                        for (let j = 0; j < rentedDates.length; j++) {
-                          if (
-                            rentedDates[j].getFullYear() === day.year &&
-                            rentedDates[j].getMonth() === day.month &&
-                            rentedDates[j].getDate() === day.date
-                          ) {
-                            day.booking = true;
+                      if(bookedDates) {
+                        for (let i = 0; i < bookedDates.length; i++) {
+                          const rentedDates = getDatesBetweenRentedDays(
+                            bookedDates[i].from,
+                            bookedDates[i].to
+                          );
+                          for (let j = 0; j < rentedDates.length; j++) {
+                            if (
+                              rentedDates[j].getFullYear() === day.year &&
+                              rentedDates[j].getMonth() === day.month &&
+                              rentedDates[j].getDate() === day.date
+                            ) {
+                              day.booking = true;
+                            }
                           }
                         }
                       }
+                  
 
                       return (
                         <th key={dayIndex}>

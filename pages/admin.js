@@ -101,12 +101,6 @@ const Admin = () => {
     return dates;
   };
 
-  const getBookedDates = async () => {
-    const tempBookings = await fetchBookings();
-    if (tempBookings) {
-      setBookedDates(tempBookings);
-    }
-  };
 
   useEffect(() => {
     let abortController = new AbortController();
@@ -118,7 +112,6 @@ const Admin = () => {
     }
     if (!hasFetchedData.current) {
       setDates();
-      getBookedDates();
       hasFetchedData.current = true;
     }
     setTimeout(() => {
@@ -129,7 +122,7 @@ const Admin = () => {
       abortController.abort();
     };
 
-  }, [currentUser, loading, getBookedDates, router, setDates]);
+  }, [currentUser, loading, router, setDates]);
   return (
     <>
       {!loading && currentUser ? (
