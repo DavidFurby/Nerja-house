@@ -4,7 +4,7 @@ import Spinner from "../components/Spinner";
 import { UseAuth } from "../utils/firebase/context/AuthContext";
 
 const AdminLogin = () => {
-  const { login, currentUser } = UseAuth();
+  const { login } = UseAuth();
 
   const router = useRouter();
   let [email, setEmail] = useState("");
@@ -51,24 +51,35 @@ const AdminLogin = () => {
   return (
     <>
       {!loading ? (
-        <form onSubmit={submitLogin}>
+        <form
+          onSubmit={submitLogin}
+          style={{
+            display: "flex",
+            flexFlow: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            textAlign: "left",
+          }}
+        >
           <label>
             email:
+            <br />
             <input
               type="email"
               value={email}
               onChange={(email) => setEmail(email.target.value)}
-            ></input>
+            />
           </label>
           <label>
             password:
+            <br />
             <input
               type="password"
               value={password}
               onChange={(password) => setPassword(password.target.value)}
-            ></input>
+            />
           </label>
-          <input type="submit" value="Logga in" />
+          <input className="button" type="submit" value="Logga in" />
         </form>
       ) : (
         <Spinner />

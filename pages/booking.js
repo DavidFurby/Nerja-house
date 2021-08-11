@@ -7,11 +7,9 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 
 const Booking = () => {
-  const {hasFetchedData} = useRef(false);
 
   let { bookings } = UseBooking();
   let [loading, setLoading] = useState(true);
-  let [bookedDates, setBookedDates] = useState([]);
 
   const getDatesBetweenRentedDays = (from, to) => {
     const dates = [];
@@ -57,8 +55,6 @@ const Booking = () => {
             <p>
               Vill ni boka en tid kontakta oss på någon av våra kontaktuppgifter
             </p>
-            <p>Email: </p>
-            <p>Telefon: </p>
           </section>
           <section>
             <Calendar

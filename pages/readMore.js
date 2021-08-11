@@ -2,12 +2,12 @@ import readMoreStyle from "../styles/readMore.module.css"
 const experience = () => {
     return (
         <div className={readMoreStyle.container}>
-            <p style={{fontWeight: "bold"}}>Välkomna till ett härligt hus där ni kan njuta av sol från morgon till kväll.
+            <h4>Välkomna till ett härligt hus där ni kan njuta av sol från morgon till kväll.
         
               
 
 
-            </p>
+            </h4>
             <p>  Huset är byggt 2002 och beläget i en liten, lugn och blomsterprydd förening med en gemensam och välskött pool. Huset är fördelat på 3 plan samt takterass. Totalt åtta sängplatser och ytterligare två sovplatser i bäddsoffa.<br /><br />
 </p>
             <p>   På entréplanet kommer ni in i en hall som gränsar till ett vardagsrummet med AC och öppen spis. Rummet har utgång både till terassen i väster och till den mer insynsskyddade och skuggsäkra pation. På entréplanet finns även en gästtoalett och fullt utrustat kök med bl.a. diskmaskin, spis/ugn, kyl med mindre frys, micro, vattenkokare och brödrost

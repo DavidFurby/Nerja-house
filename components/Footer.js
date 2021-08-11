@@ -1,10 +1,18 @@
+import Water from "./Water";
 
 const Footer = () => {
-    return (
-        <footer >
-            footer
-        </footer>
-    );
-}
+  return (
+    <div className="footerDiv">
+      <footer>
+        <p>
+          Email:
+          <br/>
+          Mobil:
+        </p>
+      </footer>
+      <Water />
+    </div>
+  );
+};
 
 export default Footer;
