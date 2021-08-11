@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Calendar } from "../components/Calendar";
 import Spinner from "../components/Spinner";
 import { UseAuth } from "../utils/firebase/context/AuthContext";
@@ -10,7 +10,7 @@ import "aos/dist/aos.css";
 
 const Admin = () => {
   const isMounted = useRef(false);
-
+  const hasFetchedData = useRef(false);
   let [startDate, setStartDate] = useState("");
   let [endDate, setEndDate] = useState("");
   let { addNewBooking, fetchBookings } = UseBooking();
@@ -20,7 +20,7 @@ const Admin = () => {
   let [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  const setDates = useCallback(() => {
+  const setDates = () => {
     if (isMounted) {
       let minimumDate = new Date();
       const year = minimumDate.getFullYear();
@@ -31,7 +31,7 @@ const Admin = () => {
       minimumDate = year + "-" + month + "-" + day;
       setMinimumDate(minimumDate);
     }
-  });
+  };
   const ifSingleDigit = (number) => {
     if (number.toString().length < 2) {
       return 0 + number.toString();
@@ -111,19 +111,21 @@ const Admin = () => {
     }
   };
 
-  
   useEffect(() => {
     if (!currentUser && !loading) {
       router.push("/");
     }
-    AOS.init();
-    AOS.refresh();
-    setDates();
-    getBookedDates();
+    if (!hasFetchedData.current) {
+      AOS.init();
+      AOS.refresh();
+      setDates();
+      getBookedDates();
+      hasFetchedData.current = true;
+    }
     setTimeout(() => {
       setLoading(false);
     }, 2000);
-  }, [currentUser, loading]);
+  }, [currentUser, loading, getBookedDates, router, setDates]);
   return (
     <>
       {!loading && currentUser ? (
