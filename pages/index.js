@@ -7,18 +7,11 @@ import { UseFrontPage } from "../utils/firebase/context/FrontPageContext";
 
 const Home = () => {
   let [loading, setLoading] = useState(true);
-  let [images, setImages] = useState();
   const { frontPageImages } = UseFrontPage();
-  const getImages = async () => {
-    let tempImages = await frontPageImages;
-    if (tempImages) {
-      setImages(tempImages);
-    }
-  };
+
   useEffect(() => {
     AOS.init();
     AOS.refresh();
-    getImages();
     setTimeout(() => {
       setLoading(false);
     }, 1000);
@@ -35,7 +28,7 @@ const Home = () => {
           >
             Stort hus i Nerja - nära Burriana
           </h1>
-          <FrontPageCards images={images} />
+          <FrontPageCards images={frontPageImages} />
         </div>
       ) : (
         <Spinner />

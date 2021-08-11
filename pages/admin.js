@@ -9,7 +9,6 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 
 const Admin = () => {
-  const isMounted = useRef(false);
   const hasFetchedData = useRef(false);
   let [startDate, setStartDate] = useState("");
   let [endDate, setEndDate] = useState("");
@@ -21,7 +20,6 @@ const Admin = () => {
   const router = useRouter();
 
   const setDates = () => {
-    if (isMounted) {
       let minimumDate = new Date();
       const year = minimumDate.getFullYear();
       let month = minimumDate.getMonth() + 1;
@@ -30,7 +28,7 @@ const Admin = () => {
       day = ifSingleDigit(day);
       minimumDate = year + "-" + month + "-" + day;
       setMinimumDate(minimumDate);
-    }
+  
   };
   const ifSingleDigit = (number) => {
     if (number.toString().length < 2) {
@@ -112,12 +110,12 @@ const Admin = () => {
   };
 
   useEffect(() => {
+    AOS.init();
+    AOS.refresh();
     if (!currentUser && !loading) {
       router.push("/");
     }
     if (!hasFetchedData.current) {
-      AOS.init();
-      AOS.refresh();
       setDates();
       getBookedDates();
       hasFetchedData.current = true;

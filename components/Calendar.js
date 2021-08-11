@@ -1,8 +1,11 @@
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect,useRef } from "react";
 import classes from "../styles/booking.module.css";
+
+
+
 export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
   let [currentMonth, setCurrentMonth] = useState();
   let [months, setMonths] = useState([]);
@@ -10,6 +13,8 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
   let [] = useState("");
   let [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   let currentDate = new Date();
+  const hasFetchedData = useRef(false);
+
   const monthNames = [
     "January",
     "February",
@@ -109,7 +114,10 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
       const fillerPositions = daysInMonth[i].day === 0 ? 6 : daysInMonth[i].day;
       if (i === 0 && daysInMonth[i].day !== 1) {
         for (let j = 0; j < fillerPositions; j++) {
-            const prevMonth = currentMonth.monthNumber === 0 ? months[currentMonth.monthNumber + 11].days : months[currentMonth.monthNumber - 1].days;            
+          const prevMonth =
+            currentMonth.monthNumber === 0
+              ? months[currentMonth.monthNumber + 11].days
+              : months[currentMonth.monthNumber - 1].days;
           dayList.push(prevMonth[prevMonth.length - fillerPositions + j]);
         }
         dayList.push(daysInMonth[i]);
@@ -117,12 +125,12 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
         dayList.push(daysInMonth[i]);
         const remainingDays = 7 - daysInMonth[i].day;
         for (let t = 0; t <= remainingDays; t++) {
-            const nextMonth = months[currentMonth.monthNumber + 1].days;
+          const nextMonth = months[currentMonth.monthNumber + 1].days;
           dayList.push(nextMonth[t]);
-          if(t === remainingDays && nextMonth[t].day !== 6) {
-              for(let r = 1; r <= 7 - nextMonth[t].day; r++) {
-                dayList.push(nextMonth[t + r]);
-              }
+          if (t === remainingDays && nextMonth[t].day !== 6) {
+            for (let r = 1; r <= 7 - nextMonth[t].day; r++) {
+              dayList.push(nextMonth[t + r]);
+            }
           }
         }
       } else {
@@ -133,30 +141,27 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
   };
 
   useEffect(() => {
-    getMonthsForYear(currentDate, true);
+    if(!hasFetchedData.current) {
+      getMonthsForYear(currentDate, true);
+      hasFetchedData.current = true;
+    }
     setTimeout(() => {
       setLoading(false);
     }, 200);
-  }, []);
+  }, [getMonthsForYear]);
   return (
     <>
       {!loading ? (
         <div className={classes.calendarContainer}>
           <section style={{ display: "flex", justifyContent: "center" }}>
-            <h1 style={{fontWeight: "lighter"}}>{currentYear}</h1>
+            <h1 style={{ fontWeight: "lighter" }}>{currentYear}</h1>
           </section>
           <section className={classes.monthSelection}>
-            <button
-              className="button"
-              onClick={() => handleChangeMonth(false)}
-            >
+            <button className="button" onClick={() => handleChangeMonth(false)}>
               <FontAwesomeIcon icon={faArrowLeft} />
             </button>
-            <h2 style={{fontWeight: "lighter"}}>{currentMonth.monthName}</h2>
-            <button
-              className="button"
-              onClick={() => handleChangeMonth(true)}
-            >
+            <h2 style={{ fontWeight: "lighter" }}>{currentMonth.monthName}</h2>
+            <button className="button" onClick={() => handleChangeMonth(true)}>
               <FontAwesomeIcon icon={faArrowRight} />
             </button>
           </section>
@@ -166,7 +171,7 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
                 {weekDays.map((weekDay, index) => {
                   return (
                     <th key={index}>
-                      <h4 style={{fontWeight: "normal"}}>{weekDay}</h4>
+                      <h4 style={{ fontWeight: "normal" }}>{weekDay}</h4>
                     </th>
                   );
                 })}
@@ -201,7 +206,14 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
 
                       return (
                         <th key={dayIndex}>
-                          <p style={{ borderBottom: day.booking ? "4px solid #00d14d" : null }} className={classes.calendarDates}>
+                          <p
+                            style={{
+                              borderBottom: day.booking
+                                ? "4px solid #00d14d"
+                                : null,
+                            }}
+                            className={classes.calendarDates}
+                          >
                             {day.date}
                           </p>
                         </th>

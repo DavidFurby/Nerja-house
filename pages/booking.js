@@ -1,12 +1,14 @@
 import { Calendar } from "../components/Calendar";
 import { UseBooking } from "../utils/firebase/context/BookingContext";
 import classes from "../styles/booking.module.css";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Spinner from "../components/Spinner";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
 const Booking = () => {
+  const hasFetchedData = useRef(false);
+
   let { fetchBookings } = UseBooking();
   let [loading, setLoading] = useState(true);
   let [bookedDates, setBookedDates] = useState([]);
@@ -28,17 +30,20 @@ const Booking = () => {
   const getBookedDates = async () => {
     const tempBookings = await fetchBookings();
     if (tempBookings) {
-      setBookedDates(prevState => (prevState, tempBookings));
+      setBookedDates((prevState) => (prevState, tempBookings));
     }
   };
   useEffect(() => {
     AOS.init();
     AOS.refresh();
-    getBookedDates();
+    if (!hasFetchedData.current) {
+      getBookedDates();
+      hasFetchedData.current = true; 
+    }
     setTimeout(() => {
       setLoading(false);
     }, 1000);
-  }, [setBookedDates]);
+  }, [getBookedDates]);
   return (
     <>
       {!loading ? (
