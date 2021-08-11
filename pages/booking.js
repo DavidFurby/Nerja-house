@@ -3,8 +3,10 @@ import { UseBooking } from "../utils/firebase/context/BookingContext";
 import classes from "../styles/booking.module.css";
 import { useEffect, useState, useRef } from "react";
 import Spinner from "../components/Spinner";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 const booking = () => {
-  const isMounted = useRef(false);
   let { fetchBookings } = UseBooking();
   let [loading, setLoading] = useState(true);
   let [bookedDates, setBookedDates] = useState([]);
@@ -25,26 +27,49 @@ const booking = () => {
   };
   const getBookedDates = async () => {
     const tempBookings = await fetchBookings();
-    if (tempBookings && isMounted) {
+    if (tempBookings) {
       setBookedDates(tempBookings);
     }
   };
   useEffect(() => {
-    isMounted.current = true;
+    AOS.init();
+    AOS.refresh();
     getBookedDates();
     setTimeout(() => {
       setLoading(false);
-    }, 200);
-    return () => (isMounted.current = false);
+    }, 1000);
   }, []);
   return (
     <>
-      {!loading ? (
+      {!loading && Calendar ? (
         <div className={classes.container}>
-          <Calendar
-            bookedDates={bookedDates}
-            getDatesBetweenRentedDays={getDatesBetweenRentedDays}
-          />
+          <section
+            className={classes.information}
+            data-aos="fade-in"
+            data-aot-once="true"
+            data-aos-delay="400"
+            data-aos-duration="400"
+          >
+            <h1>Tillgängliga tider</h1>
+            <p>
+              Datum som redan är inbokade är markerade med{" "}
+              <span style={{ color: "#00d14d" }}>grönt</span>{" "}
+            </p>
+            <p>
+              Vill ni boka en tid kontakta oss på någon av våra kontaktuppgifter
+            </p>
+            <p>Email: </p>
+            <p>Telefon: </p>
+          </section>
+          <section>
+            <Calendar
+              data-aos="fade-in"
+              data-aot-once="true"
+              data-aos-duration="400"
+              bookedDates={bookedDates}
+              getDatesBetweenRentedDays={getDatesBetweenRentedDays}
+            />
+          </section>
         </div>
       ) : (
         <Spinner />

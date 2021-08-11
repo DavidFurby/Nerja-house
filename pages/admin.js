@@ -4,6 +4,9 @@ import { Calendar } from "../components/Calendar";
 import Spinner from "../components/Spinner";
 import { UseAuth } from "../utils/firebase/context/AuthContext";
 import { UseBooking } from "../utils/firebase/context/BookingContext";
+import classes from "../styles/booking.module.css";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Admin = () => {
   const isMounted = useRef(false);
@@ -14,7 +17,6 @@ const Admin = () => {
   let [minimumDate, setMinimumDate] = useState("");
   let [bookedDates, setBookedDates] = useState([]);
   let { currentUser } = UseAuth();
-  let [user, setUser] = useState();
   let [loading, setLoading] = useState(true);
   const router = useRouter();
 
@@ -113,6 +115,8 @@ const Admin = () => {
     if (!currentUser && !loading) {
       router.push("/");
     }
+    AOS.init();
+    AOS.refresh();
     setDates();
     getBookedDates();
     setTimeout(() => {
@@ -122,40 +126,55 @@ const Admin = () => {
   return (
     <>
       {!loading && currentUser ? (
-        <div>
+        <div className={classes.container}>
+          <section
+            data-aos="fade-in"
+            data-aot-once="true"
+            data-aos-delay="400"
+            data-aos-duration="400"
+          >
+            <form onSubmit={handleNewBooking}>
+              <section>
+                <label>
+                  start datum:
+                  <input
+                    type="date"
+                    min={minimumDate}
+                    max={endDate}
+                    value={startDate}
+                    onChange={(startDate) => handleChangeDate(startDate, true)}
+                  />
+                </label>
+              </section>
+              <div>
+                <label>
+                  slut datum:
+                  <input
+                    type="date"
+                    min={startDate ? startDate : minimumDate}
+                    value={endDate}
+                    onChange={(endDate) => handleChangeDate(endDate, false)}
+                  />
+                </label>
+              </div>
+
+              <input
+                className="button"
+                type="submit"
+                value="Lägg till en ny bokning"
+              />
+            </form>
+          </section>
           <section>
             <Calendar
+              data-aos="fade-in"
+              data-aot-once="true"
+              data-aos-delay="400"
+              data-aos-duration="400"
               bookedDates={bookedDates}
               getDatesBetweenRentedDays={getDatesBetweenRentedDays}
             />
           </section>
-          <form onSubmit={handleNewBooking}>
-            <section>
-              <label>
-                start datum:
-                <input
-                  type="date"
-                  min={minimumDate}
-                  max={endDate}
-                  value={startDate}
-                  onChange={(startDate) => handleChangeDate(startDate, true)}
-                />
-              </label>
-            </section>
-            <div>
-              <label>
-                slut datum:
-                <input
-                  type="date"
-                  min={startDate ? startDate : minimumDate}
-                  value={endDate}
-                  onChange={(endDate) => handleChangeDate(endDate, false)}
-                />
-              </label>
-            </div>
-
-            <input type="submit" value="Lägg till en ny bokning" />
-          </form>
         </div>
       ) : (
         <Spinner />

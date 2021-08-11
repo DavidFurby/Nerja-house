@@ -1,6 +1,5 @@
 import Navbar from "./NavigationBar";
 import Head from "next/head";
-import BackgroundShapes from "./backgroundShapes";
 import Water from "./Water";
 const Layout = ({ children }) => {
   return (
@@ -10,9 +9,8 @@ const Layout = ({ children }) => {
         <meta content="nerja" />
       </Head>
       <Navbar />
-      <BackgroundShapes />
       {children}
-      <Water />
+      <Water/>
     </div>
   );
 };

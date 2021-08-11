@@ -147,20 +147,19 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
           </section>
           <section className={classes.monthSelection}>
             <button
-              className={classes.button}
+              className="button"
               onClick={() => handleChangeMonth(false)}
             >
               <FontAwesomeIcon icon={faArrowLeft} />
             </button>
             <h2 style={{fontWeight: "lighter"}}>{currentMonth.monthName}</h2>
             <button
-              className={classes.button}
+              className="button"
               onClick={() => handleChangeMonth(true)}
             >
               <FontAwesomeIcon icon={faArrowRight} />
             </button>
           </section>
-
           <table className={classes.calendar}>
             <thead>
               <tr>
@@ -202,7 +201,7 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
 
                       return (
                         <th key={dayIndex}>
-                          <p style={{ borderBottom: day.booking ? "4px solid green" : "4px solid red" }} className={classes.calendarDates}>
+                          <p style={{ borderBottom: day.booking ? "4px solid #00d14d" : null }} className={classes.calendarDates}>
                             {day.date}
                           </p>
                         </th>

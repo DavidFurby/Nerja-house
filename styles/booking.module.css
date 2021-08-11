@@ -15,7 +15,13 @@
     background-size: cover;
     display: flex;
     align-items: center;
-    justify-content: left;
+    justify-content: space-evenly;
+}
+
+.example {
+    width: 2rem;
+    height: 2rem;
+
 }
 
 .monthSelection {
@@ -30,6 +36,7 @@
 }
 
 .calendar {
+    position: relative;
     background: white;
     color: black;
     width: 40rem;
@@ -59,7 +66,7 @@
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 1rem;
     border-radius: 10px;
 }
 .button:active {
@@ -69,17 +76,25 @@
 
 @media (max-width: 600px) {
     .calendar {
-        width: 10rem;
-        font-size: 20px;
+        width: 2rem;
+        font-size: 10px;
     }
+
 
     .container {
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-size: cover;
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
     }
+.calendarContainer {
+    margin: 2rem;
 
+}
+.information {
+    display: none;
+}
 }

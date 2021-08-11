@@ -1,21 +1,12 @@
 import React from "react";
 import classes from "../styles/Home.module.css";
-import { UseFrontPage } from "../utils/firebase/context/FrontPageContext";
 
-export default function FrontPageCards() {
-  const { frontPageImages } = UseFrontPage();
+export default function FrontPageCards({images}) {
 
   return (
     <div className={classes.container}>
-      <h1
-        data-aos="fade-in"
-        data-aot-once="true"
-        data-aos-delay="500"
-        data-aos-duration="2000"
-      >
-        Stort hus i Nerja - nära Burriana
-      </h1>
-      {frontPageImages.map((card, index) => {
+  
+      {images.map((card, index) => {
         return (
           <div
             data-aos="fade-up"
@@ -27,7 +18,7 @@ export default function FrontPageCards() {
             }}
           >
             <div className={classes.cardContent}>
-              <h2 className={classes.title}>{card.name}</h2>
+              <h1 className={classes.title}>{card.name}</h1>
               <p className={classes.subText}>{card.subText}</p>
             </div>
           </div>
