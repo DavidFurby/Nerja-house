@@ -141,6 +141,7 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
   };
 
   useEffect(() => {
+    let abortController = new AbortController(); 
     if(!hasFetchedData.current) {
       getMonthsForYear(currentDate, true);
       hasFetchedData.current = true;
@@ -148,6 +149,9 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
     setTimeout(() => {
       setLoading(false);
     }, 200);
+    return () => {
+      abortController.abort(); 
+    }
   }, [getMonthsForYear]);
   return (
     <>

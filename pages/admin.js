@@ -12,7 +12,7 @@ const Admin = () => {
   const hasFetchedData = useRef(false);
   let [startDate, setStartDate] = useState("");
   let [endDate, setEndDate] = useState("");
-  let { addNewBooking, fetchBookings } = UseBooking();
+  let { addNewBooking, bookings } = UseBooking();
   let [minimumDate, setMinimumDate] = useState("");
   let [bookedDates, setBookedDates] = useState([]);
   let { currentUser } = UseAuth();
@@ -20,15 +20,14 @@ const Admin = () => {
   const router = useRouter();
 
   const setDates = () => {
-      let minimumDate = new Date();
-      const year = minimumDate.getFullYear();
-      let month = minimumDate.getMonth() + 1;
-      month = ifSingleDigit(month);
-      let day = minimumDate.getDate();
-      day = ifSingleDigit(day);
-      minimumDate = year + "-" + month + "-" + day;
-      setMinimumDate(minimumDate);
-  
+    let minimumDate = new Date();
+    const year = minimumDate.getFullYear();
+    let month = minimumDate.getMonth() + 1;
+    month = ifSingleDigit(month);
+    let day = minimumDate.getDate();
+    day = ifSingleDigit(day);
+    minimumDate = year + "-" + month + "-" + day;
+    setMinimumDate(minimumDate);
   };
   const ifSingleDigit = (number) => {
     if (number.toString().length < 2) {
@@ -104,12 +103,14 @@ const Admin = () => {
 
   const getBookedDates = async () => {
     const tempBookings = await fetchBookings();
-    if (tempBookings && isMounted) {
+    if (tempBookings) {
       setBookedDates(tempBookings);
     }
   };
 
   useEffect(() => {
+    let abortController = new AbortController();
+
     AOS.init();
     AOS.refresh();
     if (!currentUser && !loading) {
@@ -123,6 +124,11 @@ const Admin = () => {
     setTimeout(() => {
       setLoading(false);
     }, 2000);
+    
+    return () => {
+      abortController.abort();
+    };
+
   }, [currentUser, loading, getBookedDates, router, setDates]);
   return (
     <>
@@ -172,7 +178,7 @@ const Admin = () => {
               data-aot-once="true"
               data-aos-delay="400"
               data-aos-duration="400"
-              bookedDates={bookedDates}
+              bookedDates={bookings}
               getDatesBetweenRentedDays={getDatesBetweenRentedDays}
             />
           </section>

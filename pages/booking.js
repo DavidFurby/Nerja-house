@@ -7,9 +7,9 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 
 const Booking = () => {
-  const hasFetchedData = useRef(false);
+  const {hasFetchedData} = useRef(false);
 
-  let { fetchBookings } = UseBooking();
+  let { bookings } = UseBooking();
   let [loading, setLoading] = useState(true);
   let [bookedDates, setBookedDates] = useState([]);
 
@@ -27,23 +27,17 @@ const Booking = () => {
     }
     return dates;
   };
-  const getBookedDates = async () => {
-    const tempBookings = await fetchBookings();
-    if (tempBookings) {
-      setBookedDates((prevState) => (prevState, tempBookings));
-    }
-  };
+
   useEffect(() => {
+
     AOS.init();
     AOS.refresh();
-    if (!hasFetchedData.current) {
-      getBookedDates();
-      hasFetchedData.current = true; 
-    }
+
     setTimeout(() => {
       setLoading(false);
     }, 1000);
-  }, [getBookedDates]);
+  
+  }, []);
   return (
     <>
       {!loading ? (
@@ -71,7 +65,7 @@ const Booking = () => {
               data-aos="fade-in"
               data-aot-once="true"
               data-aos-duration="400"
-              bookedDates={bookedDates}
+              bookedDates={bookings}
               getDatesBetweenRentedDays={getDatesBetweenRentedDays}
             />
           </section>
