@@ -6,7 +6,7 @@ import Spinner from "../components/Spinner";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-const booking = () => {
+const Booking = () => {
   let { fetchBookings } = UseBooking();
   let [loading, setLoading] = useState(true);
   let [bookedDates, setBookedDates] = useState([]);
@@ -28,7 +28,7 @@ const booking = () => {
   const getBookedDates = async () => {
     const tempBookings = await fetchBookings();
     if (tempBookings) {
-      setBookedDates(tempBookings);
+      setBookedDates(prevState => (prevState, tempBookings));
     }
   };
   useEffect(() => {
@@ -38,7 +38,7 @@ const booking = () => {
     setTimeout(() => {
       setLoading(false);
     }, 1000);
-  }, [getBookedDates]);
+  }, [setBookedDates]);
   return (
     <>
       {!loading ? (
@@ -78,4 +78,4 @@ const booking = () => {
   );
 };
 
-export default booking;
+export default Booking;
