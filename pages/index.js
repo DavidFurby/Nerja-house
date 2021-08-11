@@ -25,7 +25,7 @@ const Home = () => {
   }, [frontPageImages]);
   return (
     <>
-      {!loading && images ? (
+      {!loading ? (
         <div style={{padding: "4rem"}}>
           <h1
             data-aos="fade-in"

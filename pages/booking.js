@@ -41,7 +41,7 @@ const booking = () => {
   }, []);
   return (
     <>
-      {!loading && Calendar ? (
+      {!loading ? (
         <div className={classes.container}>
           <section
             className={classes.information}
