@@ -1,7 +1,7 @@
 import { Calendar } from "../components/Calendar";
 import { UseBooking } from "../utils/firebase/context/BookingContext";
 import classes from "../styles/booking.module.css";
-import { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import Spinner from "../components/Spinner";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -38,7 +38,7 @@ const booking = () => {
     setTimeout(() => {
       setLoading(false);
     }, 1000);
-  }, []);
+  }, [getBookedDates]);
   return (
     <>
       {!loading ? (

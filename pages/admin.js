@@ -122,7 +122,7 @@ const Admin = () => {
     setTimeout(() => {
       setLoading(false);
     }, 2000);
-  }, [currentUser, loading]);
+  }, [currentUser, loading, getBookedDates, router, setDates]);
   return (
     <>
       {!loading && currentUser ? (

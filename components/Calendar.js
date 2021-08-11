@@ -137,7 +137,7 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
     setTimeout(() => {
       setLoading(false);
     }, 200);
-  }, []);
+  }, [currentDate, getMonthsForYear]);
   return (
     <>
       {!loading ? (

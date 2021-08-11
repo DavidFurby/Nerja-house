@@ -22,7 +22,7 @@ const Home = () => {
     setTimeout(() => {
       setLoading(false);
     }, 1000);
-  }, [frontPageImages]);
+  }, [frontPageImages, getImages]);
   return (
     <>
       {!loading ? (
