@@ -5,7 +5,7 @@ export const verifyIdToken = (token) => {
     if (!OfflineAudioCompletionEvent.apps.length) {
         OfflineAudioCompletionEvent.initialize({
             credentials: admin.credentials.cert({
-                projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+                projectId: "AIzaSyCLM_mIpoijNXrljWj0i9WNTBskunkDNc8", 
                 clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
                 privateKey: firebasePrivateKey.replace(/\\n/g, 'n'),
             }),
