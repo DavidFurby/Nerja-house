@@ -51,36 +51,38 @@ const AdminLogin = () => {
   return (
     <>
       {!loading ? (
-        <form
-          onSubmit={submitLogin}
-          style={{
-            display: "flex",
-            flexFlow: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            textAlign: "left",
-          }}
-        >
-          <label>
-            email:
-            <br />
-            <input
-              type="email"
-              value={email}
-              onChange={(email) => setEmail(email.target.value)}
-            />
-          </label>
-          <label>
-            password:
-            <br />
-            <input
-              type="password"
-              value={password}
-              onChange={(password) => setPassword(password.target.value)}
-            />
-          </label>
-          <input className="button" type="submit" value="Logga in" />
-        </form>
+        <div>
+          <form
+            onSubmit={submitLogin}
+            style={{
+              display: "flex",
+              flexFlow: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              textAlign: "left",
+            }}
+          >
+            <label>
+              email:
+              <br />
+              <input
+                type="email"
+                value={email}
+                onChange={(email) => setEmail(email.target.value)}
+              />
+            </label>
+            <label>
+              password:
+              <br />
+              <input
+                type="password"
+                value={password}
+                onChange={(password) => setPassword(password.target.value)}
+              />
+            </label>
+            <input className="button" type="submit" value="Logga in" />
+          </form>
+        </div>
       ) : (
         <Spinner />
       )}

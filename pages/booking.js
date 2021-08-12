@@ -49,8 +49,8 @@ const Booking = () => {
           >
             <h1>Tillgängliga tider</h1>
             <p>
-              Datum som redan är inbokade är markerade med{" "}
-              <span style={{ color: "#00d14d" }}>grönt</span>{" "}
+              Datum som redan är inbokade är markerade med
+              <span style={{ color: "#00d14d" }}>grönt</span>
             </p>
             <p>
               Vill ni boka en tid kontakta oss på någon av våra kontaktuppgifter

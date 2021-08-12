@@ -14,7 +14,6 @@ const Admin = () => {
   let [endDate, setEndDate] = useState("");
   let { addNewBooking, bookings } = UseBooking();
   let [minimumDate, setMinimumDate] = useState("");
-  let [bookedDates, setBookedDates] = useState([]);
   let { currentUser } = UseAuth();
   let [loading, setLoading] = useState(true);
   const router = useRouter();
@@ -43,10 +42,10 @@ const Admin = () => {
       const from = toDateType(startDate);
       const to = toDateType(endDate);
 
-      for (let i = 0; i < bookedDates.length; i++) {
+      for (let i = 0; i < bookings.length; i++) {
         const rentedDates = getDatesBetweenRentedDays(
-          bookedDates[i].from,
-          bookedDates[i].to
+          bookings[i].from,
+          bookings[i].to
         );
         if (
           rentedDates[i].getTime() === from.getTime() ||
@@ -101,7 +100,6 @@ const Admin = () => {
     return dates;
   };
 
-
   useEffect(() => {
     let abortController = new AbortController();
 
@@ -117,11 +115,10 @@ const Admin = () => {
     setTimeout(() => {
       setLoading(false);
     }, 2000);
-    
+
     return () => {
       abortController.abort();
     };
-
   }, [currentUser, loading, router, setDates]);
   return (
     <>
@@ -137,6 +134,7 @@ const Admin = () => {
               <section>
                 <label>
                   start datum:
+                  <br />
                   <input
                     type="date"
                     min={minimumDate}
@@ -149,6 +147,7 @@ const Admin = () => {
               <div>
                 <label>
                   slut datum:
+                  <br />
                   <input
                     type="date"
                     min={startDate ? startDate : minimumDate}
@@ -157,11 +156,10 @@ const Admin = () => {
                   />
                 </label>
               </div>
-
               <input
                 className="button"
                 type="submit"
-                value="Lägg till en ny bokning"
+                value="Boka"
               />
             </form>
           </section>

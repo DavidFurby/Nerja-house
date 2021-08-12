@@ -15,8 +15,10 @@
   }
 
   .nav ul li a {
-    margin: 5px 15px;
+    padding: 2rem;
+   
   }
   .linkButton:hover {
     border-bottom: 2px solid #9CD4E1;
   }
+  
