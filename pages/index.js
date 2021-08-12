@@ -7,7 +7,7 @@ import { UseFrontPage } from "../utils/firebase/context/FrontPageContext";
 
 const Home = () => {
   let [loading, setLoading] = useState(true);
-  const { frontPageImages } = UseFrontPage();
+  const { frontPageImages, contactInformation } = UseFrontPage();
 
   useEffect(() => {
     AOS.init();

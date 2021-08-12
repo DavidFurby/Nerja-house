@@ -130,7 +130,7 @@ const Admin = () => {
             data-aos-delay="400"
             data-aos-duration="400"
           >
-            <form onSubmit={handleNewBooking}>
+            <form className={classes.bookingForm} onSubmit={handleNewBooking}>
               <section>
                 <label>
                   start datum:

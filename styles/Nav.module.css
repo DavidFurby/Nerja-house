@@ -30,13 +30,14 @@
     background: black;
     color: white;
     position: fixed;
-    display: none; 
+    display: none;
     top: 0;
     left: -25rem; 
     height: 100%;
     z-index: 1000;
     justify-content: left;
     animation: sidebarSlideIn 1s forwards;
+    opacity: 0.9;
   }
 
   .nav ul {

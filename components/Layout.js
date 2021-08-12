@@ -2,6 +2,7 @@ import Navbar from "./NavigationBar";
 import Head from "next/head";
 import Footer from "./Footer";
 const Layout = ({ children }) => {
+  
   return (
     <div className="content">
       <Head>

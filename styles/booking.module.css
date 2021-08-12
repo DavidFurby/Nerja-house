@@ -5,7 +5,7 @@
     width: fit-content;
     color: black;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-  padding: 15px;
+    padding: 15px;
 }
 
 
@@ -24,6 +24,7 @@
 
 }
 
+
 .monthSelection {
     display: flex;
     flex-direction: row;
@@ -31,6 +32,7 @@
     align-items: center;
 
 }
+
 .calendarDates {
     margin: 1rem;
 }
@@ -58,8 +60,9 @@
     align-items: center;
 
 }
+
 .button {
-    background-color: #00A8D1; 
+    background-color: #00A8D1;
     border: none;
     color: white;
     padding: 15px 32px;
@@ -69,8 +72,9 @@
     font-size: 1rem;
     border-radius: 10px;
 }
+
 .button:active {
-    background-color: #9CD4E1; 
+    background-color: #9CD4E1;
 
 }
 
@@ -89,12 +93,20 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        padding: 4rem;
     }
-.calendarContainer {
-    margin: 2rem;
 
-}
-.information {
-    display: none;
-}
+    .calendarContainer {
+        margin: 2rem;
+
+    }
+
+    .information {
+        display: none;
+    }
+
+    .bookingForm {
+        display: flex;
+        flex-direction: row;
+    }
 }
