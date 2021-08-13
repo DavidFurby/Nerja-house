@@ -51,7 +51,7 @@ const AdminLogin = () => {
   return (
     <>
       {!loading ? (
-        <div>
+        <div style={{padding: "4rem"}}>
           <form
             onSubmit={submitLogin}
             style={{

@@ -1,13 +1,14 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
 import React, { useState, useEffect } from "react";
-import initFirebase from "../../firebase/initFirebase";
+import initFirebase from "../initFirebase";
 
 initFirebase();
 
-const UseFrontPage = () => {
+const UseInformation = () => {
   const [frontPageImages, setFrontPageImages] = useState([]);
   const [contactInformation, setContactInformation] = useState([]);
+  const [houseDescription, setHouseDescription] = useState({});
   async function fetchImages() {
     const images = await firebase
       .firestore()
@@ -33,9 +34,9 @@ const UseFrontPage = () => {
       .get();
     if (tempInfo) {
       try {
-        const fetchedInfo = tempInfo.docs.map((image) => {
-          const data = image.data();
-          const id = image.id;
+        const fetchedInfo = tempInfo.docs.map((info) => {
+          const data = info.data();
+          const id = info.id;
           return { id, ...data };
         });
         setContactInformation(fetchedInfo);
@@ -44,11 +45,30 @@ const UseFrontPage = () => {
       }
     }
   }
+  async function fetchDescription() {
+    const tempDesc = await firebase
+      .firestore()
+      .collection("houseDescription")
+      .get();
+    if (tempDesc) {
+      try {
+        const fetchedDesc = tempDesc.docs.map((image) => {
+          const data = image.data();
+          const id = image.id;
+          return { id, ...data };
+        });
+        setHouseDescription(fetchedDesc[0]);
+      } catch (err) {
+        err;
+      }
+    }
+  }
   useEffect(() => {
     fetchImages();
     fetchContactInformation();
+    fetchDescription();
   }, []);
-  return { frontPageImages, contactInformation };
+  return { frontPageImages, contactInformation, houseDescription };
 };
 
-export { UseFrontPage };
+export { UseInformation };

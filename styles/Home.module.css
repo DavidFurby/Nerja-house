@@ -92,19 +92,18 @@
 
 @media (max-width: 600px) {
   .card {
-    width: 18rem;
-    height: 18rem;
-    align-self: center;
+    width: 15rem;
+    height: 15rem;
   }
   .container {
     padding: 0;
+    padding-bottom: 2rem;
   }
   .cardContent {
     padding: 1rem; 
   }
  .title {
   font-size: 1rem;
-
  }
  .subText {
    font-size: 0.8rem; 

@@ -1,8 +1,8 @@
 import Water from "./Water";
-import { UseFrontPage } from "../utils/firebase/context/FrontPageContext";
+import { UseInformation } from "../utils/firebase/context/InformationContext";
 
 const Footer = () => {
-  const { contactInformation } = UseFrontPage();
+  const { contactInformation } = UseInformation();
   return (
     <>
       {contactInformation.length > 0 ? (
@@ -11,7 +11,8 @@ const Footer = () => {
             <p>
               Email: {contactInformation[0].email}
               <br />
-              Mobil: {contactInformation[0].phone} {contactInformation[0].phoneSecondary}
+              Mobil: {contactInformation[0].phone}
+              {contactInformation[0].phoneSecondary}
             </p>
           </footer>
           <Water />

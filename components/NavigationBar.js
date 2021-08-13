@@ -20,7 +20,7 @@ const NavigationBar = () => {
     getMobileState();
   }, []);
   return (
-    <div>
+    <>
       {isMobile ? (
         <button
           style={{
@@ -35,73 +35,51 @@ const NavigationBar = () => {
         </button>
       ) : null}
 
-      {isMobile ? (
-        <nav
-          className={classes.nav}
-          style={{ display: sidebar ? "block" : "none" }}
-        >
+      <nav
+        className={
+          isMobile
+            ? sidebar
+              ? `${classes.navMobile} ${classes.moveLeft}`
+              : classes.navMobile
+            : classes.nav
+        }
+      >
+        {isMobile ? (
           <button
             className="button"
-            style={{ position: "absolute", right: "0" }}
+            style={{ position: "absolute", top: "0", left: "0"}}
             onClick={() => setSidebar(!sidebar)}
           >
             <FontAwesomeIcon icon={faTimes} />
           </button>
+        ) : null}
 
+        <ul>
+          <li className={classes.linkButton} onClick={() => setSidebar(!sidebar)}>
+            <Link href="/">Nerja hus</Link>
+          </li>
+
+          <li className={classes.linkButton} onClick={() => setSidebar(!sidebar)}>
+            <Link href="/booking">Se tider</Link>
+          </li>
+          <li className={classes.linkButton} onClick={() => setSidebar(!sidebar)}>
+            <Link href="/readMore">Läs mer</Link>
+          </li>
+        </ul>
+        {currentUser ? (
           <ul>
-            <li className={classes.linkButton}>
-              <Link href="/">Nerja hus</Link>
+            <li className={classes.linkButton} onClick={() => setSidebar(!sidebar)}>
+              <Link href="/admin">admin-sida</Link>
             </li>
-
-            <li className={classes.linkButton}>
-              <Link href="/booking">Boka</Link>
-            </li>
-            <li className={classes.linkButton}>
-              <Link href="/readMore">Läs mer</Link>
+            <li>
+              <button className="button" onClick={() => logout() && setSidebar(!sidebar)}>
+                Logga ut
+              </button>
             </li>
           </ul>
-          {currentUser ? (
-            <ul>
-              <li className={classes.linkButton}>
-                <Link href="/admin">admin-sida</Link>
-              </li>
-              <li>
-                <button className="button" onClick={() => logout()}>
-                  Logga ut
-                </button>
-              </li>
-            </ul>
-          ) : null}
-        </nav>
-      ) : (
-        <nav className={classes.nav}>
-          <ul>
-            <li className={classes.linkButton}>
-              <Link href="/">Nerja hus</Link>
-            </li>
-
-            <li className={classes.linkButton}>
-              <Link href="/booking">Boka</Link>
-            </li>
-            <li className={classes.linkButton}>
-              <Link href="/readMore">Läs mer</Link>
-            </li>
-          </ul>
-          {currentUser ? (
-            <ul>
-              <li className={classes.linkButton}>
-                <Link href="/admin">admin-sida</Link>
-              </li>
-              <li>
-                <button className="button" onClick={() => logout()}>
-                  Logga ut
-                </button>
-              </li>
-            </ul>
-          ) : null}
-        </nav>
-      )}
-    </div>
+        ) : null}
+      </nav>
+    </>
   );
 };
 

@@ -3,11 +3,11 @@ import "aos/dist/aos.css";
 import { useEffect, useState } from "react";
 import Spinner from "../components/Spinner";
 import FrontPageCards from "../components/FrontPageCards";
-import { UseFrontPage } from "../utils/firebase/context/FrontPageContext";
+import {  UseInformation } from "../utils/firebase/context/InformationContext";
 
 const Home = () => {
   let [loading, setLoading] = useState(true);
-  const { frontPageImages, contactInformation } = UseFrontPage();
+  const { frontPageImages, contactInformation } = UseInformation();
 
   useEffect(() => {
     AOS.init();
@@ -20,14 +20,7 @@ const Home = () => {
     <>
       {!loading ? (
         <div style={{padding: "4rem"}}>
-          <h1
-            data-aos="fade-in"
-            data-aot-once="true"
-            data-aos-delay="500"
-            data-aos-duration="2000"
-          >
-            Stort hus i Nerja - nära Burriana
-          </h1>
+        
           <FrontPageCards images={frontPageImages} />
         </div>
       ) : (
