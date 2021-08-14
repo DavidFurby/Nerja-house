@@ -10,7 +10,7 @@ import 'firebase/performance'
 console.log(process.env.NEXT_PUBLIC_FIREBASE_API_KEY)
 console.log("AIzaSyCLM_mIpoijNXrljWj0i9WNTBskunkDNc8")
 var firebaseConfig = {
-    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+    apiKey: "AIzaSyCLM_mIpoijNXrljWj0i9WNTBskunkDNc8",
     authDomain: "nerjahome-a4486.firebaseapp.com",
     projectId: "nerjahome-a4486",
     storageBucket: "nerjahome-a4486.appspot.com",
