@@ -26,6 +26,7 @@ const Admin = () => {
     let day = minimumDate.getDate();
     day = ifSingleDigit(day);
     minimumDate = year + "-" + month + "-" + day;
+    console.log(minimumDate);
     setMinimumDate(minimumDate);
   };
   const ifSingleDigit = (number) => {
