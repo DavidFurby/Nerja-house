@@ -1,10 +1,8 @@
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { useState, useEffect,useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import classes from "../styles/booking.module.css";
-
-
 
 export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
   let [currentMonth, setCurrentMonth] = useState();
@@ -141,18 +139,21 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
   };
 
   useEffect(() => {
-    let abortController = new AbortController(); 
-    if(!hasFetchedData.current) {
-      getMonthsForYear(currentDate, true);
-      hasFetchedData.current = true;
+    let mounted = true;
+    if (mounted) {
+      if (!hasFetchedData.current) {
+        getMonthsForYear(currentDate, true);
+        hasFetchedData.current = true;
+      }
+      setTimeout(() => {
+        setLoading(false);
+      }, 200);
     }
-    setTimeout(() => {
-      setLoading(false);
-    }, 200);
-    return () => {
-      abortController.abort(); 
-    }
-  }, [getMonthsForYear]);
+
+    return function cleanup() {
+      mounted = false;
+    };
+  }, []);
   return (
     <>
       {!loading ? (
@@ -192,7 +193,7 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
                 return (
                   <tr key={index}>
                     {sliceDaysInWeeks.map((day, dayIndex) => {
-                      if(bookedDates) {
+                      if (bookedDates) {
                         for (let i = 0; i < bookedDates.length; i++) {
                           const rentedDates = getDatesBetweenRentedDays(
                             bookedDates[i].from,
@@ -209,7 +210,6 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
                           }
                         }
                       }
-                  
 
                       return (
                         <th key={dayIndex}>

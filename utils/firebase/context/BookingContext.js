@@ -34,7 +34,14 @@ const UseBooking = () => {
   };
 
   useEffect(() => {
-    fetchBookings();
+    let mounted = true;
+    if(mounted) {
+      fetchBookings();
+
+    }
+    return function cleanup() {
+      mounted = false; 
+    }
   }, []);
 
   return { bookings, addNewBooking };

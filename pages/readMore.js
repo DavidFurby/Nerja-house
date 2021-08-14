@@ -4,7 +4,6 @@ import "aos/dist/aos.css";
 import { useEffect } from "react";
 import { UseInformation } from "../utils/firebase/context/InformationContext";
 import Spinner from "../components/Spinner";
-import { useState } from "react/cjs/react.production.min";
 import Description from "../components/Description";
 const experience = () => {
   const { houseDescription } = UseInformation();
@@ -25,8 +24,11 @@ const experience = () => {
           >
             {houseDescription.title}
           </h1>
-          <h4>{houseDescription.subTitle}</h4>
-          <Description desc={houseDescription.text}/>
+          <h4   data-aos="fade-in"
+            data-aot-once="true"
+            data-aos-delay="600"
+            data-aos-duration="2000">{houseDescription.subTitle}</h4>
+          <Description  desc={houseDescription.text}/>
         </div>
       ) : (
         <Spinner />

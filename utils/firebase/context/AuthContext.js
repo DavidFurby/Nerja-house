@@ -43,20 +43,23 @@ const UseAuth = () => {
   };
 
   useEffect(() => {
-    const unsubscribe = () => {
-      firebase.auth().onAuthStateChanged(async (user) => {
-        if (user) {
-          const userStatus = await user.getIdTokenResult();
-          userStatus.claims;
-          setCurrentUser({
-            email: userStatus.claims.email,
-          });
-        } else {
-          logout();
-        }
-      });
-    };
-    unsubscribe();
+
+      const unsubscribe = () => {
+        firebase.auth().onAuthStateChanged(async (user) => {
+          if (user) {
+            const userStatus = await user.getIdTokenResult();
+            userStatus.claims;
+            setCurrentUser({
+              email: userStatus.claims.email,
+            });
+          } else {
+            logout();
+          }
+        });
+      };
+      unsubscribe();
+  
+
     return () => unsubscribe();
   }, []);
 

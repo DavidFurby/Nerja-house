@@ -3,24 +3,30 @@ import "aos/dist/aos.css";
 import { useEffect, useState } from "react";
 import Spinner from "../components/Spinner";
 import FrontPageCards from "../components/FrontPageCards";
-import {  UseInformation } from "../utils/firebase/context/InformationContext";
+import { UseInformation } from "../utils/firebase/context/InformationContext";
 
 const Home = () => {
   let [loading, setLoading] = useState(true);
-  const { frontPageImages, contactInformation } = UseInformation();
+  const { frontPageImages } = UseInformation();
 
   useEffect(() => {
-    AOS.init();
-    AOS.refresh();
-    setTimeout(() => {
+    let mounted = true;
+
+    if (mounted) {
+      AOS.init();
+      AOS.refresh();
+
       setLoading(false);
-    }, 1000);
-  }, [frontPageImages]);
+    }
+
+    return function cleanup() {
+      mounted = false;
+    };
+  }, []);
   return (
     <>
       {!loading ? (
-        <div style={{padding: "4rem"}}>
-        
+        <div style={{ padding: "4rem" }}>
           <FrontPageCards images={frontPageImages} />
         </div>
       ) : (

@@ -64,9 +64,15 @@ const UseInformation = () => {
     }
   }
   useEffect(() => {
-    fetchImages();
-    fetchContactInformation();
-    fetchDescription();
+    let mounted = true;
+    if(mounted) {
+      fetchImages();
+      fetchContactInformation();
+      fetchDescription();
+    }
+    return function cleanup() {
+      mounted = false; 
+    }
   }, []);
   return { frontPageImages, contactInformation, houseDescription };
 };

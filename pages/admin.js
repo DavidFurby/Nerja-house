@@ -101,25 +101,26 @@ const Admin = () => {
   };
 
   useEffect(() => {
-    let abortController = new AbortController();
-
-    AOS.init();
-    AOS.refresh();
-    if (!currentUser && !loading) {
-      router.push("/");
-    }
-    if (!hasFetchedData.current) {
-      setDates();
-      hasFetchedData.current = true;
+    let mounted = true;
+    if (mounted) {
+      AOS.init();
+      AOS.refresh();
+      if (!currentUser && !loading) {
+        router.push("/");
+      }
+      if (!hasFetchedData.current) {
+        setDates();
+        hasFetchedData.current = true;
+      }
+     
     }
     setTimeout(() => {
       setLoading(false);
     }, 2000);
-
     return () => {
-      abortController.abort();
+      mounted = false;
     };
-  }, [currentUser, loading, router, setDates]);
+  }, []);
   return (
     <>
       {!loading && currentUser ? (
@@ -156,11 +157,7 @@ const Admin = () => {
                   />
                 </label>
               </div>
-              <input
-                className="button"
-                type="submit"
-                value="Boka"
-              />
+              <input className="button" type="submit" value="Boka" />
             </form>
           </section>
           <section>

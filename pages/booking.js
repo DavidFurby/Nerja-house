@@ -7,7 +7,6 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 
 const Booking = () => {
-
   let { bookings } = UseBooking();
   let [loading, setLoading] = useState(true);
 
@@ -26,14 +25,16 @@ const Booking = () => {
     return dates;
   };
   useEffect(() => {
-
-    AOS.init();
-    AOS.refresh();
-
-    setTimeout(() => {
+    let mounted = true;
+    if (mounted) {
+      AOS.init();
+      AOS.refresh();
       setLoading(false);
-    }, 1000);
-  
+    }
+
+    return function cleanup() {
+      mounted = false;
+    };
   }, []);
   return (
     <>
