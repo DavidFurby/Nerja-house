@@ -10,7 +10,6 @@ const Layout = ({ children }) => {
         <meta content="nerja" />
       </Head>
       <Navbar />
-      <backgroundShapes />
       {children}
       <Footer />
     </div>

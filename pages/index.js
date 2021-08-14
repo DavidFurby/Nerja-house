@@ -8,6 +8,14 @@ import { UseInformation } from "../utils/firebase/context/InformationContext";
 const Home = () => {
   let [loading, setLoading] = useState(true);
   const { frontPageImages } = UseInformation();
+  let [isMobile, setIsMobile] = useState();
+
+  const getMobileState = () => {
+    let mobileTemp = window.matchMedia("(max-width: 600px)");
+    if (mobileTemp) {
+      setIsMobile(mobileTemp.matches);
+    }
+  };
 
   useEffect(() => {
     let mounted = true;
@@ -15,7 +23,7 @@ const Home = () => {
     if (mounted) {
       AOS.init();
       AOS.refresh();
-
+      getMobileState();
       setLoading(false);
     }
 
@@ -26,8 +34,8 @@ const Home = () => {
   return (
     <>
       {!loading ? (
-        <div style={{ padding: "4rem" }}>
-          <FrontPageCards images={frontPageImages} />
+        <div>
+          <FrontPageCards images={frontPageImages} isMobile={isMobile}/>
         </div>
       ) : (
         <Spinner />

@@ -1,11 +1,11 @@
 import React from "react";
 import classes from "../styles/Home.module.css";
 
-export default function FrontPageCards({images}) {
+export default function FrontPageCards({images, isMobile}) {
 
   return (
     <div className={classes.container}>
-  
+
       {images.map((card, index) => {
         return (
           <div
@@ -14,7 +14,7 @@ export default function FrontPageCards({images}) {
             key={index}
             style={{
               backgroundImage: "url(" + card.image + ")",
-              alignSelf: index % 2 !== 0 ? "flex-end" : "flex-start",
+              alignSelf: !isMobile ? index % 2 !== 0 ? "flex-end" : "flex-start" : null,
             }}
           >
             <div className={classes.cardContent}>
