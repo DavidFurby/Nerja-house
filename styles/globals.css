@@ -32,6 +32,11 @@ footer {
   align-items: flex-end; 
   padding-right: 4rem;
   padding-left: 4rem;
+  background: rgba(0, 171, 222, 0.1);
+
+}
+footer p {
+  color:  rgba(0, 0, 0, 1);
 
 }
 .footerDiv {
