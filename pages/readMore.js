@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { UseInformation } from "../utils/firebase/context/InformationContext";
 import Spinner from "../components/Spinner";
 import Description from "../components/Description";
-const readMore = () => {
+const ReadMore = () => {
   const { houseDescription } = UseInformation();
   useEffect(() => {
     AOS.init();
@@ -37,4 +37,4 @@ const readMore = () => {
   );
 };
 
-export default readMore;
+export default ReadMore;
