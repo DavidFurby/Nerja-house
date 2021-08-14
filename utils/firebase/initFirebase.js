@@ -7,27 +7,19 @@ import 'firebase/storage'
 import 'firebase/analytics'
 import 'firebase/performance'
 
-const clientCredentials = {
-    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-    authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-    databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL,
-    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-    storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-    appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-}
+var firebaseConfig = {
+    apiKey: "AIzaSyCLM_mIpoijNXrljWj0i9WNTBskunkDNc8",
+    authDomain: "nerjahome-a4486.firebaseapp.com",
+    projectId: "nerjahome-a4486",
+    storageBucket: "nerjahome-a4486.appspot.com",
+    messagingSenderId: "165010391934",
+    appId: "1:165010391934:web:a1a42b11c287b561dd292f",
+    measurementId: "G-B6P624Q9M3"
+  };
 
 export default function initFirebase() {
     if (!firebase.apps.length) {
-        firebase.initializeApp(clientCredentials)
-        // Check that `window` is in scope for the analytics module!
-        if (typeof window !== 'undefined') {
-            // Enable analytics. https://firebase.google.com/docs/analytics/get-started
-            if ('measurementId' in clientCredentials) {
-                firebase.analytics()
-                firebase.performance()
-            }
-        }
-        ('Firebase was successfully init.')
+        firebase.initializeApp(firebaseConfig)
+     
     }
 }
