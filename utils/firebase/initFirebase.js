@@ -7,8 +7,6 @@ import 'firebase/storage'
 import 'firebase/analytics'
 import 'firebase/performance'
 
-console.log(process.env.NEXT_PUBLIC_FIREBASE_API_KEY)
-console.log("AIzaSyCLM_mIpoijNXrljWj0i9WNTBskunkDNc8")
 var firebaseConfig = {
     apiKey: "AIzaSyCLM_mIpoijNXrljWj0i9WNTBskunkDNc8",
     authDomain: "nerjahome-a4486.firebaseapp.com",

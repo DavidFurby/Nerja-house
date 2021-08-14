@@ -25,17 +25,19 @@ const Admin = () => {
     month = ifSingleDigit(month);
     let day = minimumDate.getDate();
     day = ifSingleDigit(day);
+    console.log(day); 
     minimumDate = year + "-" + month + "-" + day;
-    console.log(minimumDate);
     setMinimumDate(minimumDate);
   };
+
   const ifSingleDigit = (number) => {
     if (number.toString().length < 2) {
       return 0 + number.toString();
     } else {
-      return;
+      return number;
     }
   };
+
   const handleNewBooking = (e) => {
     e.preventDefault();
 
