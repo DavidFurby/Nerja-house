@@ -27,7 +27,7 @@ const Admin = () => {
     day = ifSingleDigit(day);
     minimumDate = year + "-" + month + "-" + day;
     setMinimumDate(minimumDate);
-  });
+  }, []);
 
   const ifSingleDigit = (number) => {
     if (number.toString().length < 2) {
@@ -119,7 +119,7 @@ const Admin = () => {
     }, 2000);
 
  
-  }, [bookings, setDates]);
+  }, [bookings, setDates, currentDate, getMonthsForYear]);
   return (
     <>
       {!loading && currentUser ? (
