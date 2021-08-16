@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback} from "react";
 import { Calendar } from "../components/Calendar";
 import Spinner from "../components/Spinner";
 import { UseAuth } from "../utils/firebase/context/AuthContext";
@@ -18,7 +18,7 @@ const Admin = () => {
   let [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  const setDates = () => {
+  const setDates = useCallback(() => {
     let minimumDate = new Date();
     const year = minimumDate.getFullYear();
     let month = minimumDate.getMonth() + 1;
@@ -27,7 +27,7 @@ const Admin = () => {
     day = ifSingleDigit(day);
     minimumDate = year + "-" + month + "-" + day;
     setMinimumDate(minimumDate);
-  };
+  });
 
   const ifSingleDigit = (number) => {
     if (number.toString().length < 2) {
@@ -119,7 +119,7 @@ const Admin = () => {
     }, 2000);
 
  
-  }, [bookings]);
+  }, [bookings, setDates]);
   return (
     <>
       {!loading && currentUser ? (
