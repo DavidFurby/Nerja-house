@@ -10,7 +10,7 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
   let [loading, setLoading] = useState(true);
   let [] = useState("");
   let [currentYear, setCurrentYear] = useState(new Date().getFullYear());
-  let currentDate = useMemo(() => new Date());
+  let currentDate = useMemo(() => new Date(), []);
   const hasFetchedData = useRef(false);
 
   const monthNames = [
@@ -50,7 +50,7 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
     if (launch) {
       getCurrentMonth(monthList, date);
     }
-  }, []);
+  }, [getCurrentMonth]);
 
   const getCurrentMonth = (monthList, date) => {
     const currentDate = new Date().getMonth();
