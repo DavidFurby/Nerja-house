@@ -153,7 +153,7 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
     return function cleanup() {
       mounted = false;
     };
-  }, []);
+  }, [currentDate, getMonthsForYear]);
   return (
     <>
       {!loading ? (

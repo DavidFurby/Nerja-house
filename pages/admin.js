@@ -119,7 +119,7 @@ const Admin = () => {
     }, 2000);
 
  
-  }, [bookings, setDates, currentDate, getMonthsForYear]);
+  }, [bookings, setDates]);
   return (
     <>
       {!loading && currentUser ? (
