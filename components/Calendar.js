@@ -13,20 +13,23 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
   let currentDate = useMemo(() => new Date(), []);
   const hasFetchedData = useRef(false);
 
-  const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
+  const monthNames = useMemo(
+    () => [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ],
+    []
+  );
   const weekDays = ["mon", "tue", "wed", "thur", "fri", "sat", "sun"];
   const weeksInMonth = [1, 2, 3, 4, 5, 6];
 
@@ -55,22 +58,25 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
     [getCurrentMonth]
   );
 
-  const getCurrentMonth = useCallback((monthList, date) => {
-    const currentDate = new Date().getMonth();
-    for (let i = 0; i <= monthList.length; i++) {
-      if (currentDate === i) {
-        for (let j = 0; j <= monthNames.length; j++) {
-          if (j === currentDate) {
-            setCurrentMonth({
-              days: monthList[i].days,
-              monthName: monthNames[j],
-              monthNumber: date.getMonth(),
-            });
+  const getCurrentMonth = useCallback(
+    (monthList, date) => {
+      const currentDate = new Date().getMonth();
+      for (let i = 0; i <= monthList.length; i++) {
+        if (currentDate === i) {
+          for (let j = 0; j <= monthNames.length; j++) {
+            if (j === currentDate) {
+              setCurrentMonth({
+                days: monthList[i].days,
+                monthName: monthNames[j],
+                monthNumber: date.getMonth(),
+              });
+            }
           }
         }
       }
-    }
-  }, [monthNames]);
+    },
+    [monthNames]
+  );
 
   const handleChangeMonth = (selection) => {
     if (selection) {
