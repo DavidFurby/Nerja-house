@@ -30,29 +30,32 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
   const weekDays = ["mon", "tue", "wed", "thur", "fri", "sat", "sun"];
   const weeksInMonth = [1, 2, 3, 4, 5, 6];
 
-  const getMonthsForYear = useCallback (async (date, launch) => {
-    const currentYear = date.getFullYear();
-    let monthList = [];
-    for (let i = 0; i <= 12; i++) {
-      let date = new Date(currentYear, i + 1, 0);
-      let dayList = [];
-      for (let j = 1; j <= date.getDate(); j++) {
-        let currentDate = new Date(currentYear, i, j);
-        let day = currentDate.getDay();
-        let date = currentDate.getDate();
-        let year = currentDate.getFullYear();
-        let month = currentDate.getMonth();
-        dayList.push({ day, date, year, month });
+  const getMonthsForYear = useCallback(
+    async (date, launch) => {
+      const currentYear = date.getFullYear();
+      let monthList = [];
+      for (let i = 0; i <= 12; i++) {
+        let date = new Date(currentYear, i + 1, 0);
+        let dayList = [];
+        for (let j = 1; j <= date.getDate(); j++) {
+          let currentDate = new Date(currentYear, i, j);
+          let day = currentDate.getDay();
+          let date = currentDate.getDate();
+          let year = currentDate.getFullYear();
+          let month = currentDate.getMonth();
+          dayList.push({ day, date, year, month });
+        }
+        monthList.push({ month: date.getMonth(), days: dayList });
       }
-      monthList.push({ month: date.getMonth(), days: dayList });
-    }
-    setMonths(monthList);
-    if (launch) {
-      getCurrentMonth(monthList, date);
-    }
-  }, [getCurrentMonth]);
+      setMonths(monthList);
+      if (launch) {
+        getCurrentMonth(monthList, date);
+      }
+    },
+    [getCurrentMonth]
+  );
 
-  const getCurrentMonth = (monthList, date) => {
+  const getCurrentMonth = useCallback((monthList, date) => {
     const currentDate = new Date().getMonth();
     for (let i = 0; i <= monthList.length; i++) {
       if (currentDate === i) {
@@ -67,7 +70,8 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
         }
       }
     }
-  };
+  }, []);
+  
   const handleChangeMonth = (selection) => {
     if (selection) {
       if (currentMonth.monthNumber < 11) {
