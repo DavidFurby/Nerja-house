@@ -1,7 +1,7 @@
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import classes from "../styles/booking.module.css";
 
 export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
@@ -10,7 +10,7 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
   let [loading, setLoading] = useState(true);
   let [] = useState("");
   let [currentYear, setCurrentYear] = useState(new Date().getFullYear());
-  let currentDate = new Date();
+  let currentDate = useMemo(() => new Date());
   const hasFetchedData = useRef(false);
 
   const monthNames = [
@@ -30,7 +30,7 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
   const weekDays = ["mon", "tue", "wed", "thur", "fri", "sat", "sun"];
   const weeksInMonth = [1, 2, 3, 4, 5, 6];
 
-  const getMonthsForYear = async (date, launch) => {
+  const getMonthsForYear = useCallback (async (date, launch) => {
     const currentYear = date.getFullYear();
     let monthList = [];
     for (let i = 0; i <= 12; i++) {
@@ -50,7 +50,7 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
     if (launch) {
       getCurrentMonth(monthList, date);
     }
-  };
+  }, []);
 
   const getCurrentMonth = (monthList, date) => {
     const currentDate = new Date().getMonth();

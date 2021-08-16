@@ -103,7 +103,6 @@ const Admin = () => {
   };
 
   useEffect(() => {
-   console.log("object")
       AOS.init();
       AOS.refresh();
       if (!currentUser && !loading) {
@@ -119,7 +118,7 @@ const Admin = () => {
     }, 2000);
 
  
-  }, [bookings, setDates]);
+  }, [bookings, setDates,currentUser, loading, router]);
   return (
     <>
       {!loading && currentUser ? (
