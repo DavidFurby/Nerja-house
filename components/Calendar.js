@@ -70,8 +70,8 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
         }
       }
     }
-  }, []);
-  
+  }, [monthNames]);
+
   const handleChangeMonth = (selection) => {
     if (selection) {
       if (currentMonth.monthNumber < 11) {
