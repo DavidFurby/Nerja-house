@@ -39,8 +39,8 @@ const NavigationBar = () => {
         className={
           isMobile
             ? sidebar
-              ? `${classes.navMobile} ${classes.moveLeft}`
-              : classes.navMobile
+            ? `${classes.navMobile} ${classes.showSidebar}`
+            : `${classes.navMobile}`
             : classes.nav
         }
       >

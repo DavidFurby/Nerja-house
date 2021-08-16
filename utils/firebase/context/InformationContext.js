@@ -63,6 +63,7 @@ const UseInformation = () => {
       }
     }
   }
+
   useEffect(() => {
     let mounted = true;
     if(mounted) {
@@ -74,6 +75,7 @@ const UseInformation = () => {
       mounted = false; 
     }
   }, []);
+  
   return { frontPageImages, contactInformation, houseDescription };
 };
 

@@ -9,7 +9,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 
 const Admin = () => {
-  const hasFetchedData = useRef(false);
+
   let [startDate, setStartDate] = useState("");
   let [endDate, setEndDate] = useState("");
   let { addNewBooking, bookings } = UseBooking();
@@ -25,7 +25,6 @@ const Admin = () => {
     month = ifSingleDigit(month);
     let day = minimumDate.getDate();
     day = ifSingleDigit(day);
-    console.log(day); 
     minimumDate = year + "-" + month + "-" + day;
     setMinimumDate(minimumDate);
   };
@@ -104,26 +103,23 @@ const Admin = () => {
   };
 
   useEffect(() => {
-    let mounted = true;
-    if (mounted) {
+   console.log("object")
       AOS.init();
       AOS.refresh();
       if (!currentUser && !loading) {
         router.push("/");
       }
-      if (!hasFetchedData.current) {
-        setDates();
-        hasFetchedData.current = true;
-      }
-     
-    }
+   else {
+    setDates();
+
+   }
+
     setTimeout(() => {
       setLoading(false);
     }, 2000);
-    return () => {
-      mounted = false;
-    };
-  }, []);
+
+ 
+  }, [bookings]);
   return (
     <>
       {!loading && currentUser ? (
@@ -137,7 +133,7 @@ const Admin = () => {
             <form className={classes.bookingForm} onSubmit={handleNewBooking}>
               <section>
                 <label>
-                  start datum:
+                  start datum
                   <br />
                   <input
                     type="date"
@@ -150,7 +146,7 @@ const Admin = () => {
               </section>
               <div>
                 <label>
-                  slut datum:
+                  slut datum
                   <br />
                   <input
                     type="date"

@@ -21,8 +21,11 @@
   text-align: center;
 }
 
-.moveLeft {
+.showSidebar {
   animation: sidebarSlideIn 1s forwards;
+}
+.hideSidebar {
+  animation: sidebarSlideIn 1s forwards reverse;
 }
 
 .nav ul {
