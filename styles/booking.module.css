@@ -90,17 +90,14 @@
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-size: cover;
+        padding: 4rem;
+        overflow:hidden;
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 4rem;
+        
     }
 
-    .calendarContainer {
-        margin: 2rem;
 
-    }
 
     .information {
         display: none;

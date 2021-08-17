@@ -16,7 +16,7 @@ const ReadMore = () => {
     <>
       {houseDescription.text ? (
         <div className={readMoreStyle.container}>
-          <h1
+          <h1 
             data-aos="fade-in"
             data-aot-once="true"
             data-aos-delay="500"

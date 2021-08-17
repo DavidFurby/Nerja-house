@@ -1,8 +1,8 @@
 import Navbar from "./NavigationBar";
 import Head from "next/head";
 import Footer from "./Footer";
+import BackgroundShapes from "./backgroundShapes";
 const Layout = ({ children }) => {
-  
   return (
     <div className="content">
       <Head>
@@ -11,6 +11,7 @@ const Layout = ({ children }) => {
       </Head>
       <Navbar />
       {children}
+      <BackgroundShapes />
       <Footer />
     </div>
   );

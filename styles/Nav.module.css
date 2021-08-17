@@ -36,8 +36,10 @@
 }
 
 .nav ul li a {
-  padding: 2rem;
+  font-family: Grenadier;
 
+  padding: 2rem;
+  font-size: 2rem;
 }
 
 .linkButton:hover {

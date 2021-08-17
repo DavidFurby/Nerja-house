@@ -1,10 +1,11 @@
-import backgroundShapes from "../styles/backgroundShapes.module.css"
+import classes from "../styles/backgroundShapes.module.css";
 const BackgroundShapes = () => {
-    return (
-        <>
-
-        </>
-    )
-}
+  return (
+    <div style={{overflow: "hidden"}}>
+      <div className={classes.firstShape} />
+      <div className={classes.secondShape} />
+    </div>
+  );
+};
 
 export default BackgroundShapes;

@@ -14,7 +14,6 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-
   font-weight: 400;
   font-size: 1.3125rem;
   line-height: 1.5;
@@ -23,6 +22,7 @@ body {
   height: 100%;
 
 }
+
 
 footer {
   width: 100%;
@@ -40,6 +40,10 @@ footer {
 footer p {
   color:  rgba(0, 0, 0, 1);
 
+}
+@font-face {
+  font-family: Grenadier;
+  src: url("../fonts/grenadier/GrenadierNF.ttf")
 }
 .footerDiv {
   bottom: 0; 
