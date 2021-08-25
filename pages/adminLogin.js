@@ -52,7 +52,7 @@ const AdminLogin = () => {
   return (
     <>
       {!loading ? (
-        <div style={{padding: "4rem"}}>
+        <div style={{padding: "6rem", height: "90vh"}}>
           <form
             onSubmit={submitLogin}
             style={{

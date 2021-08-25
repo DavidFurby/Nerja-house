@@ -6,7 +6,6 @@ export default function Water() {
     <div className={classes.waveDiv}>
       <div className={classes.wave}/>
       <div className={classes.wave}/>
-      <div className={classes.waveEffect}/>
     </div>
   );
 }

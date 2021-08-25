@@ -6,16 +6,16 @@ const Footer = () => {
   return (
     <>
       {contactInformation.length > 0 ? (
-        <div className="footerDiv">
+     
           <footer>
             <p>Email: {contactInformation[0].email}     
             <br/>  Mobil: {contactInformation[0].phone}
             <br/>
               {contactInformation[0].phoneSecondary}</p>
-      
+              <Water />
+
           </footer>
-          <Water />
-        </div>
+    
       ) : null}
     </>
   );

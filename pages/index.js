@@ -25,7 +25,6 @@ const Home = () => {
   }
   const {firstName: name, age} = person;
 
-  console.log(person)
   useEffect(() => {
     let mounted = true;
 
@@ -33,7 +32,10 @@ const Home = () => {
       AOS.init();
       AOS.refresh();
       getMobileState();
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 200);
+  
     }
 
     return function cleanup() {
