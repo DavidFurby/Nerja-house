@@ -1,6 +1,7 @@
 .calendarContainer {
     margin: 2rem;
     color: white;
+    background-color: white;
     border-radius: 2rem;
     width: fit-content;
     color: black;
@@ -94,7 +95,7 @@
         overflow:hidden;
         display: flex;
         flex-direction: column;
-        
+
     }
 
 

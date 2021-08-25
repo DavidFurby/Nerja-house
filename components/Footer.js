@@ -10,6 +10,7 @@ const Footer = () => {
           <footer>
             <p>Email: {contactInformation[0].email}     
             <br/>  Mobil: {contactInformation[0].phone}
+            <br/>
               {contactInformation[0].phoneSecondary}</p>
       
           </footer>

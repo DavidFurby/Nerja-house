@@ -17,6 +17,15 @@ const Home = () => {
     }
   };
 
+
+  const person = {
+    firstName: 'test',
+    actor: true,
+    age: 54
+  }
+  const {firstName: name, age} = person;
+
+  console.log(person)
   useEffect(() => {
     let mounted = true;
 

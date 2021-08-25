@@ -9,12 +9,16 @@ const NavigationBar = () => {
   let { currentUser, logout } = UseAuth();
   let [sidebar, setSidebar] = useState(false);
   let [isMobile, setIsMobile] = useState();
-
+  let [activeNav, setActiveNav] = useState("home");
   const getMobileState = () => {
     let mobileTemp = window.matchMedia("(max-width: 600px)");
     if (mobileTemp) {
       setIsMobile(mobileTemp.matches);
     }
+  };
+  const handleNavigation = (sidebarState, activeNav) => {
+    setActiveNav(activeNav);
+    setSidebar(sidebarState);
   };
   useEffect(() => {
     getMobileState();
@@ -39,15 +43,15 @@ const NavigationBar = () => {
         className={
           isMobile
             ? sidebar
-            ? `${classes.navMobile} ${classes.showSidebar}`
-            : `${classes.navMobile}`
+              ? `${classes.navMobile} ${classes.showSidebar}`
+              : `${classes.navMobile}`
             : classes.nav
         }
       >
         {isMobile ? (
           <button
             className="button"
-            style={{ position: "absolute", top: "0", left: "0"}}
+            style={{ position: "absolute", top: "0", left: "0" }}
             onClick={() => setSidebar(!sidebar)}
           >
             <FontAwesomeIcon icon={faTimes} />
@@ -55,24 +59,39 @@ const NavigationBar = () => {
         ) : null}
 
         <ul>
-          <li className={classes.linkButton} onClick={() => setSidebar(!sidebar)}>
+          <li
+            className={classes.linkButton}
+            onClick={() => handleNavigation(!sidebar, "home")}
+          >
             <Link href="/">Nerja hus</Link>
           </li>
 
-          <li className={classes.linkButton} onClick={() => setSidebar(!sidebar)}>
+          <li
+            className={classes.linkButton}
+            onClick={() => handleNavigation(!sidebar, "bookings")}
+          >
             <Link href="/booking">Se tider</Link>
           </li>
-          <li className={classes.linkButton} onClick={() => setSidebar(!sidebar)}>
+          <li
+            className={classes.linkButton}
+            onClick={() => handleNavigation(!sidebar, "readMore")}
+          >
             <Link href="/readMore">Läs mer</Link>
           </li>
         </ul>
         {currentUser ? (
           <ul>
-            <li className={classes.linkButton} onClick={() => setSidebar(!sidebar)}>
+            <li
+              className={classes.linkButton}
+              onClick={() => handleNavigation(!sidebar, "admin")}
+            >
               <Link href="/admin">admin-sida</Link>
             </li>
             <li>
-              <button className="button" onClick={() => logout() && setSidebar(!sidebar)}>
+              <button
+                className="button"
+                onClick={() => logout() && setSidebar(!sidebar)}
+              >
                 Logga ut
               </button>
             </li>
