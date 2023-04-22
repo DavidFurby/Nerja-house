@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 const NavigationBar = () => {
   let { currentUser, logout } = UseAuth();
   let [sidebar, setSidebar] = useState(false);
-  let [isMobile, setIsMobile] = useState();
+  let [isMobile, setIsMobile] = useState(true);
   let [activeNav, setActiveNav] = useState("home");
   const getMobileState = () => {
     let mobileTemp = window.matchMedia("(max-width: 600px)");

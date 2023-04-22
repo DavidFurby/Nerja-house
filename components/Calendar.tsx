@@ -5,7 +5,7 @@ import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import classes from "../styles/booking.module.css";
 
 export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
-  let [currentMonth, setCurrentMonth] = useState();
+  let [currentMonth, setCurrentMonth] = useState(new Date());
   let [months, setMonths] = useState([]);
   let [loading, setLoading] = useState(true);
   let [] = useState("");
@@ -51,64 +51,24 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
         monthList.push({ month: date.getMonth(), days: dayList });
       }
       setMonths(monthList);
-      if (launch) {
-        getCurrentMonth(monthList, date);
-      }
     },
-    [getCurrentMonth]
+    []
   );
 
-  const getCurrentMonth = useCallback(
-    (monthList, date) => {
-      const currentDate = new Date().getMonth();
-      for (let i = 0; i <= monthList.length; i++) {
-        if (currentDate === i) {
-          for (let j = 0; j <= monthNames.length; j++) {
-            if (j === currentDate) {
-              setCurrentMonth({
-                days: monthList[i].days,
-                monthName: monthNames[j],
-                monthNumber: date.getMonth(),
-              });
-            }
-          }
-        }
-      }
-    },
-    [monthNames]
-  );
-
-  const handleChangeMonth = (selection) => {
+  const handleChangeMonth = (selection: boolean) => {
     if (selection) {
-      if (currentMonth.monthNumber < 11) {
-        setCurrentMonth({
-          monthName: monthNames[currentMonth.monthNumber + 1],
-          monthNumber: currentMonth.monthNumber + 1,
-          days: months[currentMonth.monthNumber + 1].days,
-        });
+      if (currentMonth.getMonth() < 11) {
+        setCurrentMonth(currentMonth);
       } else {
-        setCurrentMonth({
-          monthName: monthNames[0],
-          monthNumber: 0,
-          days: months[0].days,
-        });
         setCurrentYear(currentYear + 1);
         let newYear = new Date(currentYear + 1, 0, 1);
         getMonthsForYear(newYear, false);
       }
     } else {
-      if (currentMonth.monthNumber > 0) {
-        setCurrentMonth({
-          monthName: monthNames[currentMonth.monthNumber - 1],
-          monthNumber: currentMonth.monthNumber - 1,
-          days: months[currentMonth.monthNumber - 1].days,
-        });
+      if (currentMonth.getMonth() > 0) {
+        setCurrentMonth(currentMonth);
       } else {
-        setCurrentMonth({
-          monthName: monthNames[11],
-          monthNumber: 11,
-          days: months[11].days,
-        });
+        setCurrentMonth(currentMonth);
         setCurrentYear(currentYear - 1);
         let pastYear = new Date(currentYear - 1, 12, 0);
         getMonthsForYear(pastYear, false);
@@ -116,16 +76,16 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
     }
   };
   const setEmptyDates = () => {
-    const daysInMonth = months[currentMonth.monthNumber].days;
+    const daysInMonth = months[currentMonth.getMonth()].days;
     let dayList = [];
     for (let i = 0; i < daysInMonth.length; i++) {
       const fillerPositions = daysInMonth[i].day === 0 ? 6 : daysInMonth[i].day;
       if (i === 0 && daysInMonth[i].day !== 1) {
         for (let j = 0; j < fillerPositions; j++) {
           const prevMonth =
-            currentMonth.monthNumber === 0
-              ? months[currentMonth.monthNumber + 11].days
-              : months[currentMonth.monthNumber - 1].days;
+            currentMonth.getMonth() === 0
+              ? months[currentMonth.getMonth() + 11].days
+              : months[currentMonth.getMonth() - 1].days;
           dayList.push(prevMonth[prevMonth.length - fillerPositions + j]);
         }
         dayList.push(daysInMonth[i]);
@@ -133,7 +93,7 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
         dayList.push(daysInMonth[i]);
         const remainingDays = 7 - daysInMonth[i].day;
         for (let t = 0; t <= remainingDays; t++) {
-          const nextMonth = months[currentMonth.monthNumber + 1].days;
+          const nextMonth = months[currentMonth.getMonth() + 1].days;
           dayList.push(nextMonth[t]);
           if (t === remainingDays && nextMonth[t].day !== 6) {
             for (let r = 1; r <= 7 - nextMonth[t].day; r++) {
@@ -175,7 +135,7 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
             <button className="button" onClick={() => handleChangeMonth(false)}>
               <FontAwesomeIcon icon={faArrowLeft} />
             </button>
-            <h2 style={{ fontWeight: "lighter" }}>{currentMonth.monthName}</h2>
+            <h2 style={{ fontWeight: "lighter" }}>{currentMonth.getMonth()}</h2>
             <button className="button" onClick={() => handleChangeMonth(true)}>
               <FontAwesomeIcon icon={faArrowRight} />
             </button>
@@ -194,7 +154,7 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
             </thead>
             <tbody>
               {weeksInMonth.map((weekDay, index) => {
-                const dayList = setEmptyDates(weekDay);
+                const dayList = setEmptyDates();
                 const sliceDaysInWeeks = dayList.slice(
                   index === 0 ? 0 : 7 * index,
                   index === 0 ? 7 : 7 * index + 7
