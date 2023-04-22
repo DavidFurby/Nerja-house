@@ -58,7 +58,7 @@ const Admin = () => {
       }
       const booking = { from, to };
       addNewBooking(booking);
-      alert("bokning lagd");
+      alert("bokning placerad");
     } else {
       alert("måste ange ett datum för start och slut av bokning");
     }
