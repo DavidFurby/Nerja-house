@@ -7,13 +7,13 @@ import { useState, useEffect } from "react";
 initFirebase();
 
 const UseAuth = () => {
-  const [currentUser, setCurrentUser] = useState();
+  const [currentUser, setCurrentUser] = useState({});
   async function logout() {
     try {
       await firebase.auth().signOut();
-      setCurrentUser();
+      setCurrentUser({});
     } catch (error) {
-      "Something went wrong: ", error.message;
+     error.message;
     }
   }
 

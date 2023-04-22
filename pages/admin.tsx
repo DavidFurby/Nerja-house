@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useState, useRef, useCallback} from "react";
+import React, { useEffect, useState, useCallback} from "react";
 import { Calendar } from "../components/Calendar";
 import Spinner from "../components/Spinner";
 import { UseAuth } from "../utils/firebase/context/AuthContext";
@@ -25,7 +25,6 @@ const Admin = () => {
     month = ifSingleDigit(month);
     let day = minimumDate.getDate();
     day = ifSingleDigit(day);
-    minimumDate = year + "-" + month + "-" + day;
     setMinimumDate(minimumDate);
   }, []);
 
