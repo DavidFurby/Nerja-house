@@ -1,8 +1,7 @@
-import { Calendar } from "../components/Calendar";
+import { Calendar } from "../components/calendar";
 import { UseBooking } from "../utils/firebase/context/BookingContext";
 import classes from "../styles/booking.module.css";
 import React, { useEffect, useState } from "react";
-import Spinner from "../components/spinner";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -13,7 +12,7 @@ const Booking = () => {
   const getDatesBetweenRentedDays = (from: Date, to: Date) => {
     const dates = [];
     let currentDate = from;
-    const addDays = function (days) {
+    const addDays = function(days) {
       const date = new Date(this.valueOf());
       date.setDate(date.getDate() + days);
       return date;
@@ -66,9 +65,7 @@ const Booking = () => {
             />
           </section>
         </div>
-      ) : (
-        <Spinner />
-      )}
+      ) : null}
     </>
   );
 };

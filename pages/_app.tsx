@@ -3,7 +3,7 @@ import Layout from "../components/layout";
 import "../styles/globals.css";
 import ScreenContext from "../utils/context/ScreenContext";
 function MyApp({ Component, pageProps }) {
-  let [isMobile, setIsMobile] = useState(false);
+  let [isMobile, setIsMobile] = useState(null);
   const getMobileState = () => {
     let mobileTemp = window.matchMedia("(max-width: 800px)");
     if (mobileTemp) {

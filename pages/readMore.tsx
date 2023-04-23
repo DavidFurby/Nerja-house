@@ -3,8 +3,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
 import { UseInformation } from "../utils/firebase/context/InformationContext";
-import Spinner from "../components/spinner";
-import Description from "../components/Description";
+import Description from "../components/description";
 const ReadMore = () => {
   const { houseDescription } = UseInformation();
   useEffect(() => {
@@ -16,7 +15,7 @@ const ReadMore = () => {
     <>
       {houseDescription.text ? (
         <div className={readMoreStyle.container}>
-          <h1 
+          <h1
             data-aos="fade-in"
             data-aot-once="true"
             data-aos-delay="500"
@@ -24,15 +23,17 @@ const ReadMore = () => {
           >
             {houseDescription.title}
           </h1>
-          <h4   data-aos="fade-in"
+          <h4
+            data-aos="fade-in"
             data-aot-once="true"
             data-aos-delay="600"
-            data-aos-duration="2000">{houseDescription.subTitle}</h4>
-          <Description  desc={houseDescription.text}/>
+            data-aos-duration="2000"
+          >
+            {houseDescription.subTitle}
+          </h4>
+          <Description desc={houseDescription.text} />
         </div>
-      ) : (
-        <Spinner />
-      )}
+      ) : null}
     </>
   );
 };

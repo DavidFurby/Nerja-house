@@ -1,5 +1,6 @@
 .nav {
-  background: rgb(255, 255, 255);
+  background: rgba(18, 17, 17, 0.9);
+  color: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -11,18 +12,17 @@
 }
 
 .navMobile {
-  background: rgb(74, 72, 72);
+  background: rgba(18, 17, 17, 0.9);
   color: white;
   position: fixed;
   top: 0;
   left: -25rem;
   height: 100%;
   z-index: 1000;
-  opacity: 0.9;
   display: flex;
   flex-flow: column;
   justify-content: space-between;
-  text-align: center;
+  text-align: left;
 }
 
 .showSidebar {
@@ -46,26 +46,31 @@
   padding: 1rem;
   font-size: 2rem;
 }
+
 .linkButton {
   border-bottom: 2px solid;
   border-color: transparent;
 }
-.linkButton:hover {
-  border-bottom: 2px solid #9CD4E1;
 
+.linkButton:hover {
+  color: rgb(128, 128, 128);
 }
 
-@media (max-width: 600px) {
+.linkButton:active {
+  color: rgb(128, 128, 128);
+}
+
+@media (max-width: 800px) {
 
 
   .navMobile ul {
     list-style: none;
-    padding: 2rem;
+    padding: 1rem;
   }
 
   .navMobile li {
-    padding-top: 2rem;
-    padding-right: 2rem;
+    padding-top: 1rem;
+    padding-right: 1rem;
   }
 
 }

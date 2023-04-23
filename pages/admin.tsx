@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState, useCallback} from "react";
-import { Calendar } from "../components/Calendar";
-import Spinner from "../components/spinner";
+import { Calendar } from "../components/calendar";
 import { UseAuth } from "../utils/firebase/context/AuthContext";
 import { UseBooking } from "../utils/firebase/context/BookingContext";
 import classes from "../styles/booking.module.css";
@@ -66,7 +65,7 @@ const Admin = () => {
     }
   };
 
-  const getDatesBetweenRentedDays = (from:  Date, to: Date) => {
+  const getDatesBetweenRentedDays = (from: Date, to: Date) => {
     const dates = [];
     let currentDate = from;
     if (from !== to) {
@@ -147,9 +146,7 @@ const Admin = () => {
             />
           </section>
         </div>
-      ) : (
-        <Spinner />
-      )}
+      ) : null}
     </>
   );
 };

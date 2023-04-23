@@ -3,7 +3,7 @@ import classes from "../styles/nav_bar.module.css";
 import { UseAuth } from "../utils/firebase/context/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
-import { useState, useContext } from "react";
+import { useState, useContext, useRef } from "react";
 import ScreenContext from "../utils/context/ScreenContext";
 const DrawerButton = ({ sidebar, setSidebar }) => {
   return (
@@ -22,12 +22,20 @@ const DrawerButton = ({ sidebar, setSidebar }) => {
 };
 const NavBar = ({ isMobile, sidebar, setSidebar }) => {
   let { currentUser, logout } = UseAuth();
-
+  console.log(currentUser);
   const handleNavigation = (
-    sidebarState: boolean | ((prevState: boolean) => boolean)
+    sidebarState: boolean | ((prevState: boolean) => boolean),
+    section: undefined
   ) => {
+    if (section != null) {
+      console.log(section);
+      const target = document.querySelector(`#${section}`);
+      target.scrollIntoView({ behavior: "smooth" });
+    }
+
     setSidebar(sidebarState);
   };
+
   return (
     <nav
       className={
@@ -41,7 +49,7 @@ const NavBar = ({ isMobile, sidebar, setSidebar }) => {
       {isMobile ? (
         <button
           className="button"
-          style={{ top: "0", left: "0"}}
+          style={{ top: "0", left: "0" }}
           onClick={() => setSidebar(!sidebar)}
         >
           <FontAwesomeIcon icon={faTimes} />
@@ -49,17 +57,25 @@ const NavBar = ({ isMobile, sidebar, setSidebar }) => {
       ) : null}
 
       <ul>
-        <NavItem name={"Nerja hus"} href={"/"} />
-        <NavItem name={"Se tider"} href={"/booking"} />
-        <NavItem name={"Läs mer"} href={"/readMore"} />
+        <NavItem name={"Nerja hus"} section={"cards"} link={"/"} />
+        <NavItem name={"Se tider"} section={"booking"} link={"/"} />
+        <NavItem name={"Läs mer"} section={"readMore"} link={"/"} />
       </ul>
       {currentUser ? (
         <ul>
-          <NavItem name={"Admin"} href={"/admin"} />
+          <li
+            className={classes.linkButton}
+            onClick={() => handleNavigation(!sidebar, null)}
+          >
+            <Link href={"/admin"}>Admin</Link>
+          </li>
           <li>
             <button
               className="button"
-              onClick={() => logout() && setSidebar(!sidebar)}
+              onClick={() => {
+                logout();
+                setSidebar(!sidebar);
+              }}
             >
               Logga ut
             </button>
@@ -68,13 +84,13 @@ const NavBar = ({ isMobile, sidebar, setSidebar }) => {
       ) : null}
     </nav>
   );
-  function NavItem({ name, href }) {
+  function NavItem({ name, section, link }) {
     return (
       <li
         className={classes.linkButton}
-        onClick={() => handleNavigation(!sidebar)}
+        onClick={() => handleNavigation(!sidebar, section)}
       >
-        <Link href={href}>{name}</Link>
+        <a> {name}</a>
       </li>
     );
   }
@@ -82,14 +98,14 @@ const NavBar = ({ isMobile, sidebar, setSidebar }) => {
 const NavigationBar = () => {
   const isMobile = useContext(ScreenContext);
   let [sidebar, setSidebar] = useState(false);
-  return (
+  return isMobile !== null ? (
     <>
       {isMobile ? (
         <DrawerButton sidebar={sidebar} setSidebar={setSidebar} />
       ) : null}
       <NavBar sidebar={sidebar} setSidebar={setSidebar} isMobile={isMobile} />
     </>
-  );
+  ) : null;
 };
 
 export default NavigationBar;

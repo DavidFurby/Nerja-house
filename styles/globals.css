@@ -33,7 +33,8 @@ footer {
   align-items: flex-end; 
   padding-right: 4rem;
   padding-left: 4rem;
-  background: rgb(74, 72, 72);
+  margin-top: auto;
+  background: rgba(18, 17, 17, 0.9);
   overflow: hidden;
 }
 footer p {
@@ -50,7 +51,7 @@ content {
 
 
 .button {
-  background-color: #00ABDE; 
+  background-color: #00aade96; 
   border: none;
   color: white;
   padding: 10px 30px;
@@ -63,7 +64,7 @@ content {
 }
 
 .button:active {
-  background-color: #00aadeed; 
+  background-color: #00aade81; 
 
 }
 .button:hover {

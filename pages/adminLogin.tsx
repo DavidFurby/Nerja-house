@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-import Spinner from "../components/spinner";
 import { UseAuth } from "../utils/firebase/context/AuthContext";
 
 const AdminLogin = () => {
@@ -17,7 +16,7 @@ const AdminLogin = () => {
     return { valid: true };
   };
 
-  const submitLogin = async (e) => {
+  const submitLogin = async (e: { preventDefault: () => void; }) => {
     setLoading(true);
     e.preventDefault();
     const passwordResult = checkPassword();
@@ -84,8 +83,7 @@ const AdminLogin = () => {
             <input className="button" type="submit" value="Logga in" />
           </form>
         </div>
-      ) : (
-        <Spinner />
+      ) : (null
       )}
     </>
   );

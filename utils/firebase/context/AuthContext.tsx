@@ -7,17 +7,18 @@ import { useState, useEffect } from "react";
 initFirebase();
 
 const UseAuth = () => {
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState(null);
+
   async function logout() {
     try {
-      await firebase.auth().signOut();
-      setCurrentUser({});
+      var res = await firebase.auth().signOut();
+      setCurrentUser(null);
     } catch (error) {
-     error.message;
+      error.message;
     }
   }
 
-  const login = async (email, password) => {
+  const login = async (email: string, password: string) => {
     if (email && password) {
       try {
         const response = await firebase
@@ -43,22 +44,20 @@ const UseAuth = () => {
   };
 
   useEffect(() => {
-
-      const unsubscribe = () => {
-        firebase.auth().onAuthStateChanged(async (user) => {
-          if (user) {
-            const userStatus = await user.getIdTokenResult();
-            userStatus.claims;
-            setCurrentUser({
-              email: userStatus.claims.email,
-            });
-          } else {
-            logout();
-          }
-        });
-      };
-      unsubscribe();
-  
+    const unsubscribe = () => {
+      firebase.auth().onAuthStateChanged(async (user) => {
+        if (user) {
+          const userStatus = await user.getIdTokenResult();
+          userStatus.claims;
+          setCurrentUser({
+            email: userStatus.claims.email,
+          });
+        } else {
+          logout();
+        }
+      });
+    };
+    unsubscribe();
 
     return () => unsubscribe();
   }, []);
