@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-import Spinner from "../components/Spinner";
+import Spinner from "../components/spinner";
 import { UseAuth } from "../utils/firebase/context/AuthContext";
 
 const AdminLogin = () => {

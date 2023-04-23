@@ -3,7 +3,7 @@ import "firebase/firestore";
 import { useState, useEffect } from "react";
 
 const UseBooking = () => {
-  let [bookings, setBookings] = useState();
+  let [bookings, setBookings] = useState([]);
 
   const fetchBookings = async () => {
     const dates = await firebase.firestore().collection("bookedDates").get();

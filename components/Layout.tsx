@@ -1,4 +1,4 @@
-import Navbar from "./NavigationBar";
+import Navbar from "./navigation_bar";
 import Head from "next/head";
 import Footer from "./Footer";
 import BackgroundShapes from "./backgroundShapes";

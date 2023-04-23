@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState, useCallback} from "react";
 import { Calendar } from "../components/Calendar";
-import Spinner from "../components/Spinner";
+import Spinner from "../components/spinner";
 import { UseAuth } from "../utils/firebase/context/AuthContext";
 import { UseBooking } from "../utils/firebase/context/BookingContext";
 import classes from "../styles/booking.module.css";
@@ -9,23 +9,19 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 
 const Admin = () => {
-
-  let [startDate, setStartDate] = useState("");
-  let [endDate, setEndDate] = useState("");
+  let [startDate, setStartDate] = useState(new Date());
+  let [endDate, setEndDate] = useState(new Date());
   let { addNewBooking, bookings } = UseBooking();
-  let [minimumDate, setMinimumDate] = useState("");
   let { currentUser } = UseAuth();
   let [loading, setLoading] = useState(true);
   const router = useRouter();
 
   const setDates = useCallback(() => {
     let minimumDate = new Date();
-    const year = minimumDate.getFullYear();
     let month = minimumDate.getMonth() + 1;
     month = ifSingleDigit(month);
     let day = minimumDate.getDate();
     day = ifSingleDigit(day);
-    setMinimumDate(minimumDate);
   }, []);
 
   const ifSingleDigit = (number) => {
@@ -36,38 +32,28 @@ const Admin = () => {
     }
   };
 
-  const handleNewBooking = (e) => {
+  const handleNewBooking = (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    if (startDate.length && endDate.length) {
-      const from = toDateType(startDate);
-      const to = toDateType(endDate);
-
+    if (startDate != null && endDate != null) {
       for (let i = 0; i < bookings.length; i++) {
         const rentedDates = getDatesBetweenRentedDays(
           bookings[i].from,
           bookings[i].to
         );
         if (
-          rentedDates[i].getTime() === from.getTime() ||
-          rentedDates[i].getTime() === to.getTime()
+          rentedDates[i].getTime() === startDate.getTime() ||
+          rentedDates[i].getTime() === endDate.getTime()
         ) {
           return alert("tid redan bokad");
         }
       }
-      const booking = { from, to };
+      const booking = { startDate, endDate };
       addNewBooking(booking);
       alert("bokning placerad");
     } else {
       alert("måste ange ett datum för start och slut av bokning");
     }
-  };
-
-  const toDateType = (date) => {
-    let year = date.slice(0, 4);
-    let month = date.slice(5, 7);
-    let day = date.slice(8, 11);
-    return new Date(year, month - 1, day);
   };
   const handleChangeDate = (date, type) => {
     date = date.target.value;
@@ -84,7 +70,7 @@ const Admin = () => {
     const dates = [];
     let currentDate = from;
     if (from.getTime() !== to.getTime()) {
-      const addDays = function (days) {
+      const addDays = function(days) {
         const date = new Date(this.valueOf());
         date.setDate(date.getDate() + days);
         return date;
@@ -102,22 +88,18 @@ const Admin = () => {
   };
 
   useEffect(() => {
-      AOS.init();
-      AOS.refresh();
-      if (!currentUser && !loading) {
-        router.push("/");
-      }
-   else {
-    setDates();
-
-   }
+    AOS.init();
+    AOS.refresh();
+    if (!currentUser && !loading) {
+      router.push("/");
+    } else {
+      setDates();
+    }
 
     setTimeout(() => {
       setLoading(false);
     }, 2000);
-
- 
-  }, [bookings, setDates,currentUser, loading, router]);
+  }, [bookings, setDates, currentUser, loading, router]);
   return (
     <>
       {!loading && currentUser ? (
@@ -135,9 +117,7 @@ const Admin = () => {
                   <br />
                   <input
                     type="date"
-                    min={minimumDate}
-                    max={endDate}
-                    value={startDate}
+                    value={startDate.toString()}
                     onChange={(startDate) => handleChangeDate(startDate, true)}
                   />
                 </label>
@@ -148,8 +128,7 @@ const Admin = () => {
                   <br />
                   <input
                     type="date"
-                    min={startDate ? startDate : minimumDate}
-                    value={endDate}
+                    value={endDate.toString()}
                     onChange={(endDate) => handleChangeDate(endDate, false)}
                   />
                 </label>

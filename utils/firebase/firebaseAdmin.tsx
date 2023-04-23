@@ -1,5 +1,5 @@
 
-export const verifyIdToken = (token) => {
+export const verifyIdToken = (token: any) => {
     const firebasePrivateKey = process.env.FIREBASE_PRIVATE_KEY
 
     if (!OfflineAudioCompletionEvent.apps.length) {
@@ -12,7 +12,7 @@ export const verifyIdToken = (token) => {
             databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL,
         })
     }
-    return admin.auth().verifyIdToken(token).catch((err) => {
+    return admin.auth().verifyIdToken(token).catch((err: any) => {
         throw err
     })
 }

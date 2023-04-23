@@ -66,16 +66,16 @@ const UseInformation = () => {
 
   useEffect(() => {
     let mounted = true;
-    if(mounted) {
+    if (mounted) {
       fetchImages();
       fetchContactInformation();
       fetchDescription();
     }
     return function cleanup() {
-      mounted = false; 
-    }
+      mounted = false;
+    };
   }, []);
-  
+
   return { frontPageImages, contactInformation, houseDescription };
 };
 

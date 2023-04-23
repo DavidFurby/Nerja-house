@@ -1,29 +1,24 @@
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect, useState } from "react";
-import Spinner from "../components/Spinner";
-import FrontPageCards from "../components/FrontPageCards";
+import Spinner from "../components/spinner";
+import FrontPageCards from "../components/front_page_card";
 import { UseInformation } from "../utils/firebase/context/InformationContext";
 
 const Home = () => {
   let [loading, setLoading] = useState(true);
   const { frontPageImages } = UseInformation();
-  let [isMobile, setIsMobile] = useState();
+  let [isMobile, setIsMobile] = useState(undefined);
 
   const getMobileState = () => {
-    let mobileTemp = window.matchMedia("(max-width: 600px)");
+    let mobileTemp = window.matchMedia("(max-width: 800px)");
     if (mobileTemp) {
       setIsMobile(mobileTemp.matches);
     }
   };
-
-
-  const person = {
-    firstName: 'test',
-    actor: true,
-    age: 54
-  }
-  const {firstName: name, age} = person;
+  useEffect(() => {
+    window.addEventListener("resize", getMobileState);
+  });
 
   useEffect(() => {
     let mounted = true;
@@ -35,7 +30,6 @@ const Home = () => {
       setTimeout(() => {
         setLoading(false);
       }, 200);
-  
     }
 
     return function cleanup() {
@@ -46,7 +40,7 @@ const Home = () => {
     <>
       {!loading ? (
         <div>
-          <FrontPageCards images={frontPageImages} isMobile={isMobile}/>
+          <FrontPageCards images={frontPageImages} isMobile={isMobile} />
         </div>
       ) : (
         <Spinner />

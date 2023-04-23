@@ -3,7 +3,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
 import { UseInformation } from "../utils/firebase/context/InformationContext";
-import Spinner from "../components/Spinner";
+import Spinner from "../components/spinner";
 import Description from "../components/Description";
 const ReadMore = () => {
   const { houseDescription } = UseInformation();

@@ -1,4 +1,4 @@
-import Water from "./Water";
+import Water from "./water";
 import { UseInformation } from "../utils/firebase/context/InformationContext";
 
 const Footer = () => {
@@ -6,16 +6,14 @@ const Footer = () => {
   return (
     <>
       {contactInformation.length > 0 ? (
-     
-          <footer>
-            <p>Email: {contactInformation[0].email}     
-            <br/>  Mobil: {contactInformation[0].phone}
-            <br/>
-              {contactInformation[0].phoneSecondary}</p>
-              <Water />
-
-          </footer>
-    
+        <footer>
+          <p>
+            Email: {contactInformation[0].email}
+            <br /> Mobil: {contactInformation[0].phone}
+            <br />
+            {contactInformation[0].phoneSecondary}
+          </p>
+        </footer>
       ) : null}
     </>
   );

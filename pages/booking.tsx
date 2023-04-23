@@ -2,7 +2,7 @@ import { Calendar } from "../components/Calendar";
 import { UseBooking } from "../utils/firebase/context/BookingContext";
 import classes from "../styles/booking.module.css";
 import React, { useEffect, useState } from "react";
-import Spinner from "../components/Spinner";
+import Spinner from "../components/spinner";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
