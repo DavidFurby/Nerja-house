@@ -10,7 +10,7 @@ const Booking = () => {
   let { bookings } = UseBooking();
   let [loading, setLoading] = useState(true);
 
-  const getDatesBetweenRentedDays = (from, to) => {
+  const getDatesBetweenRentedDays = (from: Date, to: Date) => {
     const dates = [];
     let currentDate = from;
     const addDays = function (days) {

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import classes from "../styles/Nav.module.css";
+import classes from "../styles/nav_bar.module.css";
 import { UseAuth } from "../utils/firebase/context/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -41,7 +41,7 @@ const NavBar = ({ isMobile, sidebar, setSidebar }) => {
       {isMobile ? (
         <button
           className="button"
-          style={{ position: "absolute", top: "0", left: "0" }}
+          style={{ top: "0", left: "0"}}
           onClick={() => setSidebar(!sidebar)}
         >
           <FontAwesomeIcon icon={faTimes} />

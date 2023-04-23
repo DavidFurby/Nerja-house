@@ -1,4 +1,4 @@
-import readMoreStyle from "../styles/readMore.module.css";
+import readMoreStyle from "../styles/read_more.module.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";

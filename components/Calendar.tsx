@@ -12,48 +12,27 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
   let [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   let currentDate = useMemo(() => new Date(), []);
   const hasFetchedData = useRef(false);
-
-  const monthNames = useMemo(
-    () => [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ],
-    []
-  );
   const weekDays = ["mon", "tue", "wed", "thur", "fri", "sat", "sun"];
   const weeksInMonth = [1, 2, 3, 4, 5, 6];
 
-  const getMonthsForYear = useCallback(
-    async (date, launch) => {
-      const currentYear = date.getFullYear();
-      let monthList = [];
-      for (let i = 0; i <= 12; i++) {
-        let date = new Date(currentYear, i + 1, 0);
-        let dayList = [];
-        for (let j = 1; j <= date.getDate(); j++) {
-          let currentDate = new Date(currentYear, i, j);
-          let day = currentDate.getDay();
-          let date = currentDate.getDate();
-          let year = currentDate.getFullYear();
-          let month = currentDate.getMonth();
-          dayList.push({ day, date, year, month });
-        }
-        monthList.push({ month: date.getMonth(), days: dayList });
+  const getMonthsForYear = useCallback(async (date, launch) => {
+    const currentYear = date.getFullYear();
+    let monthList = [];
+    for (let i = 0; i <= 12; i++) {
+      let date = new Date(currentYear, i + 1, 0);
+      let dayList = [];
+      for (let j = 1; j <= date.getDate(); j++) {
+        let currentDate = new Date(currentYear, i, j);
+        let day = currentDate.getDay();
+        let date = currentDate.getDate();
+        let year = currentDate.getFullYear();
+        let month = currentDate.getMonth();
+        dayList.push({ day, date, year, month });
       }
-      setMonths(monthList);
-    },
-    []
-  );
+      monthList.push({ month: date.getMonth(), days: dayList });
+    }
+    setMonths(monthList);
+  }, []);
 
   const handleChangeMonth = (selection: boolean) => {
     if (selection) {

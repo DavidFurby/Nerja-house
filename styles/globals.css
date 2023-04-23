@@ -20,11 +20,12 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
-
 }
 
 
 footer {
+  position: relative;
+  bottom: 0;
   width: 100%;
   font-size: 1rem;
   display: flex;
@@ -32,16 +33,19 @@ footer {
   align-items: flex-end; 
   padding-right: 4rem;
   padding-left: 4rem;
-  background: rgba(0, 171, 222, 0.1);
+  background: rgb(74, 72, 72);
   overflow: hidden;
 }
 footer p {
-  color:  rgba(0, 0, 0, 1);
+  color:  rgb(255, 255, 255);
 
 }
 @font-face {
   font-family: Grenadier;
   src: url("../fonts/grenadier/GrenadierNF.ttf")
+}
+content {
+  top: 50px;
 }
 
 
@@ -59,7 +63,7 @@ footer p {
 }
 
 .button:active {
-  background-color: #9CD4E1; 
+  background-color: #00aadeed; 
 
 }
 .button:hover {

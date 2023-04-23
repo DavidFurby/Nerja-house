@@ -1,32 +1,21 @@
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Spinner from "../components/spinner";
 import FrontPageCards from "../components/front_page_card";
 import { UseInformation } from "../utils/firebase/context/InformationContext";
+import ScreenContext from "../utils/context/ScreenContext";
 
 const Home = () => {
   let [loading, setLoading] = useState(true);
   const { frontPageImages } = UseInformation();
-  let [isMobile, setIsMobile] = useState(undefined);
-
-  const getMobileState = () => {
-    let mobileTemp = window.matchMedia("(max-width: 800px)");
-    if (mobileTemp) {
-      setIsMobile(mobileTemp.matches);
-    }
-  };
-  useEffect(() => {
-    window.addEventListener("resize", getMobileState);
-  });
+  const isMobile = useContext(ScreenContext);
 
   useEffect(() => {
     let mounted = true;
-
     if (mounted) {
       AOS.init();
       AOS.refresh();
-      getMobileState();
       setTimeout(() => {
         setLoading(false);
       }, 200);

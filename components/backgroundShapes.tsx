@@ -1,4 +1,4 @@
-import classes from "../styles/backgroundShapes.module.css";
+import classes from "../styles/background_shapes.module.css";
 const BackgroundShapes = () => {
   return (
     <div style={{overflow: "hidden"}}>

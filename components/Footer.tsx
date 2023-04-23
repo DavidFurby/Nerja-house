@@ -1,6 +1,4 @@
-import Water from "./water";
 import { UseInformation } from "../utils/firebase/context/InformationContext";
-
 const Footer = () => {
   const { contactInformation } = UseInformation();
   return (

@@ -17,7 +17,7 @@
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    
+
 }
 
 .example {
@@ -80,7 +80,7 @@
 
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
     .calendar {
         width: 2rem;
         font-size: 10px;
@@ -92,7 +92,7 @@
         background-attachment: fixed;
         background-size: cover;
         padding: 4rem;
-        overflow:hidden;
+        overflow: hidden;
         display: flex;
         flex-direction: column;
 

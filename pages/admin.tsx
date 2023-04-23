@@ -66,11 +66,11 @@ const Admin = () => {
     }
   };
 
-  const getDatesBetweenRentedDays = (from, to) => {
+  const getDatesBetweenRentedDays = (from:  Date, to: Date) => {
     const dates = [];
     let currentDate = from;
-    if (from.getTime() !== to.getTime()) {
-      const addDays = function(days) {
+    if (from !== to) {
+      const addDays = function(days: number) {
         const date = new Date(this.valueOf());
         date.setDate(date.getDate() + days);
         return date;
