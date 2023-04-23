@@ -1,6 +1,6 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
-import { useState, useEffect } from "react";
+import { useState, useEffect, SetStateAction } from "react";
 import initFirebase from "../initFirebase";
 
 initFirebase();
@@ -8,75 +8,45 @@ initFirebase();
 const UseInformation = () => {
   const [frontPageImages, setFrontPageImages] = useState([]);
   const [contactInformation, setContactInformation] = useState([]);
-  const [houseDescription, setHouseDescription] = useState({});
-  async function fetchImages() {
-    const images = await firebase
-      .firestore()
-      .collection("frontPageImages")
-      .get();
-    if (images) {
-      try {
-        const imageInformation = images.docs.map((image) => {
-          const data = image.data();
-          const id = image.id;
-          return { id, ...data };
-        });
-        setFrontPageImages(imageInformation);
-      } catch (err) {
-        err;
-      }
-    }
-  }
-  async function fetchContactInformation() {
-    const tempInfo = await firebase
-      .firestore()
-      .collection("contactInformation")
-      .get();
-    if (tempInfo) {
-      try {
-        const fetchedInfo = tempInfo.docs.map((info) => {
-          const data = info.data();
-          const id = info.id;
-          return { id, ...data };
-        });
-        setContactInformation(fetchedInfo);
-      } catch (err) {
-        err;
-      }
-    }
-  }
-  async function fetchDescription() {
-    const tempDesc = await firebase
-      .firestore()
-      .collection("houseDescription")
-      .get();
-    if (tempDesc) {
-      try {
-        const fetchedDesc = tempDesc.docs.map((image) => {
-          const data = image.data();
-          const id = image.id;
-          return { id, ...data };
-        });
-        setHouseDescription(fetchedDesc[0]);
-      } catch (err) {
-        err;
-      }
-    }
-  }
+  const [houseDescription, setHouseDescription] = useState({
+    id: "",
+    title: "",
+    text: [],
+    subTitle: "",
+  });
 
-  useEffect(() => {
-    let mounted = true;
-    if (mounted) {
-      fetchImages();
-      fetchContactInformation();
-      fetchDescription();
-    }
-    return function cleanup() {
-      mounted = false;
-    };
-  }, []);
+  const fetchData = async (collectionName: string, setState: { (value: SetStateAction<any[]>): void; (value: SetStateAction<any[]>): void; (data: any): void; (arg0: { id: string; }[]): void; }) => {
+    const data = await firebase
+      .firestore()
+      .collection(collectionName)
+      .get();
+    if (data) {
+      try {
+      let res = data.docs.map((doc) => {
+          const docData = doc.data();
+          const id = doc.id;
+          return { id, ...docData };
+        });
+        setState(res);
+      } catch (err) {
+        console.error(err);
+      }
+    }}
 
-  return { frontPageImages, contactInformation, houseDescription };
-};
+    useEffect(() => {
+      fetchData("frontPageImages", setFrontPageImages),
+        fetchData("contactInformation", setContactInformation),
+        fetchData("houseDescription", (data) => {
+          setHouseDescription({
+            id: data[0].id,
+            title: data[0].title,
+            text: data[0].text,
+            subTitle: data[0].subTitle,
+          });
+        });
+    }, []);
+
+    return { frontPageImages, contactInformation, houseDescription };
+  };
 
 export { UseInformation };

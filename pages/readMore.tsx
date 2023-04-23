@@ -10,7 +10,6 @@ const ReadMore = () => {
     AOS.init();
     AOS.refresh();
   }, []);
-
   return (
     <>
       {houseDescription.text ? (
