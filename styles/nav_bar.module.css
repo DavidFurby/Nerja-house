@@ -1,5 +1,5 @@
 .nav {
-  background: rgba(18, 17, 17, 0.9);
+  background: rgb(49, 47, 47);
   color: white;
   display: flex;
   align-items: center;
@@ -12,7 +12,7 @@
 }
 
 .navMobile {
-  background: rgba(18, 17, 17, 0.9);
+  background: rgb(49, 47, 47);
   color: white;
   position: fixed;
   top: 0;
@@ -41,20 +41,16 @@
 }
 
 .nav ul li a {
-  font-family: Grenadier;
+  font-family: Lora;
 
   padding: 1rem;
-  font-size: 2rem;
-}
-
-.linkButton {
-  border-bottom: 2px solid;
-  border-color: transparent;
+  font-size: 1rem;
 }
 
 .linkButton:hover {
   color: rgb(128, 128, 128);
   transition: color 1s;
+  cursor: pointer;
 }
 
 .linkButton:active {
