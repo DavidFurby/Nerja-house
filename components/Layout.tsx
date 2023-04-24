@@ -1,6 +1,6 @@
-import Navbar from "./navigation_bar";
+import Navbar from "./NavigationBar";
 import Head from "next/head";
-import BackgroundShapes from "./backgroundShapes";
+import BackgroundShapes from "./BackgroundShapes";
 import Footer from "./Footer";
 const Layout = ({ children }) => {
   return (

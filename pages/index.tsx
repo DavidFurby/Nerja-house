@@ -1,13 +1,13 @@
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useContext, useEffect, useState } from "react";
-import FrontPageCards from "../components/front_page_card";
+import FrontPageCards from "../components/FrontPageCards";
 import { UseInformation } from "../utils/firebase/context/InformationContext";
 import ScreenContext from "../utils/context/ScreenContext";
-import Booking from "../components/booking";
-import ReadMore from "../components/readMore";
-import Introduction from "../components/introduction";
-import Contact from "../components/contact";
+import Booking from "../components/Booking";
+import ReadMore from "../components/ReadMore";
+import Introduction from "../components/Introduction";
+import Contact from "../components/Contact";
 
 const Home = () => {
   let [loading, setLoading] = useState(true);
