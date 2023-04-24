@@ -3,7 +3,7 @@ import classes from "../styles/nav_bar.module.css";
 import { UseAuth } from "../utils/firebase/context/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
-import { useState, useContext, useRef } from "react";
+import { useState, useContext } from "react";
 import ScreenContext from "../utils/context/ScreenContext";
 const DrawerButton = ({ sidebar, setSidebar }) => {
   return (
@@ -30,7 +30,6 @@ const NavBar = ({ isMobile, sidebar, setSidebar }) => {
       const target = document.querySelector(`#${section}`);
       target.scrollIntoView({ behavior: "smooth" });
     }
-
     setSidebar(sidebarState);
   };
 
@@ -55,9 +54,10 @@ const NavBar = ({ isMobile, sidebar, setSidebar }) => {
       ) : null}
 
       <ul>
-        <NavItem name={"Nerja hus"} section={"cards"} link={"/"} />
-        <NavItem name={"Se tider"} section={"booking"} link={"/"} />
-        <NavItem name={"Läs mer"} section={"readMore"} link={"/"} />
+        <NavItem name={"Start"} section={"introduction"} />
+        <NavItem name={"Bilder"} section={"cards"} />
+        <NavItem name={"Se tider"} section={"booking"} />
+        <NavItem name={"Läs mer"} section={"readMore"} />
       </ul>
       {currentUser ? (
         <ul>
@@ -82,7 +82,7 @@ const NavBar = ({ isMobile, sidebar, setSidebar }) => {
       ) : null}
     </nav>
   );
-  function NavItem({ name, section, link }) {
+  function NavItem({ name, section }) {
     return (
       <li
         className={classes.linkButton}

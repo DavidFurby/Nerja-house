@@ -9,7 +9,6 @@ export default function FrontPageCards({ images, isMobile }) {
           card: any,
           index: number
         ) => {
-          console.log(index);
           return (
             <div
               data-aos="fade-up"

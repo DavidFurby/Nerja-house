@@ -3,7 +3,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
 import { UseInformation } from "../utils/firebase/context/InformationContext";
-import Description from "../components/description";
+import Description from "./description";
 const ReadMore = () => {
   const { houseDescription } = UseInformation();
   useEffect(() => {
@@ -30,7 +30,14 @@ const ReadMore = () => {
           >
             {houseDescription.subTitle}
           </h4>
-          <Description desc={houseDescription.text} />
+          <div
+            data-aos="fade-in"
+            data-aot-once="true"
+            data-aos-delay="600"
+            data-aos-duration="2000"
+          >
+            <Description desc={houseDescription.text} />
+          </div>
         </div>
       ) : null}
     </>
