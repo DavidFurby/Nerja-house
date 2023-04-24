@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import FrontPageCards from "../components/front_page_cards";
 import { UseInformation } from "../utils/firebase/context/InformationContext";
 import ScreenContext from "../utils/context/ScreenContext";
-import Booking from "../components/Booking";
+import Booking from "../components/booking";
 import ReadMore from "../components/read_more";
 import Introduction from "../components/introduction";
 import Contact from "../components/Contact";
