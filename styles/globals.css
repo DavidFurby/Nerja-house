@@ -34,25 +34,29 @@ footer {
   padding-right: 4rem;
   padding-left: 4rem;
   margin-top: auto;
-  background: rgba(18, 17, 17, 0.9);
+  background: rgb(49, 47, 47);
   overflow: hidden;
+}
+p {
+  font-size: 12;
 }
 footer p {
   color:  rgb(255, 255, 255);
 
 }
 @font-face {
-  font-family: Grenadier;
-  src: url("../fonts/grenadier/GrenadierNF.ttf")
+  font-family: Lora;
+  src: url("../fonts/Lora/Lora-VariableFont_wght.ttf")
 }
 
 .content {
   position: relative;
-  top: 50px;
+  top:20px;
+  margin: 20px, 20px;
 }
 
-.button {
-  background-color: #00aade96; 
+button {
+  background-color: rgb(49, 47, 47);
   border: none;
   color: white;
   padding: 10px 30px;
@@ -64,11 +68,11 @@ footer p {
   font-weight: bold;
 }
 
-.button:active {
-  background-color: #00aade81; 
+button:active {
+  opacity: 0.6;
 
 }
-.button:hover {
+button:hover {
   opacity: 0.8;
 }
 a {
