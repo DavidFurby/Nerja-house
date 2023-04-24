@@ -39,17 +39,15 @@ const Booking = () => {
     <>
       {!loading ? (
         <div className={classes.container}>
-          <section
-            className={classes.information}
-            data-aos="fade-in"
-            data-aot-once="true"
-            data-aos-delay="400"
-            data-aos-duration="400"
-          >
+          <section>
             <h1>Tillgängliga tider</h1>
             <p>
+              Priserna varierar mellan 6000 kr - 25 000 kr per vecka beroende på
+              säsong och antalet gäster
+            </p>
+            <p>
               Datum som redan är inbokade är markerade med
-              <span style={{ color: "#00d14d" }}> grönt</span>
+              <span style={{ color: "#0cdd58" }}> grönt</span>
             </p>
             <p>
               Vill ni boka en tid kontakta oss på någon av våra kontaktuppgifter

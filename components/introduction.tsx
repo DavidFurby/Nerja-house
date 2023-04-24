@@ -1,20 +1,23 @@
 import classes from "../styles/Home.module.css";
 
 export default function Introduction({ image }) {
-  console.log(image);
   return (
     <div
       style={{
         backgroundImage: "url(" + image.image + ")",
-        justifyContent: "flex-end",
-        height: "120vh",
-        backgroundSize: "100% auto",
+        height: "100vh",
+        backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
+        borderRadius: "25px 25px 25px 25px",
+        margin: "25px",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-end",
+        alignItems: "center"
       }}
     >
       <div>
-        <h1 className={classes.title}>Nerja hus</h1>
-        <p className={classes.subText}>UnderText</p>
+        <h1 className={classes.title}>Casa Anna</h1>
       </div>
     </div>
   );

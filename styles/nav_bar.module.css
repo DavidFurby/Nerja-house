@@ -3,7 +3,7 @@
   color: white;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   position: fixed;
   top: 0;
   height: 50px;
@@ -21,7 +21,8 @@
   z-index: 1000;
   display: flex;
   flex-flow: column;
-  justify-content: space-between;
+  align-items: start;
+  justify-content: start;
   text-align: left;
 }
 

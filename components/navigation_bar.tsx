@@ -1,4 +1,3 @@
-import Link from "next/link";
 import classes from "../styles/nav_bar.module.css";
 import { UseAuth } from "../utils/firebase/context/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
