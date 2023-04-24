@@ -1,4 +1,3 @@
-import readMoreStyle from "../styles/read_more.module.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
@@ -11,36 +10,39 @@ const ReadMore = () => {
     AOS.refresh();
   }, []);
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "4rem", 
+        paddingBottom: "8rem",
+      }}
+    >
       {houseDescription.text ? (
-        <div className={readMoreStyle.container}>
+        <div
+       
+        >
           <h1
             data-aos="fade-in"
             data-aot-once="true"
             data-aos-delay="500"
             data-aos-duration="2000"
           >
-            {houseDescription.title}
+            Information
           </h1>
-          <h4
-            data-aos="fade-in"
-            data-aot-once="true"
-            data-aos-delay="600"
-            data-aos-duration="2000"
-          >
-            {houseDescription.subTitle}
-          </h4>
+
           <div
             data-aos="fade-in"
             data-aot-once="true"
-            data-aos-delay="600"
+            data-aos-delay="00"
             data-aos-duration="2000"
           >
             <Description desc={houseDescription.text} />
           </div>
         </div>
       ) : null}
-    </>
+    </div>
   );
 };
 
