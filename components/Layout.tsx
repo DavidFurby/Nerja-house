@@ -2,6 +2,7 @@ import Navbar from "./navigation_bar";
 import Head from "next/head";
 import BackgroundShapes from "./backgroundShapes";
 const Layout = ({ children }) => {
+  console.log("test");
   return (
     <div className="content">
       <Head>
