@@ -7,7 +7,7 @@ import ScreenContext from "../utils/context/ScreenContext";
 import Booking from "../components/booking";
 import ReadMore from "../components/read_more";
 import Introduction from "../components/introduction";
-import Contact from "../components/Contact";
+import Contact from "../components/contact";
 
 const Home = () => {
   let [loading, setLoading] = useState(true);
