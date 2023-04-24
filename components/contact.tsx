@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import emailjs from "emailjs-com";
 
 export default function Contact() {
   const [name, setName] = useState("");
@@ -11,20 +10,25 @@ export default function Contact() {
     event.preventDefault();
   };
   return (
-    <div style={{ backgroundColor: " rgb(177, 176, 176)", width: "100%" }}>
+    <div
+      style={{
+        backgroundColor: " rgb(177, 176, 176)",
+        width: "100%",
+      }}
+    >
       <form
         style={{
           padding: "25px",
           display: "grid",
           justifyContent: "center",
-          textAlign:"center"
+          textAlign: "center",
         }}
         onSubmit={handleSubmit}
       >
         <h1>Kontakta oss</h1>
         <div style={{ display: "flex" }}>
           <input
-            style={{ width: "12.5rem" }}
+            style={{ width: "12.5em" }}
             placeholder="Namn"
             value={name}
             onChange={(event) => setName(event.target.value)}
@@ -32,7 +36,7 @@ export default function Contact() {
 
           <br />
           <input
-            style={{ width: "12.5rem" }}
+            style={{ width: "12.2em" }}
             placeholder="Mail"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
@@ -40,14 +44,14 @@ export default function Contact() {
         </div>
         <div>
           <input
-            style={{ width: "25rem" }}
+            style={{ width: "25em" }}
             placeholder="Ämne"
             value={subject}
             onChange={(event) => setSubject(event.target.value)}
           ></input>
           <br />
           <textarea
-            style={{ width: "25rem", height: "100px", resize: "none" }}
+            style={{ width: "25em", height: "100px", resize: "none" }}
             placeholder="Meddelande"
             value={message}
             onChange={(event) => setMessage(event.target.value)}
