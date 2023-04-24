@@ -15,7 +15,7 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
   const weekDays = ["mon", "tue", "wed", "thur", "fri", "sat", "sun"];
   const weeksInMonth = [1, 2, 3, 4, 5, 6];
 
-  const getMonthsForYear = useCallback(async (date, launch) => {
+  const getMonthsForYear = useCallback(async (date: { getFullYear: () => any; }) => {
     const currentYear = date.getFullYear();
     let monthList = [];
     for (let i = 0; i <= 12; i++) {
@@ -37,20 +37,22 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
   const handleChangeMonth = (selection: boolean) => {
     if (selection) {
       if (currentMonth.getMonth() < 11) {
-        setCurrentMonth(currentMonth);
+        setCurrentMonth(new Date(currentYear, currentMonth.getMonth() + 1));
       } else {
         setCurrentYear(currentYear + 1);
+        setCurrentMonth(new Date(currentYear, 1));
+
         let newYear = new Date(currentYear + 1, 0, 1);
-        getMonthsForYear(newYear, false);
+        getMonthsForYear(newYear);
       }
     } else {
       if (currentMonth.getMonth() > 0) {
-        setCurrentMonth(currentMonth);
+        setCurrentMonth(new Date(currentYear, currentMonth.getMonth() - 1));
       } else {
-        setCurrentMonth(currentMonth);
         setCurrentYear(currentYear - 1);
+        setCurrentMonth(new Date(currentYear, currentMonth.getMonth() - 1));
         let pastYear = new Date(currentYear - 1, 12, 0);
-        getMonthsForYear(pastYear, false);
+        getMonthsForYear(pastYear);
       }
     }
   };
@@ -91,7 +93,7 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
     let mounted = true;
     if (mounted) {
       if (!hasFetchedData.current) {
-        getMonthsForYear(currentDate, true);
+        getMonthsForYear(currentDate);
         hasFetchedData.current = true;
       }
       setTimeout(() => {
