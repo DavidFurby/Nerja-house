@@ -58,28 +58,9 @@ const NavBar = ({ isMobile, sidebar, setSidebar }) => {
         <NavItem name={"Bilder"} section={"cards"} />
         <NavItem name={"Se tider"} section={"booking"} />
         <NavItem name={"Läs mer"} section={"readMore"} />
+        <NavItem name={"Kontakta oss"} section={"contact"} />
+
       </ul>
-      {currentUser ? (
-        <ul>
-          <li
-            className={classes.linkButton}
-            onClick={() => handleNavigation(!sidebar, null)}
-          >
-            <Link href={"/admin"}>Admin</Link>
-          </li>
-          <li>
-            <button
-              className="button"
-              onClick={() => {
-                logout();
-                setSidebar(!sidebar);
-              }}
-            >
-              Logga ut
-            </button>
-          </li>
-        </ul>
-      ) : null}
     </nav>
   );
   function NavItem({ name, section }) {
