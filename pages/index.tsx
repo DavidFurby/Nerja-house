@@ -5,7 +5,7 @@ import FrontPageCards from "../components/FrontPageCards";
 import { UseInformation } from "../utils/firebase/context/InformationContext";
 import ScreenContext from "../utils/context/ScreenContext";
 import Booking from "../components/booking";
-import ReadMore from "../components/ReadMore";
+import ReadMore from "../components/read_more";
 import Introduction from "../components/Introduction";
 import Contact from "../components/Contact";
 
