@@ -1,8 +1,8 @@
 import Navbar from "./navigation_bar";
 import Head from "next/head";
 import BackgroundShapes from "./backgroundShapes";
+import Footer from "./footer";
 const Layout = ({ children }) => {
-  console.log("test");
   return (
     <div className="content">
       <Head>
@@ -12,6 +12,7 @@ const Layout = ({ children }) => {
       <Navbar />
       {children}
       <BackgroundShapes />
+      <Footer/>
     </div>
   );
 };
