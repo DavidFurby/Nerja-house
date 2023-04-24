@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import emailjs from 'emailjs-com';
+import emailjs from "emailjs-com";
 
 export default function Contact() {
   const [name, setName] = useState("");
@@ -17,9 +17,11 @@ export default function Contact() {
           padding: "25px",
           display: "grid",
           justifyContent: "center",
+          textAlign:"center"
         }}
         onSubmit={handleSubmit}
       >
+        <h1>Kontakta oss</h1>
         <div style={{ display: "flex" }}>
           <input
             style={{ width: "12.5rem" }}
@@ -56,7 +58,7 @@ export default function Contact() {
             width: "12.5rem",
             display: "flex",
             justifyContent: "center",
-            margin: "0 auto"
+            margin: "0 auto",
           }}
         >
           Send

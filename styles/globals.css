@@ -42,7 +42,7 @@ p {
   font-size: 0.75rem;
 }
 h1 {
-  font-size: 1.8rem;
+  font-size: 2rem;
 }
 
 
@@ -74,8 +74,6 @@ textarea {
 
 .content {
   position: relative;
-  top: 20px;
-  margin: 20px, 20px;
 }
 
 button {
