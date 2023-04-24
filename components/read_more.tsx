@@ -12,18 +12,16 @@ const ReadMore = () => {
   return (
     <div
       style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "4rem", 
+        padding: "4rem",
         paddingBottom: "8rem",
+        display: "flex",
+        justifyContent: "center",
       }}
     >
       {houseDescription.text ? (
-        <div
-       
-        >
+        <div>
           <h1
+            style={{ textAlign: "center" }}
             data-aos="fade-in"
             data-aot-once="true"
             data-aos-delay="500"
@@ -33,9 +31,13 @@ const ReadMore = () => {
           </h1>
 
           <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+            }}
             data-aos="fade-in"
             data-aot-once="true"
-            data-aos-delay="00"
+            data-aos-delay="800"
             data-aos-duration="2000"
           >
             <Description desc={houseDescription.text} />

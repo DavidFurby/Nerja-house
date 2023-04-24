@@ -18,7 +18,7 @@
     align-items: center;
     justify-content: space-evenly;
     flex-direction: row;
-
+    padding: 25px;
 }
 
 .example {
@@ -79,7 +79,6 @@
         overflow: hidden;
         display: flex;
         flex-direction: column;
-
     }
 
     .bookingForm {

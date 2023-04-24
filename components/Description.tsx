@@ -5,17 +5,16 @@ const Description = ({ desc }) => {
     <div
       style={{
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr)",
-        alignItems: "start",
-        textAlign: "center"
+        gridTemplateColumns: "repeat(auto-fit, minmax(400px, 1fr)",
+        textAlign: "center",
       }}
     >
       {desc.map((e: any) => {
         return (
-          <>
+          <div key={e} style={{padding: "25px"}}>
             <p>{e}</p>
             <br />
-          </>
+          </div>
         );
       })}
     </div>

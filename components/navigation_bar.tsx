@@ -53,7 +53,7 @@ const NavBar = ({ isMobile, sidebar, setSidebar }) => {
       ) : null}
 
       <ul>
-        <NavItem name={"Start"} section={"introduction"} />
+        <NavItem name={"Casa Ana"} section={"introduction"} />
         <NavItem name={"Bilder"} section={"cards"} />
         <NavItem name={"Se tider"} section={"booking"} />
         <NavItem name={"Läs mer"} section={"readMore"} />

@@ -39,9 +39,13 @@ footer {
 }
 
 p {
-  font-size: 0.75rem;
+  font-family: Lora;
+  font-size: 1rem;
+  color: grey;
 }
+
 h1 {
+  font-family: Lora;
   font-size: 2rem;
 }
 

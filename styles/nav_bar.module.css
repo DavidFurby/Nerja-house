@@ -21,8 +21,6 @@
   z-index: 1000;
   display: flex;
   flex-flow: column;
-  align-items: start;
-  justify-content: start;
   text-align: left;
 }
 
