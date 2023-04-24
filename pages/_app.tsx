@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Layout from "../components/Layout";
+import Layout from "../components/layout";
 import "../styles/globals.css";
 import ScreenContext from "../utils/context/ScreenContext";
 function MyApp({ Component, pageProps }) {

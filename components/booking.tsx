@@ -1,4 +1,4 @@
-import { Calendar } from "./Calendar";
+import { Calendar } from "./calendar";
 import { UseBooking } from "../utils/firebase/context/BookingContext";
 import classes from "../styles/booking.module.css";
 import React, { useEffect, useState } from "react";

@@ -2,7 +2,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
 import { UseInformation } from "../utils/firebase/context/InformationContext";
-import Description from "./Description";
+import Description from "./description";
 const ReadMore = () => {
   const { houseDescription } = UseInformation();
   useEffect(() => {
