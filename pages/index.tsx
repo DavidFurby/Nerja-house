@@ -7,6 +7,7 @@ import ScreenContext from "../utils/context/ScreenContext";
 import Booking from "../components/booking";
 import ReadMore from "../components/readMore";
 import Introduction from "../components/introduction";
+import Contact from "../components/contact";
 
 const Home = () => {
   let [loading, setLoading] = useState(true);
@@ -32,7 +33,7 @@ const Home = () => {
       {!loading ? (
         <div className="content">
           <div id="introduction">
-            <Introduction image={introductionImage} isMobile={isMobile} />
+            <Introduction image={introductionImage} />
           </div>
           <div id="cards">
             <FrontPageCards images={frontPageImages} isMobile={isMobile} />
@@ -41,7 +42,10 @@ const Home = () => {
             <Booking />
           </div>
           <div id="readMore">
-            <ReadMore />¨
+            <ReadMore />
+          </div>
+          <div id="contact">
+            <Contact />
           </div>
         </div>
       ) : null}
