@@ -54,6 +54,7 @@
 
 .linkButton:hover {
   color: rgb(128, 128, 128);
+  transition: color 1s;
 }
 
 .linkButton:active {

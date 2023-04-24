@@ -6,29 +6,7 @@ export default function FrontPageCards({ images, isMobile }) {
     <div className={classes.container}>
       {images.map(
         (
-          card: {
-            image: string;
-            name:
-              | string
-              | number
-              | boolean
-              | React.ReactElement<
-                  any,
-                  string | React.JSXElementConstructor<any>
-                >
-              | React.ReactFragment
-              | React.ReactPortal;
-            subText:
-              | string
-              | number
-              | boolean
-              | React.ReactElement<
-                  any,
-                  string | React.JSXElementConstructor<any>
-                >
-              | React.ReactFragment
-              | React.ReactPortal;
-          },
+          card: any,
           index: number
         ) => {
           console.log(index);

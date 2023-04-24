@@ -35,7 +35,8 @@ const AdminLogin = () => {
           UserCredentials.password.trim()
         );
         setLoading(false);
-
+        setEmail("");
+        setPassword("");
         if (response && response.success) {
           router.push("/admin");
         } else {

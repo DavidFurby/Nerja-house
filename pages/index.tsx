@@ -1,6 +1,6 @@
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import FrontPageCards from "../components/front_page_card";
 import { UseInformation } from "../utils/firebase/context/InformationContext";
 import ScreenContext from "../utils/context/ScreenContext";
@@ -29,7 +29,7 @@ const Home = () => {
   return (
     <>
       {!loading ? (
-        <div>
+        <div className="content">
           <div id="cards">
             <FrontPageCards images={frontPageImages} isMobile={isMobile} />
           </div>

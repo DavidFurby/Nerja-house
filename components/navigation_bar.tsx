@@ -22,13 +22,11 @@ const DrawerButton = ({ sidebar, setSidebar }) => {
 };
 const NavBar = ({ isMobile, sidebar, setSidebar }) => {
   let { currentUser, logout } = UseAuth();
-  console.log(currentUser);
   const handleNavigation = (
     sidebarState: boolean | ((prevState: boolean) => boolean),
     section: undefined
   ) => {
     if (section != null) {
-      console.log(section);
       const target = document.querySelector(`#${section}`);
       target.scrollIntoView({ behavior: "smooth" });
     }

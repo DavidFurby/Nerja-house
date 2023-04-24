@@ -45,10 +45,11 @@ footer p {
   font-family: Grenadier;
   src: url("../fonts/grenadier/GrenadierNF.ttf")
 }
-content {
+
+.content {
+  position: relative;
   top: 50px;
 }
-
 
 .button {
   background-color: #00aade96; 
