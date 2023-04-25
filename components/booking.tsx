@@ -23,6 +23,11 @@ const Booking = () => {
     }
     return dates;
   };
+
+  const moveToContact = () => {
+    const target = document.querySelector(`#contact`);
+    target.scrollIntoView({ behavior: "smooth" });
+  }
   useEffect(() => {
     let mounted = true;
     if (mounted) {
@@ -34,6 +39,7 @@ const Booking = () => {
     return function cleanup() {
       mounted = false;
     };
+    
   }, []);
   return (
     <>
@@ -49,9 +55,7 @@ const Booking = () => {
               Datum som redan är inbokade är markerade med
               <span style={{ color: "#0cdd58" }}> grönt</span>
             </p>
-            <p>
-              Vill ni boka en tid kontakta oss på någon av våra kontaktuppgifter
-            </p>
+            <button onClick={moveToContact}>Kontakta oss</button>
           </section>
           <section>
             <Calendar

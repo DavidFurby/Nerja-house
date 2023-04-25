@@ -20,14 +20,13 @@ const DrawerButton = ({ sidebar, setSidebar }) => {
   );
 };
 const NavBar = ({ isMobile, sidebar, setSidebar }) => {
-  let { currentUser, logout } = UseAuth();
   const handleNavigation = (
     sidebarState: boolean | ((prevState: boolean) => boolean),
     section: undefined
   ) => {
     if (section != null) {
-      const target = document.querySelector(`#${section}`);
-      target.scrollIntoView({ behavior: "smooth" });
+        const target = document.querySelector(`#${section}`);
+        target.scrollIntoView({ behavior: "smooth" });
     }
     setSidebar(sidebarState);
   };
@@ -58,7 +57,6 @@ const NavBar = ({ isMobile, sidebar, setSidebar }) => {
         <NavItem name={"Se tider"} section={"booking"} />
         <NavItem name={"Läs mer"} section={"readMore"} />
         <NavItem name={"Kontakta oss"} section={"contact"} />
-
       </ul>
     </nav>
   );
