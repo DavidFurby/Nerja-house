@@ -2,7 +2,7 @@ import React from "react";
 
 const Description = ({ desc }) => {
   return (
-    <div
+    <section
       style={{
         display: "grid",
         gridTemplateColumns: "repeat(auto-fit, minmax(400px, 1fr)",
@@ -17,7 +17,7 @@ const Description = ({ desc }) => {
           </div>
         );
       })}
-    </div>
+    </section>
   );
 };
 export default Description;

@@ -65,7 +65,7 @@ export default function Contact() {
             margin: "0 auto",
           }}
         >
-          Send
+          Skicka
         </button>
       </form>
     </div>

@@ -3,15 +3,10 @@ import classes from "../styles/Home.module.css";
 export default function Introduction({ image }) {
   return (
     <div
+      data-aos="fade-in"
+      className={classes.introduction}
       style={{
         backgroundImage: "url(" + image.image + ")",
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "50rem",
       }}
     >
       <div>

@@ -27,7 +27,7 @@ const Booking = () => {
   const moveToContact = () => {
     const target = document.querySelector(`#contact`);
     target.scrollIntoView({ behavior: "smooth" });
-  }
+  };
   useEffect(() => {
     let mounted = true;
     if (mounted) {
@@ -39,12 +39,11 @@ const Booking = () => {
     return function cleanup() {
       mounted = false;
     };
-    
   }, []);
   return (
     <>
       {!loading ? (
-        <div className={classes.container}>
+        <section className={classes.container}>
           <section className={classes.text}>
             <h1>Tillgängliga tider</h1>
             <p>
@@ -66,7 +65,7 @@ const Booking = () => {
               getDatesBetweenRentedDays={getDatesBetweenRentedDays}
             />
           </section>
-        </div>
+        </section>
       ) : null}
     </>
   );

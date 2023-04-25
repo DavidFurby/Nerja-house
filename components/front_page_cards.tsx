@@ -1,10 +1,15 @@
 import React from "react";
 import classes from "../styles/Home.module.css";
 
-export default function FrontPageCards({ images, isMobile }) {
+export default function FrontPageCards({ images }) {
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
-      {images.map((card: any, index: number) => {
+    <section
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(400px, 1fr)",
+      }}
+    >
+      {images.map((card: any) => {
         return (
           <div
             data-aos="fade-up"
@@ -12,11 +17,6 @@ export default function FrontPageCards({ images, isMobile }) {
             key={card.id}
             style={{
               backgroundImage: "url(" + card.image + ")",
-              alignSelf: !isMobile
-                ? index % 2 !== 0
-                  ? "flex-end"
-                  : "flex-start"
-                : null,
             }}
           >
             <div className={classes.cardContent}>
@@ -26,6 +26,6 @@ export default function FrontPageCards({ images, isMobile }) {
           </div>
         );
       })}
-    </div>
+    </section>
   );
 }
