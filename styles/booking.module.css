@@ -1,14 +1,11 @@
 .calendarContainer {
     margin: 2rem;
-    color: white;
     background-color: white;
     border-radius: 2rem;
     width: fit-content;
     color: black;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-    padding: 15px;
 }
-
 
 .container {
     background-repeat: no-repeat;
@@ -19,6 +16,10 @@
     justify-content: space-evenly;
     flex-direction: row;
     padding: 25px;
+}
+
+.text {
+    text-align: left;
 }
 
 .example {
@@ -70,12 +71,15 @@
         font-size: 10px;
     }
 
+    .text {
+        text-align: center;
+    }
+
 
     .container {
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-size: cover;
-        padding: 4rem;
         overflow: hidden;
         display: flex;
         flex-direction: column;

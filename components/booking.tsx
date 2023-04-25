@@ -39,7 +39,7 @@ const Booking = () => {
     <>
       {!loading ? (
         <div className={classes.container}>
-          <section>
+          <section className={classes.text}>
             <h1>Tillgängliga tider</h1>
             <p>
               Priserna varierar mellan 6000 kr - 25 000 kr per vecka beroende på
