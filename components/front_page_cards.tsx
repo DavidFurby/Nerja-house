@@ -3,13 +3,13 @@ import classes from "../styles/Home.module.css";
 
 export default function FrontPageCards({ images, isMobile }) {
   return (
-    <div className={classes.container}>
+    <div style={{ display: "flex", flexDirection: "column" }}>
       {images.map((card: any, index: number) => {
         return (
           <div
             data-aos="fade-up"
             className={classes.card}
-            key={index}
+            key={card.id}
             style={{
               backgroundImage: "url(" + card.image + ")",
               alignSelf: !isMobile
