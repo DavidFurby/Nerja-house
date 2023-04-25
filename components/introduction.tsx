@@ -5,15 +5,13 @@ export default function Introduction({ image }) {
     <div
       style={{
         backgroundImage: "url(" + image.image + ")",
-        height: "100vh",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
-        borderRadius: "25px 25px 25px 25px",
-        margin: "25px",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "flex-end",
-        alignItems: "center"
+        justifyContent: "center",
+        alignItems: "center",
+        height: "50rem",
       }}
     >
       <div>

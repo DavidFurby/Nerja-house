@@ -12,7 +12,7 @@ export default function Contact() {
   return (
     <div
       style={{
-        backgroundColor: " rgb(177, 176, 176)",
+        backgroundColor: "#C8C6C5",
         width: "100%",
       }}
     >

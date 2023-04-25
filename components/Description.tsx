@@ -11,7 +11,7 @@ const Description = ({ desc }) => {
     >
       {desc.map((e: any) => {
         return (
-          <div key={e} style={{padding: "25px"}}>
+          <div key={e}>
             <p>{e}</p>
             <br />
           </div>

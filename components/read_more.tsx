@@ -10,14 +10,7 @@ const ReadMore = () => {
     AOS.refresh();
   }, []);
   return (
-    <div
-      style={{
-        padding: "4rem",
-        paddingBottom: "8rem",
-        display: "flex",
-        justifyContent: "center",
-      }}
-    >
+    <section>
       {houseDescription.text ? (
         <div>
           <h1
@@ -29,7 +22,6 @@ const ReadMore = () => {
           >
             Information
           </h1>
-
           <div
             style={{
               display: "flex",
@@ -44,7 +36,7 @@ const ReadMore = () => {
           </div>
         </div>
       ) : null}
-    </div>
+    </section>
   );
 };
 
