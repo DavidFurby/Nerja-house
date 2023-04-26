@@ -12,13 +12,13 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
   let currentDate = useMemo(() => new Date(), []);
   const hasFetchedData = useRef(false);
   const weekDays = [
-    "måndag",
-    "tisdag",
-    "onsdag",
-    "torsdag",
-    "fredag",
-    "lördag",
-    "söndag",
+    "mån",
+    "tis",
+    "ons",
+    "tors",
+    "fre",
+    "lör",
+    "sön",
   ];
   const weeksInMonth = [1, 2, 3, 4, 5, 6];
   const monthNames = [
@@ -129,10 +129,10 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
     <>
       {!loading ? (
         <div className={classes.calendarContainer}>
-          <section style={{ display: "flex", justifyContent: "center" }}>
+          <div style={{ display: "flex", justifyContent: "center" }}>
             <h1 style={{ fontWeight: "lighter" }}>{currentYear}</h1>
-          </section>
-          <section className={classes.monthSelection}>
+          </div>
+          <div className={classes.monthSelection}>
             <button className="button" onClick={() => handleChangeMonth(false)}>
               <FontAwesomeIcon icon={faArrowLeft} />
             </button>
@@ -142,7 +142,7 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
             <button className="button" onClick={() => handleChangeMonth(true)}>
               <FontAwesomeIcon icon={faArrowRight} />
             </button>
-          </section>
+          </div>
           <table className={classes.calendar}>
             <thead>
               <tr>
