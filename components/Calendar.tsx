@@ -1,26 +1,16 @@
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { useState, useEffect, useRef, useMemo, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import classes from "../styles/booking.module.css";
 
 export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
-  let [currentMonth, setCurrentMonth] = useState(new Date());
   let [months, setMonths] = useState([]);
   let [loading, setLoading] = useState(true);
-  let [currentYear, setCurrentYear] = useState(new Date().getFullYear());
-  let currentDate = useMemo(() => new Date(), []);
+  let [currentDate, setCurrentDate] = useState(new Date());
   const hasFetchedData = useRef(false);
-  const weekDays = [
-    "mån",
-    "tis",
-    "ons",
-    "tors",
-    "fre",
-    "lör",
-    "sön",
-  ];
-  const weeksInMonth = [1, 2, 3, 4, 5, 6];
+  const weekDays = ["mån", "tis", "ons", "tors", "fre", "lör", "sön"];
+  const weeksInMonth = [0, 1, 2, 3, 4, 5];
   const monthNames = [
     "Januari",
     "Februari",
@@ -60,28 +50,33 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
 
   const handleChangeMonth = (selection: boolean) => {
     if (selection) {
-      if (currentMonth.getMonth() < 11) {
-        setCurrentMonth(new Date(currentYear, currentMonth.getMonth() + 1));
+      if (currentDate.getMonth() < 11) {
+        setCurrentDate(
+          new Date(currentDate.getFullYear(), currentDate.getMonth() + 1)
+        );
       } else {
-        setCurrentYear(currentYear + 1);
-        setCurrentMonth(new Date(currentYear, 0));
+        setCurrentDate(new Date(currentDate.getFullYear() + 1, 0));
 
-        let newYear = new Date(currentYear + 1, 0, 1);
+        let newYear = new Date(currentDate.getFullYear(), 0, 1);
         getMonthsForYear(newYear);
       }
     } else {
-      if (currentMonth.getMonth() > 0) {
-        setCurrentMonth(new Date(currentYear, currentMonth.getMonth() - 1));
+      if (currentDate.getMonth() > 0) {
+        setCurrentDate(
+          new Date(currentDate.getFullYear(), currentDate.getMonth() - 1)
+        );
       } else {
-        setCurrentYear(currentYear - 1);
-        setCurrentMonth(new Date(currentYear, currentMonth.getMonth() - 1));
-        let pastYear = new Date(currentYear - 1, 12, 0);
+        setCurrentDate(
+          new Date(currentDate.getFullYear(), currentDate.getMonth() - 1)
+        );
+
+        let pastYear = new Date(currentDate.getFullYear(), 12, 0);
         getMonthsForYear(pastYear);
       }
     }
   };
   const setEmptyDates = () => {
-    const daysInMonth = months[currentMonth.getMonth()].days;
+    const daysInMonth = months[currentDate.getMonth()].days;
     let dayList = [];
 
     // Add filler days from previous month
@@ -89,9 +84,10 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
     if (firstDay.day !== 1) {
       const fillerPositions = firstDay.day === 0 ? 6 : firstDay.day;
       const prevMonthIndex =
-        currentMonth.getMonth() === 0
-          ? currentMonth.getMonth() + 11
-          : currentMonth.getMonth() - 1;
+      currentDate.getMonth() === 0
+          ? currentDate.getMonth() + 11
+          : currentDate.getMonth() - 1;
+
       const prevMonthDays = months[prevMonthIndex].days;
       dayList.push(...prevMonthDays.slice(-fillerPositions));
     }
@@ -102,7 +98,7 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
     const lastDay = daysInMonth[daysInMonth.length - 1];
 
     const remainingDays = 7 - lastDay.day;
-    const nextMonthIndex = currentMonth.getMonth() + 1;
+    const nextMonthIndex = currentDate.getMonth() + 1;
     const nextMonthDays = months[nextMonthIndex].days;
 
     dayList.push(...nextMonthDays.slice(0, remainingDays));
@@ -130,14 +126,16 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
       {!loading ? (
         <div className={classes.calendarContainer}>
           <div style={{ display: "flex", justifyContent: "center" }}>
-            <h1 style={{ fontWeight: "lighter" }}>{currentYear}</h1>
+            <h1 style={{ fontWeight: "lighter" }}>
+              {currentDate.getFullYear()}
+            </h1>
           </div>
           <div className={classes.monthSelection}>
             <button className="button" onClick={() => handleChangeMonth(false)}>
               <FontAwesomeIcon icon={faArrowLeft} />
             </button>
             <h2 style={{ fontWeight: "lighter" }}>
-              {monthNames[currentMonth.getMonth()]}
+              {monthNames[currentDate.getMonth()]}
             </h2>
             <button className="button" onClick={() => handleChangeMonth(true)}>
               <FontAwesomeIcon icon={faArrowRight} />
@@ -192,7 +190,7 @@ export const Calendar = ({ bookedDates, getDatesBetweenRentedDays }) => {
                                 ? "4px solid #00d14d"
                                 : null,
                               color:
-                                day.month != currentMonth.getMonth()
+                                day.month != currentDate.getMonth()
                                   ? "grey"
                                   : null,
                             }}
