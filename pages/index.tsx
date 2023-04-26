@@ -36,7 +36,7 @@ const Home = () => {
             <Introduction image={introductionImage} />
           </div>
           <div id="cards">
-            <FrontPageCards images={frontPageImages} isMobile={isMobile} />
+            <FrontPageCards images={frontPageImages}/>
           </div>
           <div id="booking">
             <Booking />
