@@ -1,5 +1,4 @@
 import React from "react";
-
 const Description = ({ desc }) => {
   return (
     <section
@@ -12,7 +11,8 @@ const Description = ({ desc }) => {
       {desc.map((e: any) => {
         return (
           <div key={e}>
-            <p>{e}</p>
+            <img src={e.icon} style={{opacity: "0.6"}}/>
+            <p>{e.text}</p>
             <br />
           </div>
         );

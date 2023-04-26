@@ -35,6 +35,7 @@
   flex-direction: column;
   justify-content: flex-end;
   overflow: hidden;
+  margin: 25px;
   animation: slideInFromBottom 2s;
 }
 
