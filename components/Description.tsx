@@ -10,8 +10,8 @@ const Description = ({ desc }) => {
     >
       {desc.map((e: any) => {
         return (
-          <div key={e}>
-            <img src={e.icon} style={{opacity: "0.6"}}/>
+          <div key={e.id}>
+            <img src={e.icon} style={{opacity: "0.6"}} alt={e.id}/>
             <p>{e.text}</p>
             <br />
           </div>
