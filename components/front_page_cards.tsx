@@ -6,7 +6,7 @@ export default function FrontPageCards({ images }) {
     <section
       style={{
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(400px, 1fr)",
+        gridTemplateColumns: "repeat(auto-fit, minmax(25rem, 1fr)",
       }}
     >
       {images.map((card: any) => {

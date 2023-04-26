@@ -9,7 +9,7 @@ export default function Introduction({ image }) {
         backgroundImage: "url(" + image.image + ")",
       }}
     >
-      <div>
+      <div className={classes.introductionContent}>
         <h1 className={classes.title}>Casa Anna</h1>
       </div>
     </div>
