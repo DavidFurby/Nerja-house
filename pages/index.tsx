@@ -1,9 +1,8 @@
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import FrontPageCards from "../components/front_page_cards";
 import { UseInformation } from "../utils/firebase/context/InformationContext";
-import ScreenContext from "../utils/context/ScreenContext";
 import Booking from "../components/booking";
 import ReadMore from "../components/read_more";
 import Introduction from "../components/introduction";
@@ -12,20 +11,16 @@ import Contact from "../components/contact";
 const Home = () => {
   let [loading, setLoading] = useState(true);
   const { frontPageImages, introductionImage } = UseInformation();
-  const isMobile = useContext(ScreenContext);
 
   useEffect(() => {
-    let mounted = true;
-    if (mounted) {
       AOS.init();
       AOS.refresh();
       setTimeout(() => {
         setLoading(false);
       }, 200);
-    }
+    
 
     return function cleanup() {
-      mounted = false;
     };
   }, []);
   return (

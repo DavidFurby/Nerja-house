@@ -102,7 +102,7 @@ const Admin = () => {
   return (
     <>
       {!loading && currentUser ? (
-        <div className={classes.container}>
+        <div className="content">
           <section
             data-aos="fade-in"
             data-aot-once="true"
@@ -110,7 +110,7 @@ const Admin = () => {
             data-aos-duration="400"
           >
             <form className={classes.bookingForm} onSubmit={handleNewBooking}>
-              <section>
+              <div>
                 <label>
                   start datum
                   <br />
@@ -120,7 +120,7 @@ const Admin = () => {
                     onChange={(startDate) => handleChangeDate(startDate, true)}
                   />
                 </label>
-              </section>
+              </div>
               <div>
                 <label>
                   slut datum

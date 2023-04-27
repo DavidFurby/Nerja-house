@@ -12,7 +12,7 @@ const ReadMore = () => {
   return (
     <section>
       {houseDescription.text ? (
-        <div>
+        <>
           <h1
             style={{ textAlign: "center" }}
             data-aos="fade-in"
@@ -34,7 +34,7 @@ const ReadMore = () => {
           >
             <Description desc={houseDescription.text} />
           </div>
-        </div>
+        </>
       ) : null}
     </section>
   );
