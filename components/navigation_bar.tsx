@@ -1,9 +1,9 @@
 import classes from "../styles/nav_bar.module.css";
-import { UseAuth } from "../utils/firebase/context/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useState, useContext } from "react";
 import ScreenContext from "../utils/context/ScreenContext";
+import { useRouter } from "next/router";
 const DrawerButton = ({ sidebar, setSidebar }) => {
   return (
     <button
@@ -20,14 +20,21 @@ const DrawerButton = ({ sidebar, setSidebar }) => {
   );
 };
 const NavBar = ({ isMobile, sidebar, setSidebar }) => {
+  const router = useRouter();
+  const {asPath} = router;
   const handleNavigation = (
     sidebarState: boolean | ((prevState: boolean) => boolean),
     section: undefined
   ) => {
-    if (section != null) {
+    if (asPath == "/") {
+      if (section != null) {
         const target = document.querySelector(`#${section}`);
         target.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      router.push("/");
     }
+
     setSidebar(sidebarState);
   };
 
@@ -41,7 +48,7 @@ const NavBar = ({ isMobile, sidebar, setSidebar }) => {
           : classes.nav
       }
     >
-      {isMobile ? (
+      {isMobile && (
         <button
           className="button"
           style={{ top: "0", left: "0" }}
@@ -49,7 +56,7 @@ const NavBar = ({ isMobile, sidebar, setSidebar }) => {
         >
           <FontAwesomeIcon icon={faTimes} />
         </button>
-      ) : null}
+      )}
 
       <ul>
         <NavItem name={"Casa Ana"} section={"introduction"} />
