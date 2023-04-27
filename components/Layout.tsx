@@ -3,14 +3,14 @@ import Head from "next/head";
 import Footer from "./Footer";
 const Layout = ({ children }) => {
   return (
-    <div className="content">
+    <div style={{display: "flex", flexDirection: "column", minHeight: "100vh"}}>
       <Head>
-        <title>Nerja hus</title>
+        <title>Casa Anna</title>
         <meta content="Nerja" />
       </Head>
       <Navbar />
       {children}
-      <Footer/>
+      <Footer />
     </div>
   );
 };

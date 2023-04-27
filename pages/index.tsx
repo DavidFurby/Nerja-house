@@ -26,7 +26,7 @@ const Home = () => {
   return (
     <>
       {!loading ? (
-        <div className="content">
+        <>
           <div id="introduction">
             <Introduction image={introductionImage} />
           </div>
@@ -42,7 +42,7 @@ const Home = () => {
           <div id="contact">
             <Contact />
           </div>
-        </div>
+        </>
       ) : null}
     </>
   );
