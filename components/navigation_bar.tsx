@@ -4,6 +4,7 @@ import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useState, useContext } from "react";
 import ScreenContext from "../utils/context/ScreenContext";
 import { useRouter } from "next/router";
+import { UseAuth } from "../utils/firebase/context/AuthContext";
 const DrawerButton = ({ sidebar, setSidebar }) => {
   return (
     <button
@@ -20,8 +21,10 @@ const DrawerButton = ({ sidebar, setSidebar }) => {
   );
 };
 const NavBar = ({ isMobile, sidebar, setSidebar }) => {
+  let { currentUser, logout } = UseAuth();
+
   const router = useRouter();
-  const {asPath} = router;
+  const { asPath } = router;
   const handleNavigation = (
     sidebarState: boolean | ((prevState: boolean) => boolean),
     section: undefined
@@ -59,12 +62,14 @@ const NavBar = ({ isMobile, sidebar, setSidebar }) => {
       )}
 
       <ul>
-        <NavItem name={"Casa Ana"} section={"introduction"} />
+        <NavItem name={"Casa Anna"} section={"introduction"} />
         <NavItem name={"Bilder"} section={"cards"} />
         <NavItem name={"Se tider"} section={"booking"} />
         <NavItem name={"Läs mer"} section={"readMore"} />
         <NavItem name={"Kontakta oss"} section={"contact"} />
       </ul>
+      {currentUser && <button onClick={() => logout() && setSidebar(!sidebar)}>Logga ut</button>}
+      
     </nav>
   );
   function NavItem({ name, section }) {
