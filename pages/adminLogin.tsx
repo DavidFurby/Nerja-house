@@ -6,40 +6,38 @@ const AdminLogin = () => {
   const { login } = UseAuth();
 
   const router = useRouter();
-  let [email, setEmail] = useState("");
-  let [password, setPassword] = useState("");
+  let [loginInfo, setLoginInfo] = useState({ email: "", password: "" });
   let [loading, setLoading] = useState(false);
 
   const checkPassword = () => {
-    if (password.length < 8)
+    if (loginInfo.password.length < 8)
       return { valid: false, msg: "Lösenordet måste vara minst 8 tecken" };
     return { valid: true };
   };
 
-  const submitLogin = async (e: { preventDefault: () => void; }) => {
+  const submitLogin = async (e: { preventDefault: () => void }) => {
     setLoading(true);
     e.preventDefault();
     const passwordResult = checkPassword();
     if (!passwordResult.valid) {
       setLoading(false);
-      alert("password not valid");
-      return;
+      alert(passwordResult.msg);
     } else {
       try {
         const UserCredentials = {
-          email: email,
-          password: password,
+          email: loginInfo.email,
+          password: loginInfo.password,
         };
         const response = await login(
           UserCredentials.email.trim(),
           UserCredentials.password.trim()
         );
         setLoading(false);
-        setEmail("");
-        setPassword("");
-        if (response && response.success) {
+        setLoginInfo({ email: "", password: "" });
+        if (response != String) {
           router.push("/admin");
         } else {
+          alert(response);
           setLoading(false);
         }
       } catch (e) {
@@ -48,11 +46,10 @@ const AdminLogin = () => {
     }
   };
 
-
   return (
     <>
       {!loading ? (
-        <div style={{padding: "6rem", height: "90vh"}}>
+        <div style={{ padding: "6rem", height: "90vh" }}>
           <form
             onSubmit={submitLogin}
             style={{
@@ -68,8 +65,13 @@ const AdminLogin = () => {
               <br />
               <input
                 type="email"
-                value={email}
-                onChange={(email) => setEmail(email.target.value)}
+                value={loginInfo.email}
+                onChange={(email) =>
+                  setLoginInfo((info) => ({
+                    ...info,
+                    email: email.target.value,
+                  }))
+                }
               />
             </label>
             <label>
@@ -77,15 +79,19 @@ const AdminLogin = () => {
               <br />
               <input
                 type="password"
-                value={password}
-                onChange={(password) => setPassword(password.target.value)}
+                value={loginInfo.password}
+                onChange={(password) =>
+                  setLoginInfo((info) => ({
+                    ...info,
+                    password: password.target.value,
+                  }))
+                }
               />
             </label>
             <input className="button" type="submit" value="Logga in" />
           </form>
         </div>
-      ) : (null
-      )}
+      ) : null}
     </>
   );
 };

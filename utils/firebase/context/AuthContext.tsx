@@ -11,7 +11,6 @@ const UseAuth = () => {
 
   async function logout() {
     try {
-      var res = await firebase.auth().signOut();
       setCurrentUser(null);
     } catch (error) {
       error.message;
@@ -21,22 +20,16 @@ const UseAuth = () => {
   const login = async (email: string, password: string) => {
     if (email && password) {
       try {
-        const response = await firebase
+        return await firebase
           .auth()
-          .signInWithEmailAndPassword(email, password);
-        firebase.auth().currentUser.getIdToken(true);
-        const userStatus = await firebase.auth().currentUser.getIdTokenResult();
-        userStatus;
-        if (response) {
-          setCurrentUser({
-            claims: { ...userStatus.claims },
+          .signInWithEmailAndPassword(email, password)
+          .then((UserCredentials) => {
+            setCurrentUser(UserCredentials.user);
+            return currentUser;
+          })
+          .catch((error) => {
+           return error.code + " " + error.message;
           });
-          return {
-            success: true,
-            response: response,
-            userStatus: userStatus.claims,
-          };
-        }
       } catch (error) {
         error;
       }
