@@ -3,15 +3,20 @@ import "firebase/firestore";
 import "firebase/auth";
 import initFirebase from "../initFirebase";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 initFirebase();
 
 const UseAuth = () => {
   const [currentUser, setCurrentUser] = useState(null);
-
   async function logout() {
     try {
-      setCurrentUser(null);
+      firebase
+        .auth()
+        .signOut()
+        .then((res) => {
+          setCurrentUser(null);
+        });
     } catch (error) {
       error.message;
     }
@@ -28,7 +33,7 @@ const UseAuth = () => {
             return currentUser;
           })
           .catch((error) => {
-           return error.code + " " + error.message;
+            return error.code + " " + error.message;
           });
       } catch (error) {
         error;
