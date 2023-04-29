@@ -58,6 +58,13 @@
     padding: 25px;
 }
 
+.bookingForm {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+}
+
 @media (max-width: 800px) {
     .calendar {
         width: 2rem;
@@ -76,10 +83,5 @@
         overflow: hidden;
         display: flex;
         flex-direction: column;
-    }
-
-    .bookingForm {
-        display: flex;
-        flex-direction: row;
     }
 }

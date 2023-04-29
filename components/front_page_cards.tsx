@@ -3,7 +3,7 @@ import classes from "../styles/Home.module.css";
 
 export default function FrontPageCards({ images }) {
   return (
-    <section
+    <div
       style={{
         display: "grid",
         gridTemplateColumns: "repeat(auto-fit, minmax(25rem, 1fr)",
@@ -26,6 +26,6 @@ export default function FrontPageCards({ images }) {
           </div>
         );
       })}
-    </section>
+    </div>
   );
 }

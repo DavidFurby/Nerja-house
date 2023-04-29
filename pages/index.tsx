@@ -13,15 +13,13 @@ const Home = () => {
   const { frontPageImages, introductionImage } = UseInformation();
 
   useEffect(() => {
-      AOS.init();
-      AOS.refresh();
-      setTimeout(() => {
-        setLoading(false);
-      }, 200);
-    
+    AOS.init();
+    AOS.refresh();
+    setTimeout(() => {
+      setLoading(false);
+    }, 200);
 
-    return function cleanup() {
-    };
+    return function cleanup() {};
   }, []);
   return (
     <>
@@ -31,14 +29,15 @@ const Home = () => {
             <Introduction image={introductionImage} />
           </div>
           <div id="cards">
-            <FrontPageCards images={frontPageImages}/>
-          </div>
-          <div id="booking">
-            <Booking />
+            <FrontPageCards images={frontPageImages} />
           </div>
           <div id="readMore">
             <ReadMore />
           </div>
+          <div id="booking">
+            <Booking />
+          </div>
+
           <div id="contact">
             <Contact />
           </div>
