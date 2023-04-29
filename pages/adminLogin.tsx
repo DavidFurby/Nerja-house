@@ -34,7 +34,7 @@ const AdminLogin = () => {
         );
         setLoading(false);
         setLoginInfo({ email: "", password: "" });
-        if (response != String) {
+        if (response !== null) {
           router.push("/admin");
         } else {
           alert(response);
@@ -49,7 +49,7 @@ const AdminLogin = () => {
   return (
     <>
       {!loading ? (
-        <div style={{ padding: "6rem", height: "90vh" }}>
+        <div style={{ padding: "6rem", height: "90vh", display: "flex",  justifyContent:"center"}}>
           <form
             onSubmit={submitLogin}
             style={{
@@ -88,7 +88,7 @@ const AdminLogin = () => {
                 }
               />
             </label>
-            <input className="button" type="submit" value="Logga in" />
+            <button className="button" type="submit">Logga in</button>
           </form>
         </div>
       ) : null}

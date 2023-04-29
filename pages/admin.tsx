@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useState, useCallback} from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Calendar } from "../components/Calendar";
 import { UseAuth } from "../utils/firebase/context/AuthContext";
 import { UseBooking } from "../utils/firebase/context/BookingContext";
@@ -8,11 +8,11 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 
 const Admin = () => {
-  let [startDate, setStartDate] = useState(new Date());
-  let [endDate, setEndDate] = useState(new Date());
+  let [fromDate, setFromDate] = useState<Date>(new Date());
+  let [toDate, setToDate] = useState<Date>(new Date());
   let { addNewBooking, bookings } = UseBooking();
   let { currentUser } = UseAuth();
-  let [loading, setLoading] = useState(true);
+  let [loading, setLoading] = useState<boolean>(true);
   const router = useRouter();
 
   const setDates = useCallback(() => {
@@ -23,9 +23,9 @@ const Admin = () => {
     day = ifSingleDigit(day);
   }, []);
 
-  const ifSingleDigit = (number) => {
+  const ifSingleDigit = (number: number): number => {
     if (number.toString().length < 2) {
-      return 0 + number.toString();
+      return 0 + number;
     } else {
       return number;
     }
@@ -34,42 +34,34 @@ const Admin = () => {
   const handleNewBooking = (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    if (startDate != null && endDate != null) {
+    if (fromDate != null && toDate != null) {
       for (let i = 0; i < bookings.length; i++) {
         const rentedDates = getDatesBetweenRentedDays(
           bookings[i].from,
           bookings[i].to
         );
-        if (
-          rentedDates[i].getTime() === startDate.getTime() ||
-          rentedDates[i].getTime() === endDate.getTime()
-        ) {
-          return alert("tid redan bokad");
+        if (rentedDates.length > 0) {
+          if (
+            rentedDates[i].getTime() === fromDate.getTime() ||
+            rentedDates[i].getTime() === toDate.getTime()
+          ) {
+            return alert("tid redan bokad");
+          }
         }
       }
-      const booking = { startDate, endDate };
-      addNewBooking(booking);
-      alert("bokning placerad");
+      addNewBooking({ from: fromDate, to: toDate });
+      alert("bokad tid");
     } else {
       alert("måste ange ett datum för start och slut av bokning");
     }
   };
-  const handleChangeDate = (date, type) => {
-    date = date.target.value;
-    date;
 
-    if (type) {
-      setStartDate(date);
-    } else {
-      setEndDate(date);
-    }
-  };
-
-  const getDatesBetweenRentedDays = (from: Date, to: Date) => {
-    const dates = [];
+  const getDatesBetweenRentedDays = (from: Date, to: Date): Date[] => {
+    const dates: Date[] = [];
     let currentDate = from;
     if (from !== to) {
       const addDays = function(days: number) {
+        console.log(days);
         const date = new Date(this.valueOf());
         date.setDate(date.getDate() + days);
         return date;
@@ -82,14 +74,23 @@ const Admin = () => {
       dates.push(from);
       dates.push(to);
     }
-    dates;
     return dates;
+  };
+
+  const formatDate = (date: Date): string => {
+    let year = date.getFullYear();
+    let month = (date.getMonth() + 1).toString().padStart(2, "0");
+    let day = date
+      .getDate()
+      .toString()
+      .padStart(2, "0");
+    return `${year}-${month}-${day}`;
   };
 
   useEffect(() => {
     AOS.init();
     AOS.refresh();
-    if (!currentUser && !loading) {
+    if (!loading && currentUser === null) {
       router.push("/");
     } else {
       setDates();
@@ -98,54 +99,49 @@ const Admin = () => {
     setTimeout(() => {
       setLoading(false);
     }, 2000);
-  }, [bookings, setDates, currentUser, loading, router]);
+  }, []);
   return (
     <>
       {!loading && currentUser ? (
-        <div className="content">
-          <section
-            data-aos="fade-in"
-            data-aot-once="true"
-            data-aos-delay="400"
-            data-aos-duration="400"
-          >
+        <section className={classes.container}>
+          <section>
             <form className={classes.bookingForm} onSubmit={handleNewBooking}>
-              <div>
-                <label>
-                  start datum
-                  <br />
-                  <input
-                    type="date"
-                    value={startDate.toString()}
-                    onChange={(startDate) => handleChangeDate(startDate, true)}
-                  />
-                </label>
-              </div>
-              <div>
-                <label>
-                  slut datum
-                  <br />
-                  <input
-                    type="date"
-                    value={endDate.toString()}
-                    onChange={(endDate) => handleChangeDate(endDate, false)}
-                  />
-                </label>
-              </div>
-              <input className="button" type="submit" value="Boka" />
+              <label>
+                start datum
+                <br />
+                <input
+                  id="fromDate"
+                  name="fromDate"
+                  type="date"
+                  autoComplete="off"
+                  value={formatDate(fromDate)}
+                  onChange={(e) => setFromDate(new Date(e.target.value))}
+                />
+              </label>
+
+              <label>
+                slut datum
+                <br />
+                <input
+                  type="date"
+                  autoComplete="off"
+                  value={formatDate(toDate)}
+                  onChange={(endDate) =>
+                    setToDate(new Date(endDate.target.value))
+                  }
+                />
+              </label>
+              
+              <button type="submit">Boka</button>
             </form>
           </section>
           <section>
             <Calendar
-              data-aos="fade-in"
-              data-aot-once="true"
-              data-aos-delay="400"
-              data-aos-duration="400"
               bookedDates={bookings}
               getDatesBetweenRentedDays={getDatesBetweenRentedDays}
             />
           </section>
-        </div>
+        </section>
       ) : null}
     </>
   );

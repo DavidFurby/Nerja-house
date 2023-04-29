@@ -2,31 +2,50 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import { useState, useEffect } from "react";
 
+interface Booking {
+  from: Date;
+  to: Date;
+}
+
+interface BookingWithId extends Booking {
+  id: string;
+}
+
+interface AddBookingResult {
+  success: boolean;
+  msg: string;
+}
+
 const UseBooking = () => {
-  let [bookings, setBookings] = useState([]);
+  let [bookings, setBookings] = useState<BookingWithId[]>([]);
 
   const fetchBookings = async () => {
-    const dates = await firebase.firestore().collection("bookedDates").get();
-    if (dates) {
-      try {
-        const bookedDatesInformation = dates.docs.map((date) => {
-          let from = date.data().from.toDate();
-          let to = date.data().to.toDate();
+    await firebase
+      .firestore()
+      .collection("bookedDates")
+      .get()
+      .then((e) => {
+        const bookedDatesInformation = e.docs.map((date) => {
+          let from = new Date(date.data().from);
+          let to = new Date(date.data().to);
           const data = { from, to };
           const id = date.id;
           return { id, ...data };
         });
         setBookings(bookedDatesInformation);
-      } catch (err) {
-        err;
-      }
-    }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
-  const addNewBooking = async (booking) => {
+  const addNewBooking = async (booking: Booking) : Promise<AddBookingResult> => {
     booking;
     try {
-      firebase.firestore().collection("bookedDates").add(booking);
+      await firebase
+        .firestore()
+        .collection("bookedDates")
+        .add(booking);
       return { success: true, msg: "Ny bokning har lagts till" };
     } catch (err) {
       return { success: false, msg: err };
@@ -35,13 +54,12 @@ const UseBooking = () => {
 
   useEffect(() => {
     let mounted = true;
-    if(mounted) {
+    if (mounted) {
       fetchBookings();
-
     }
     return function cleanup() {
-      mounted = false; 
-    }
+      mounted = false;
+    };
   }, []);
 
   return { bookings, addNewBooking };

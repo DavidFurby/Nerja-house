@@ -3,18 +3,17 @@ import "firebase/firestore";
 import "firebase/auth";
 import initFirebase from "../initFirebase";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 
 initFirebase();
 
 const UseAuth = () => {
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
   async function logout() {
     try {
       firebase
         .auth()
         .signOut()
-        .then((res) => {
+        .then(() => {
           setCurrentUser(null);
         });
     } catch (error) {
@@ -30,7 +29,6 @@ const UseAuth = () => {
           .signInWithEmailAndPassword(email, password)
           .then((UserCredentials) => {
             setCurrentUser(UserCredentials.user);
-            return currentUser;
           })
           .catch((error) => {
             return error.code + " " + error.message;
@@ -46,8 +44,7 @@ const UseAuth = () => {
       firebase.auth().onAuthStateChanged(async (user) => {
         if (user) {
           const userStatus = await user.getIdTokenResult();
-          userStatus.claims;
-          setCurrentUser({
+          setCurrentUser({...currentUser,
             email: userStatus.claims.email,
           });
         } else {
