@@ -64,12 +64,15 @@ const NavBar = ({ isMobile, sidebar, setSidebar }) => {
       <ul>
         <NavItem name={"Casa Anna"} section={"introduction"} />
         <NavItem name={"Bilder"} section={"cards"} />
-        <NavItem name={"Se tider"} section={"booking"} />
         <NavItem name={"Läs mer"} section={"readMore"} />
+        <NavItem name={"Se tider"} section={"booking"} />
         <NavItem name={"Kontakta oss"} section={"contact"} />
       </ul>
-      {currentUser && <button onClick={() => logout() && setSidebar(!sidebar)}>Logga ut</button>}
-      
+      {currentUser && (
+        <button onClick={() => logout() && setSidebar(!sidebar)}>
+          Logga ut
+        </button>
+      )}
     </nav>
   );
   function NavItem({ name, section }) {
