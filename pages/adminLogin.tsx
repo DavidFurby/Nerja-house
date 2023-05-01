@@ -20,8 +20,8 @@ const AdminLogin = () => {
   };
 
   const submitLogin = async (e: { preventDefault: () => void }) => {
-    setLoading(true);
     e.preventDefault();
+    setLoading(true);
     const passwordResult = checkPassword();
     if (!passwordResult.valid) {
       setLoading(false);

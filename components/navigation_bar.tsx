@@ -5,7 +5,7 @@ import { useState, useContext } from "react";
 import ScreenContext from "../utils/context/ScreenContext";
 import { useRouter } from "next/router";
 import { UseAuth } from "../utils/firebase/context/AuthContext";
-const DrawerButton = ({ sidebar, setSidebar }) => {
+const DrawerButton = ( sidebar: any, setSidebar: (arg0: boolean) => void ) => {
   return (
     <button
       style={{

@@ -32,7 +32,7 @@ const ReadMore = () => {
             data-aos-delay="800"
             data-aos-duration="2000"
           >
-            <Description desc={houseDescription.text} />
+            <Description descriptions={houseDescription.text} />
           </div>
         </>
       ) : null}

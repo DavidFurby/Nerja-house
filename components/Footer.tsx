@@ -3,16 +3,14 @@ const Footer = () => {
   const { contactInformation } = UseInformation();
   return (
     <>
-      {contactInformation.length > 0 ? (
-        <footer>
-          <p>
-            Email: {contactInformation[0].email}
-            <br /> Mobil: {contactInformation[0].phone}
-            <br />
-            {contactInformation[0].phoneSecondary}
-          </p>
-        </footer>
-      ) : null}
+      <footer>
+        <p>
+          Email: {contactInformation.email}
+            <br /> Mobil: {contactInformation.phone}
+          <br />
+          {contactInformation.phoneSecondary}
+        </p>
+      </footer>
     </>
   );
 };
