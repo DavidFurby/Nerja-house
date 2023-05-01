@@ -131,7 +131,6 @@ const Admin = () => {
                   }
                 />
               </label>
-              
               <button type="submit">Boka</button>
             </form>
           </section>

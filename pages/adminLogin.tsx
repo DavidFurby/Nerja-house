@@ -2,12 +2,16 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { UseAuth } from "../utils/firebase/context/AuthContext";
 
+interface loginForm {
+  email: string,
+  password: string
+}
 const AdminLogin = () => {
   const { login } = UseAuth();
 
   const router = useRouter();
-  let [loginInfo, setLoginInfo] = useState({ email: "", password: "" });
-  let [loading, setLoading] = useState(false);
+  let [loginInfo, setLoginInfo] = useState<loginForm>({ email: "", password: "" });
+  let [loading, setLoading] = useState<boolean>(false);
 
   const checkPassword = () => {
     if (loginInfo.password.length < 8)

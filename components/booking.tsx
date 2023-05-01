@@ -7,12 +7,12 @@ import "aos/dist/aos.css";
 
 const Booking = () => {
   let { bookings } = UseBooking();
-  let [loading, setLoading] = useState(true);
+  let [loading, setLoading] = useState<boolean>(true);
 
   const getDatesBetweenRentedDays = (from: Date, to: Date) => {
     const dates = [];
     let currentDate = from;
-    const addDays = function(days) {
+    const addDays = function(days: number) {
       const date = new Date(this.valueOf());
       date.setDate(date.getDate() + days);
       return date;

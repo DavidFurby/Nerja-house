@@ -9,7 +9,7 @@ import Introduction from "../components/introduction";
 import Contact from "../components/contact";
 
 const Home = () => {
-  let [loading, setLoading] = useState(true);
+  let [loading, setLoading] = useState<boolean>(true);
   const { frontPageImages, introductionImage } = UseInformation();
 
   useEffect(() => {
