@@ -16,6 +16,7 @@ body {
   font-size: 1.3125rem;
   line-height: 1.5;
   height: 100%;
+  width: 100%;
   position: absolute;
 }
 section {
@@ -108,4 +109,11 @@ a {
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+@media (max-width: 800px) {
+  body {
+    width: inherit;
+   
+  }
 }
