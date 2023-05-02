@@ -6,6 +6,7 @@ import { UseBooking } from "../utils/firebase/context/BookingContext";
 import classes from "../styles/booking.module.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import AdminLogin from "../components/adminLogin";
 
 const Admin = () => {
   let [fromDate, setFromDate] = useState<Date>(new Date());
@@ -141,7 +142,9 @@ const Admin = () => {
             />
           </section>
         </section>
-      ) : null}
+      ) : (
+        <AdminLogin />
+      )}
     </>
   );
 };

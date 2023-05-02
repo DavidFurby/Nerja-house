@@ -3,14 +3,16 @@ import { useState } from "react";
 import { UseAuth } from "../utils/firebase/context/AuthContext";
 
 interface loginForm {
-  email: string,
-  password: string
+  email: string;
+  password: string;
 }
 const AdminLogin = () => {
   const { login } = UseAuth();
 
-  const router = useRouter();
-  let [loginInfo, setLoginInfo] = useState<loginForm>({ email: "", password: "" });
+  let [loginInfo, setLoginInfo] = useState<loginForm>({
+    email: "",
+    password: "",
+  });
   let [loading, setLoading] = useState<boolean>(false);
 
   const checkPassword = () => {
@@ -39,8 +41,6 @@ const AdminLogin = () => {
         setLoading(false);
         setLoginInfo({ email: "", password: "" });
         if (response !== null) {
-          router.push("/admin");
-        } else {
           alert(response);
           setLoading(false);
         }
@@ -53,7 +53,14 @@ const AdminLogin = () => {
   return (
     <>
       {!loading ? (
-        <div style={{ padding: "6rem", height: "90vh", display: "flex",  justifyContent:"center"}}>
+        <div
+          style={{
+            padding: "6rem",
+            height: "90vh",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
           <form
             onSubmit={submitLogin}
             style={{
@@ -92,7 +99,9 @@ const AdminLogin = () => {
                 }
               />
             </label>
-            <button className="button" type="submit">Logga in</button>
+            <button className="button" type="submit">
+              Logga in
+            </button>
           </form>
         </div>
       ) : null}
