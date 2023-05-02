@@ -5,6 +5,7 @@ import { useState, useContext } from "react";
 import ScreenContext from "../utils/context/ScreenContext";
 import { useRouter } from "next/router";
 import { UseAuth } from "../utils/firebase/context/AuthContext";
+import Link from "next/link";
 const DrawerButton = ({ sidebar, setSidebar }) => {
   return (
     <button
@@ -52,28 +53,33 @@ const NavBar = ({ isMobile, sidebar, setSidebar }) => {
       }
     >
       <div>
-      {isMobile && (
-        <button
-          className="button"
-          style={{ top: "0", left: "0" }}
-          onClick={() => setSidebar(!sidebar)}
-        >
-          <FontAwesomeIcon icon={faTimes} />
-        </button>
-      )}
+        {isMobile && (
+          <button
+            className="button"
+            style={{ top: "0", left: "0" }}
+            onClick={() => setSidebar(!sidebar)}
+          >
+            <FontAwesomeIcon icon={faTimes} />
+          </button>
+        )}
 
-      <ul>
-        <NavItem name={"Casa Anna"} section={"introduction"} />
-        <NavItem name={"Bilder"} section={"cards"} />
-        <NavItem name={"Läs mer"} section={"readMore"} />
-        <NavItem name={"Se tider"} section={"booking"} />
-        <NavItem name={"Kontakta oss"} section={"contact"} />
-      </ul>
+        <ul>
+          <NavItem name={"Casa Anna"} section={"introduction"} />
+          <NavItem name={"Bilder"} section={"cards"} />
+          <NavItem name={"Läs mer"} section={"readMore"} />
+          <NavItem name={"Se tider"} section={"booking"} />
+          <NavItem name={"Kontakta oss"} section={"contact"} />
+        </ul>
       </div>
       {currentUser && (
-        <button onClick={() => logout() && setSidebar(!sidebar)}>
-          Logga ut
-        </button>
+        <ul style={{alignItems:"center"}}>
+          <Link href={"/admin"} className={classes.linkButton}>
+            Admin
+          </Link>
+          <button onClick={() => logout() && setSidebar(!sidebar)}>
+            Logga ut
+          </button>
+        </ul>
       )}
     </nav>
   );

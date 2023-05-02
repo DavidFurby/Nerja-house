@@ -1,6 +1,5 @@
 html {
   height: 100%;
-
 }
 
 :root {
@@ -11,20 +10,19 @@ html {
 
 body {
   margin: 0;
+  padding: 0;
   font-family: Lora;
   font-weight: 400;
   font-size: 1.3125rem;
   line-height: 1.5;
   height: 100%;
   width: 100%;
-  position: absolute;
 }
 section {
   padding: 25px;
 }
 
 footer {
-  position: relative;
   bottom: 0;
   width: 100%;
   font-size: 1rem;
@@ -35,7 +33,6 @@ footer {
   padding-left: 4rem;
   margin-top: auto;
   background: rgb(49, 47, 47);
-  overflow: hidden;
 }
 
 p {
@@ -109,11 +106,4 @@ a {
 *::before,
 *::after {
   box-sizing: border-box;
-}
-
-@media (max-width: 800px) {
-  body {
-    width: inherit;
-   
-  }
 }

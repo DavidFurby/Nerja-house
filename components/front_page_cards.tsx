@@ -6,7 +6,7 @@ export default function FrontPageCards({ images }) {
     <div
       style={{
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(25rem, 1fr)",
+        gridTemplateColumns: "repeat(auto-fit, minmax(20rem, 1fr)",
       }}
     >
       {images.map((card: any) => {
