@@ -9,6 +9,7 @@ import Link from "next/link";
 const DrawerButton = ({ sidebar, setSidebar }) => {
   return (
     <button
+      title="open"
       style={{
         display: sidebar ? "none" : "block",
         position: "fixed",
@@ -55,6 +56,7 @@ const NavBar = ({ isMobile, sidebar, setSidebar }) => {
       <div>
         {isMobile && (
           <button
+            title="close"
             className="button"
             style={{ top: "0", left: "0" }}
             onClick={() => setSidebar(!sidebar)}
@@ -72,7 +74,7 @@ const NavBar = ({ isMobile, sidebar, setSidebar }) => {
         </ul>
       </div>
       {currentUser && (
-        <ul style={{alignItems:"center"}}>
+        <ul style={{ alignItems: "center" }}>
           <Link href={"/admin"} className={classes.linkButton}>
             Admin
           </Link>

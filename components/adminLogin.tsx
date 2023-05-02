@@ -40,7 +40,7 @@ const AdminLogin = () => {
         );
         setLoading(false);
         setLoginInfo({ email: "", password: "" });
-        if (response !== null) {
+        if (response !== undefined) {
           alert(response);
           setLoading(false);
         }
@@ -99,7 +99,7 @@ const AdminLogin = () => {
                 }
               />
             </label>
-            <button className="button" type="submit">
+            <button title="login" className="button" type="submit">
               Logga in
             </button>
           </form>

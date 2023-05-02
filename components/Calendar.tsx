@@ -122,13 +122,13 @@ export const Calendar = (
             </h1>
           </div>
           <div className={classes.monthSelection}>
-            <button className="button" onClick={() => handleChangeMonth(false)}>
+            <button title="left" className="button" onClick={() => handleChangeMonth(false)}>
               <FontAwesomeIcon icon={faArrowLeft} />
             </button>
             <h2 style={{ fontWeight: "lighter" }}>
               {monthNames[currentDate.getMonth()]}
             </h2>
-            <button className="button" onClick={() => handleChangeMonth(true)}>
+            <button title="right" className="button" onClick={() => handleChangeMonth(true)}>
               <FontAwesomeIcon icon={faArrowRight} />
             </button>
           </div>

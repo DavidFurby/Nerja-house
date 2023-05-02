@@ -73,6 +73,7 @@ export default function Contact() {
           ></textarea>
         </div>
         <button
+        title="send"
           style={{
             width: "12.5rem",
             display: "flex",
