@@ -6,7 +6,6 @@ const Layout = ({ children }) => {
     <div style={{display: "flex", flexDirection: "column", minHeight: "100vh"}}>
       <Head>
         <title>Casa Anna</title>
-        <link rel="logo" href="/favicon.ico"></link>
         <meta content="Nerja" />
       </Head>
       <Navbar />

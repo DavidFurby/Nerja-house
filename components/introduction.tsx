@@ -1,6 +1,6 @@
 import classes from "../styles/Home.module.css";
 
-export default function Introduction(image: { image }) {
+export default function Introduction(image: { image: string; }) {
   return (
     <div
       data-aos="fade-in"
