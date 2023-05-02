@@ -51,6 +51,7 @@ const NavBar = ({ isMobile, sidebar, setSidebar }) => {
           : classes.nav
       }
     >
+      <div>
       {isMobile && (
         <button
           className="button"
@@ -68,6 +69,7 @@ const NavBar = ({ isMobile, sidebar, setSidebar }) => {
         <NavItem name={"Se tider"} section={"booking"} />
         <NavItem name={"Kontakta oss"} section={"contact"} />
       </ul>
+      </div>
       {currentUser && (
         <button onClick={() => logout() && setSidebar(!sidebar)}>
           Logga ut
