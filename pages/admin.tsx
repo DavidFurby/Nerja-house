@@ -14,7 +14,6 @@ const Admin = () => {
   let { addNewBooking, bookings } = UseBooking();
   let { currentUser } = UseAuth();
   let [loading, setLoading] = useState<boolean>(true);
-  const router = useRouter();
 
   const setDates = useCallback(() => {
     let minimumDate = new Date();
@@ -91,62 +90,60 @@ const Admin = () => {
   useEffect(() => {
     AOS.init();
     AOS.refresh();
-    if (!loading && currentUser === null) {
-      router.push("/");
-    } else {
+    if (!loading && currentUser !== null) {
       setDates();
     }
-
     setTimeout(() => {
       setLoading(false);
     }, 2000);
   }, []);
-  return (
-    <>
-      {!loading && currentUser ? (
-        <section className={classes.container}>
-          <section>
-            <form className={classes.bookingForm} onSubmit={handleNewBooking}>
-              <label>
-                start datum
-                <br />
-                <input
-                  id="fromDate"
-                  name="fromDate"
-                  type="date"
-                  autoComplete="off"
-                  value={formatDate(fromDate)}
-                  onChange={(e) => setFromDate(new Date(e.target.value))}
-                />
-              </label>
+  let admin =
+    currentUser !== null ? (
+      <section className={classes.container}>
+        <section>
+          <form className={classes.bookingForm} onSubmit={handleNewBooking}>
+            <label>
+              start datum
+              <br />
+              <input
+                id="fromDate"
+                name="fromDate"
+                type="date"
+                autoComplete="off"
+                value={formatDate(fromDate)}
+                onChange={(e) => setFromDate(new Date(e.target.value))}
+              />
+            </label>
 
-              <label>
-                slut datum
-                <br />
-                <input
-                  type="date"
-                  autoComplete="off"
-                  value={formatDate(toDate)}
-                  onChange={(endDate) =>
-                    setToDate(new Date(endDate.target.value))
-                  }
-                />
-              </label>
-              <button type="submit">Boka</button>
-            </form>
-          </section>
-          <section>
-            <Calendar
-              bookedDates={bookings}
-              getDatesBetweenRentedDays={getDatesBetweenRentedDays}
-            />
-          </section>
+            <label>
+              slut datum
+              <br />
+              <input
+                id="toDate"
+                type="date"
+                autoComplete="off"
+                value={formatDate(toDate)}
+                onChange={(endDate) =>
+                  setToDate(new Date(endDate.target.value))
+                }
+              />
+            </label>
+            <button title="book" type="submit">
+              Boka
+            </button>
+          </form>
         </section>
-      ) : (
-        <AdminLogin />
-      )}
-    </>
-  );
+        <section>
+          <Calendar
+            bookedDates={bookings}
+            getDatesBetweenRentedDays={getDatesBetweenRentedDays}
+          />
+        </section>
+      </section>
+    ) : (
+      <AdminLogin />
+    );
+  return <>{!loading ? admin : null}</>;
 };
 
 export default Admin;

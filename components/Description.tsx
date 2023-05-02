@@ -4,7 +4,7 @@ const Description = ({descriptions}) => {
     <div
       style={{
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(20rem, 1fr)",
+        gridTemplateColumns: "repeat(auto-fit, minmax(24rem, 1fr)",
         textAlign: "center",
       }}
     >
