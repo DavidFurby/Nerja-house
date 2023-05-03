@@ -3,10 +3,10 @@ import "aos/dist/aos.css";
 import { useEffect, useState } from "react";
 import FrontPageCards from "../components/front_page_cards";
 import { UseInformation } from "../utils/firebase/context/InformationContext";
-import Booking from "../components/booking";
 import ReadMore from "../components/read_more";
 import Introduction from "../components/introduction";
 import Contact from "../components/contact";
+import { Calendar } from "../components/Calendar";
 
 const Home = () => {
   let [loading, setLoading] = useState<boolean>(true);
@@ -35,7 +35,7 @@ const Home = () => {
             <ReadMore />
           </div>
           <div id="booking">
-            <Booking />
+            <Calendar />
           </div>
 
           <div id="contact">

@@ -3,18 +3,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useState, useEffect, useRef, useCallback } from "react";
 import classes from "../styles/booking.module.css";
-
-export const Calendar = (
-  bookedDates,
-  getDatesBetweenRentedDays: (from: Date, to: Date) => Date[]
-) => {
-  let [months, setMonths] = useState([]);
+import { UseBooking } from "../utils/firebase/context/BookingContext";
+import BookingForm from "./bookingForm";
+import Booking from "./booking";
+import { useRouter } from "next/router";
+export const Calendar = () => {
+  const router = useRouter();
+  let { bookings } = UseBooking();
+  let [months, setMonths] = useState<[Date[]]>();
   let [loading, setLoading] = useState<boolean>(true);
   let [currentDate, setCurrentDate] = useState<Date>(new Date());
   const hasFetchedData = useRef<boolean>(false);
   const weekDays: string[] = ["mån", "tis", "ons", "tors", "fre", "lör", "sön"];
-  const weeksInMonth : number[] = [0, 1, 2, 3, 4, 5];
-  const monthNames : string[] = [
+  const weeksInMonth: number[] = [0, 1, 2, 3, 4, 5];
+  const monthNames: string[] = [
     "Januari",
     "Februari",
     "Mars",
@@ -28,32 +30,28 @@ export const Calendar = (
     "November",
     "December",
   ];
+  let rentedDates: Date[] = [];
 
   const getMonthsForYear = useCallback(
     async (date: { getFullYear: () => any }) => {
       const currentYear = date.getFullYear();
-      let monthList = [];
+      let dateList: [Date[]] = [] as any;
       for (let i = 0; i <= 12; i++) {
         let date = new Date(currentYear, i + 1, 0);
-        let dayList = [];
+        let daysInMonth: Date[] = [];
         for (let j = 1; j <= date.getDate(); j++) {
-          let currentDate = new Date(currentYear, i, j);
-          let day = currentDate.getDay();
-          let date = currentDate.getDate();
-          let year = currentDate.getFullYear();
-          let month = currentDate.getMonth();
-          dayList.push({ day, date, year, month });
+          daysInMonth.push(new Date(currentYear, i, j));
         }
-        monthList.push({ month: date.getMonth(), days: dayList });
+        dateList.push(daysInMonth);
       }
-      setMonths(monthList);
+      setMonths(dateList);
     },
     []
   );
 
   const handleChangeMonth = (selection: boolean) => {
-    const year = currentDate.getFullYear();
-    const month = currentDate.getMonth();
+    const year: number = currentDate.getFullYear();
+    const month: number = currentDate.getMonth();
     let newDate: Date;
     if (selection) {
       newDate = month < 11 ? new Date(year, month + 1) : new Date(year + 1, 0);
@@ -69,21 +67,41 @@ export const Calendar = (
       }
     }
   };
+  const getDatesBetweenRentedDays = (from: Date, to: Date): Date[] => {
+    const dates: Date[] = [];
+    let currentDate = from;
+    if (from !== to) {
+      const addDays = function(days: number) {
+        const date = new Date(this.valueOf());
+        date.setDate(date.getDate() + days);
+        return date;
+      };
+      while (currentDate <= to) {
+        dates.push(currentDate);
+        currentDate = addDays.call(currentDate, 1);
+      }
+    } else {
+      dates.push(from);
+      dates.push(to);
+    }
+    return dates;
+  };
 
   const setEmptyDates = () => {
-    const daysInMonth = months[currentDate.getMonth()].days;
-    let dayList = [];
+    const daysInMonth = months[currentDate.getMonth()];
+    let dayList: Date[] = [];
 
     // Add filler days from previous month
     const firstDay = daysInMonth[0];
-    if (firstDay.day !== 1) {
-      const fillerPositions = firstDay.day === 0 ? 6 : firstDay.day - 1;
+    if (firstDay.getDay() !== 1) {
+      const fillerPositions =
+        firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1;
       const prevMonthIndex =
         currentDate.getMonth() === 0
           ? currentDate.getMonth() + 11
           : currentDate.getMonth() - 1;
 
-      const prevMonthDays = months[prevMonthIndex].days;
+      const prevMonthDays = months[prevMonthIndex];
       dayList.push(...prevMonthDays.slice(-fillerPositions));
     }
     // Add days from current month
@@ -92,13 +110,25 @@ export const Calendar = (
     // Add remaining days from next month
     const lastDay = daysInMonth[daysInMonth.length - 1];
 
-    const remainingDays = 7 - lastDay.day;
+    const remainingDays = 7 - lastDay.getDay();
     const nextMonthIndex = currentDate.getMonth() + 1;
-    const nextMonthDays = months[nextMonthIndex].days;
+    const nextMonthDays = months[nextMonthIndex];
 
     dayList.push(...nextMonthDays.slice(0, remainingDays));
     return dayList;
   };
+
+  function isDayBooked(rentedDates: Date[], day: Date) {
+    for (let j = 0; j < rentedDates.length; j++) {
+      if (
+        rentedDates[j].getFullYear() === day.getFullYear() &&
+        rentedDates[j].getMonth() === day.getMonth() &&
+        rentedDates[j].getDate() === day.getDate()
+      ) {
+        return true;
+      }
+    }
+  }
 
   useEffect(() => {
     if (!hasFetchedData.current) {
@@ -112,8 +142,45 @@ export const Calendar = (
     return function cleanup() {};
   }, [currentDate, getMonthsForYear]);
 
+  if (bookings) {
+    for (let i = 0; i < bookings.length; i++) {
+      rentedDates.push(
+        ...getDatesBetweenRentedDays(bookings[i].from, bookings[i].to)
+      );
+    }
+  }
+
+  const SelectMonthButtons = () => {
+    return (
+      <div className={classes.monthSelection}>
+        <button
+          title="left"
+          className="button"
+          onClick={() => handleChangeMonth(false)}
+        >
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </button>
+        <h2 style={{ fontWeight: "lighter" }}>
+          {monthNames[currentDate.getMonth()]}
+        </h2>
+        <button
+          title="right"
+          className="button"
+          onClick={() => handleChangeMonth(true)}
+        >
+          <FontAwesomeIcon icon={faArrowRight} />
+        </button>
+      </div>
+    );
+  };
+
   return (
-    <>
+    <div className={classes.container}>
+      {router.pathname === "/admin" ? (
+        <BookingForm getDatesBetweenRentedDays={getDatesBetweenRentedDays} />
+      ) : (
+        <Booking />
+      )}
       {!loading ? (
         <div className={classes.calendarContainer}>
           <div style={{ display: "flex", justifyContent: "center" }}>
@@ -121,17 +188,7 @@ export const Calendar = (
               {currentDate.getFullYear()}
             </h1>
           </div>
-          <div className={classes.monthSelection}>
-            <button title="left" className="button" onClick={() => handleChangeMonth(false)}>
-              <FontAwesomeIcon icon={faArrowLeft} />
-            </button>
-            <h2 style={{ fontWeight: "lighter" }}>
-              {monthNames[currentDate.getMonth()]}
-            </h2>
-            <button title="right" className="button" onClick={() => handleChangeMonth(true)}>
-              <FontAwesomeIcon icon={faArrowRight} />
-            </button>
-          </div>
+          <SelectMonthButtons />
           <table className={classes.calendar}>
             <thead>
               <tr>
@@ -145,58 +202,33 @@ export const Calendar = (
               </tr>
             </thead>
             <tbody>
-              {weeksInMonth.map((weekDay, index) => {
+              {weeksInMonth.map((_weekDay, index) => {
                 const dayList = setEmptyDates();
                 const sliceDaysInWeeks = dayList.slice(
                   index === 0 ? 0 : 7 * index,
                   index === 0 ? 7 : 7 * index + 7
                 );
-
                 return (
                   <tr key={index}>
                     {sliceDaysInWeeks.map((day, dayIndex) => {
-                      let rentedDates = [];
-                      if (bookedDates) {
-                        for (let i = 0; i < bookedDates.length; i++) {
-                          rentedDates = getDatesBetweenRentedDays(
-                            bookedDates[i].from,
-                            bookedDates[i].to
-                          );
-                          isDayBooked(rentedDates);
-                        }
-                      }
                       return (
                         <th key={dayIndex}>
                           <p
                             style={{
-                              borderBottom: day.booking
+                              borderBottom: isDayBooked(rentedDates, day)
                                 ? "4px solid #00d14d"
                                 : null,
                               color:
-                                day.month != currentDate.getMonth()
+                                day.getMonth() != currentDate.getMonth()
                                   ? "grey"
                                   : "black",
                             }}
                             className={classes.calendarDates}
                           >
-                            {day.date}
+                            {day.getDate()}
                           </p>
                         </th>
                       );
-
-                      function isDayBooked(rentedDates: any) {
-                        for (let j = 0; j < rentedDates.length; j++) {
-                          if (
-                            rentedDates[j].getFullYear() === day.year &&
-                            rentedDates[j].getMonth() === day.month &&
-                            rentedDates[j].getDate() === day.date
-                          ) {
-                            return true;
-                          } else {
-                            return false;
-                          }
-                        }
-                      }
                     })}
                   </tr>
                 );
@@ -205,6 +237,6 @@ export const Calendar = (
           </table>
         </div>
       ) : null}
-    </>
+    </div>
   );
 };

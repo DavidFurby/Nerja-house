@@ -26,8 +26,8 @@ const UseBooking = () => {
       .get()
       .then((e) => {
         const bookedDatesInformation = e.docs.map((date) => {
-          let from = new Date(date.data().from);
-          let to = new Date(date.data().to);
+          let from = new Date(date.data().from.seconds * 1000);
+          let to = new Date(date.data().to.seconds * 1000);
           const data = { from, to };
           const id = date.id;
           return { id, ...data };

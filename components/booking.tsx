@@ -6,23 +6,8 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 
 const Booking = () => {
-  let { bookings } = UseBooking();
   let [loading, setLoading] = useState<boolean>(true);
 
-  const getDatesBetweenRentedDays = (from: Date, to: Date) => {
-    const dates = [];
-    let currentDate = from;
-    const addDays = function(days: number) {
-      const date = new Date(this.valueOf());
-      date.setDate(date.getDate() + days);
-      return date;
-    };
-    while (currentDate <= to) {
-      dates.push(currentDate);
-      currentDate = addDays.call(currentDate, 1);
-    }
-    return dates;
-  };
   useEffect(() => {
     let mounted = true;
     if (mounted) {
@@ -49,15 +34,6 @@ const Booking = () => {
               Datum som redan är inbokade är markerade med
               <span style={{ color: "#0cdd58" }}> grönt</span>
             </p>
-          </section>
-          <section>
-            <Calendar
-              data-aos="fade-in"
-              data-aot-once="true"
-              data-aos-duration="400"
-              bookedDates={bookings}
-              getDatesBetweenRentedDays={getDatesBetweenRentedDays}
-            />
           </section>
         </section>
       ) : null}

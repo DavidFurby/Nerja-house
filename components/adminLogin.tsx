@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { useState } from "react";
 import { UseAuth } from "../utils/firebase/context/AuthContext";
 
