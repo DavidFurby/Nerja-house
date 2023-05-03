@@ -17,11 +17,6 @@
 
 }
 
-.example {
-    width: 2rem;
-    height: 2rem;
-}
-
 
 .monthSelection {
     display: flex;
@@ -32,13 +27,12 @@
 }
 
 .calendarDates {
-    margin: 1rem;
+    margin: 2vw;
 }
 
 .calendar {
     background: white;
     color: black;
-    padding: 25px;
 }
 
 .days {
@@ -59,23 +53,13 @@
 
 .bookingForm {
     display: grid;
-    flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    justify-items: stretch;
+    justify-items: start;
+    align-content: center;
 }
 
 @media (max-width: 800px) {
-    .calendar {
-        width: 2rem;
-        font-size: 10px;
-    }
-
-    .text {
-        text-align: center;
-    }
-
-
     .container {
         background-repeat: no-repeat;
         background-attachment: fixed;
