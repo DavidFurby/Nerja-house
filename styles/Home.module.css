@@ -3,11 +3,6 @@
   color: white;
 }
 
-.subText {
-  position: relative;
-  color: white;
-}
-
 .section {
   display: flex;
   flex-direction: column;
@@ -24,6 +19,12 @@
   animation: fadeIn 1s;
 }
 
+.description {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(25vw, 1fr));
+  text-align: center;
+}
+
 .introductionContent {
   padding: 2rem;
   width: 100%;
@@ -34,22 +35,27 @@
   background: linear-gradient(hsl(0 0% 0% / 0), hsl(0 0% 0% / 0.6));
 }
 
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(45vw, 1fr));
+
+}
+
 .card {
-  border-radius: 1rem;
+  width: 45vw;
+  height: 40vh;
+  border-radius: 10px;
   color: var(--clr-neutral-100);
   background-size: cover;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  overflow: hidden;
   margin: 25px;
-  animation: slideInFromBottom 2s;
+  position: relative;
+  overflow: hidden;
 }
 
 .cardContent {
   padding: 2rem;
-  position: relative;
-  background: linear-gradient(hsl(0 0% 0% / 0), hsl(0 0% 0% / 0.4));
+  position: absolute;
+  bottom: 0;
 }
 
 @keyframes fadeIn {
@@ -74,34 +80,20 @@
 }
 
 
-@media(hover) {
-  .cardContent {
-    transition: transform 500ms ease;
-    transform: translateY(40%);
-  }
-
-  .cardContent>*:not(.title) {
-    opacity: 0;
-    transition: opacity 200ms linear;
-  }
-
-  .card:hover .cardContent>*,
-  .card:focus-within .cardContent>* {
-    opacity: 1;
-  }
-
-  .card:hover .cardContent,
-  .card:focus-within .cardContent {
-    transform: translateY(0);
-  }
-
-}
-
-
 @media (max-width: 800px) {
+  .cardGrid {
+    grid-template-columns: repeat(auto-fit, minmax(100vw, 1fr));
+  }
+
   .card {
     border-radius: initial;
     margin: initial;
-    height: 50vh;
+    width: 100vw;
+    height: 40vh;
+    margin-top: 25px;
+  }
+
+  .description {
+    grid-template-columns: repeat(auto-fit, minmax(100vw, 1fr));
   }
 }

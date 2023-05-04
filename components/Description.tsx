@@ -1,13 +1,8 @@
 import React from "react";
-const Description = ({descriptions}) => {
+import classes from "../styles/Home.module.css";
+const Description = ({ descriptions }) => {
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(24rem, 1fr)",
-        textAlign: "center",
-      }}
-    >
+    <div className={classes.description}>
       {descriptions.map((e: any) => {
         return (
           <section key={e.id}>
