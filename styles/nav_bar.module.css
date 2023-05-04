@@ -16,20 +16,19 @@
   color: white;
   position: fixed;
   top: 0;
-  left: -25rem;
+  left: 0;
   height: 100%;
   z-index: 1000;
   display: flex;
   flex-flow: column;
   text-align: left;
+  justify-content: space-between;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
 }
 
-.showSidebar {
-  animation: sidebarSlideIn 1s forwards;
-}
-
-.hideSidebar {
-  animation: sidebarSlideIn 1s forwards reverse;
+.navMobile.open {
+  transform: translateX(0);
 }
 
 .nav ul {
@@ -61,18 +60,12 @@
 
   .navMobile ul {
     list-style: none;
-    padding: 1rem;
+    padding: 12px;
   }
 
   .navMobile li {
-    padding-top: 1rem;
-    padding-right: 1rem;
+    padding-top: 12px;
+    padding-right: 12px;
   }
 
-}
-
-@keyframes sidebarSlideIn {
-  100% {
-    left: 0rem;
-  }
 }

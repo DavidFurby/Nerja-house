@@ -6,23 +6,23 @@ import ScreenContext from "../utils/context/ScreenContext";
 import { useRouter } from "next/router";
 import { UseAuth } from "../utils/firebase/context/AuthContext";
 import Link from "next/link";
-const DrawerButton = ({ sidebar, setSidebar }) => {
+const DrawerButton = ({ toggleSidebar, sidebarOpen }) => {
   return (
     <button
       title="open"
       style={{
-        display: sidebar ? "none" : "block",
+        display: sidebarOpen ? "none" : "block",
         position: "fixed",
         zIndex: "1000",
       }}
       className="button"
-      onClick={() => setSidebar(!sidebar)}
+      onClick={() => toggleSidebar()}
     >
       <FontAwesomeIcon icon={faBars} />
     </button>
   );
 };
-const NavBar = ({ isMobile, sidebar, setSidebar }) => {
+const NavBar = ({ isMobile, toggleSidebar, sidebar }) => {
   let { currentUser, logout } = UseAuth();
 
   const router = useRouter();
@@ -40,17 +40,19 @@ const NavBar = ({ isMobile, sidebar, setSidebar }) => {
       router.push("/");
     }
 
-    setSidebar(sidebarState);
+    toggleSidebar();
   };
+  const listItems = document.querySelectorAll("li");
 
+  listItems.forEach((item) => {
+    item.addEventListener("click", () => {
+      item.classList.toggle("hideSidebar");
+    });
+  });
   return (
     <nav
       className={
-        isMobile
-          ? sidebar
-            ? `${classes.navMobile} ${classes.showSidebar}`
-            : `${classes.navMobile}`
-          : classes.nav
+        isMobile ? `${classes.navMobile} ${sidebar ? classes.open : ""}` : classes.nav
       }
     >
       <div>
@@ -58,8 +60,7 @@ const NavBar = ({ isMobile, sidebar, setSidebar }) => {
           <button
             title="close"
             className="button"
-            style={{ top: "0", left: "0" }}
-            onClick={() => setSidebar(!sidebar)}
+            onClick={() => toggleSidebar()}
           >
             <FontAwesomeIcon icon={faTimes} />
           </button>
@@ -74,13 +75,21 @@ const NavBar = ({ isMobile, sidebar, setSidebar }) => {
         </ul>
       </div>
       {currentUser && (
-        <ul style={{ alignItems: "center" }}>
-          <Link href={"/admin"} className={classes.linkButton}>
-            Admin
-          </Link>
-          <button onClick={() => logout() && setSidebar(!sidebar)}>
-            Logga ut
-          </button>
+        <ul>
+          <li>
+            <Link
+              onClick={() => toggleSidebar()}
+              href={"/admin"}
+              className={classes.linkButton}
+            >
+              Admin
+            </Link>
+          </li>
+          <li>
+            <button onClick={() => logout() && toggleSidebar()}>
+              Logga ut
+            </button>
+          </li>
         </ul>
       )}
     </nav>
@@ -99,12 +108,19 @@ const NavBar = ({ isMobile, sidebar, setSidebar }) => {
 const NavigationBar = () => {
   const isMobile = useContext(ScreenContext);
   let [sidebar, setSidebar] = useState(false);
+  const toggleSidebar = () => {
+    setSidebar(!sidebar);
+  };
   return isMobile !== null ? (
     <>
       {isMobile ? (
-        <DrawerButton sidebar={sidebar} setSidebar={setSidebar} />
+        <DrawerButton toggleSidebar={toggleSidebar} sidebarOpen={sidebar} />
       ) : null}
-      <NavBar sidebar={sidebar} setSidebar={setSidebar} isMobile={isMobile} />
+      <NavBar
+        isMobile={isMobile}
+        toggleSidebar={toggleSidebar}
+        sidebar={sidebar}
+      />
     </>
   ) : null;
 };
