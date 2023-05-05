@@ -52,46 +52,44 @@ const NavBar = ({ isMobile, toggleSidebar, sidebar }) => {
   return (
     <nav
       className={
-        isMobile ? `${classes.navMobile} ${sidebar ? classes.open : ""}` : classes.nav
+        isMobile
+          ? `${classes.navMobile} ${sidebar ? classes.open : ""}`
+          : classes.nav
       }
     >
-      <div>
-        {isMobile && (
-          <button
-            title="close"
-            className="button"
-            onClick={() => toggleSidebar()}
-          >
-            <FontAwesomeIcon icon={faTimes} />
-          </button>
-        )}
+     {isMobile && <button
+        style={{
+          alignSelf: "start",
+        }}
+        title="close"
+        className="button"
+        onClick={() => toggleSidebar()}
+      >
+        <FontAwesomeIcon icon={faTimes} />
+      </button>}
 
-        <ul>
-          <NavItem name={"Casa Anna"} section={"introduction"} />
-          <NavItem name={"Bilder"} section={"cards"} />
-          <NavItem name={"Läs mer"} section={"readMore"} />
-          <NavItem name={"Se tider"} section={"booking"} />
-          <NavItem name={"Kontakta oss"} section={"contact"} />
-        </ul>
-      </div>
-      {currentUser && (
-        <ul>
-          <li>
-            <Link
-              onClick={() => toggleSidebar()}
-              href={"/admin"}
-              className={classes.linkButton}
-            >
-              Admin
-            </Link>
-          </li>
-          <li>
-            <button onClick={() => logout() && toggleSidebar()}>
-              Logga ut
-            </button>
-          </li>
-        </ul>
-      )}
+      <ul>
+        <NavItem name={"Casa Anna"} section={"introduction"} />
+        <NavItem name={"Bilder"} section={"cards"} />
+        <NavItem name={"Läs mer"} section={"readMore"} />
+        <NavItem name={"Se tider"} section={"booking"} />
+        <NavItem name={"Kontakta oss"} section={"contact"} />
+      </ul>
+
+      <ul style={{ visibility: currentUser ? "visible" : "hidden" }}>
+        <li>
+          <Link
+            onClick={() => toggleSidebar()}
+            href={"/admin"}
+            className={classes.linkButton}
+          >
+            Admin
+          </Link>
+        </li>
+        <li>
+          <button onClick={() => logout() && toggleSidebar()}>Logga ut</button>
+        </li>
+      </ul>
     </nav>
   );
   function NavItem({ name, section }) {
