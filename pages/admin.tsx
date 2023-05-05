@@ -19,6 +19,7 @@ const Admin = () => {
 
     setTimeout(() => {}, 2000);
   }, []);
+  
   let admin =
     currentUser !== null ? (
       <section className={classes.container}>

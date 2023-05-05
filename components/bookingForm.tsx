@@ -1,51 +1,18 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useState } from "react";
 import { UseBooking } from "../utils/firebase/context/BookingContext";
 import classes from "../styles/booking.module.css";
 
-export default function BookingForm({ getDatesBetweenRentedDays }) {
+export default function BookingForm({ rentedDates }) {
   let [fromDate, setFromDate] = useState<Date>(new Date());
   let [toDate, setToDate] = useState<Date>(new Date());
-  let { addNewBooking, bookings } = UseBooking();
+  let { addNewBooking } = UseBooking();
 
-  const setDates = useCallback(() => {
-    let minimumDate = new Date();
-    let month = minimumDate.getMonth() + 1;
-    month = ifSingleDigit(month);
-    let day = minimumDate.getDate();
-    day = ifSingleDigit(day);
-  }, []);
-
-  const ifSingleDigit = (number: number): number => {
-    if (number.toString().length < 2) {
-      return 0 + number;
-    } else {
-      return number;
-    }
-  };
-
-  const handleNewBooking = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-
-    if (fromDate != null && toDate != null) {
-      for (let i = 0; i < bookings.length; i++) {
-        const rentedDates = getDatesBetweenRentedDays(
-          bookings[i].from,
-          bookings[i].to
-        );
-        if (rentedDates.length > 0) {
-          if (
-            rentedDates[i].getTime() === fromDate.getTime() ||
-            rentedDates[i].getTime() === toDate.getTime()
-          ) {
-            return alert("tid redan bokad");
-          }
-        }
-      }
-      addNewBooking({ from: fromDate, to: toDate });
-      alert("bokad tid");
-    } else {
-      alert("måste ange ett datum för start och slut av bokning");
-    }
+  const datesAreAvailable = function(rentedDates: Date[]): boolean {
+    return !rentedDates.some(
+      (date) =>
+        date.getDate() === fromDate.getDate() ||
+        date.getDate() === toDate.getDate()
+    );
   };
 
   const formatDate = (date: Date): string => {
@@ -59,7 +26,13 @@ export default function BookingForm({ getDatesBetweenRentedDays }) {
   };
 
   return (
-    <form className={classes.bookingForm} onSubmit={handleNewBooking}>
+    <form
+      className={classes.bookingForm}
+      onSubmit={() => {
+        addNewBooking({ from: fromDate, to: toDate });
+        alert("bokad tid");
+      }}
+    >
       <label>
         start datum
         <br />
@@ -84,7 +57,11 @@ export default function BookingForm({ getDatesBetweenRentedDays }) {
           onChange={(endDate) => setToDate(new Date(endDate.target.value))}
         />
       </label>
-      <button title="book" type="submit">
+      <button
+        disabled={datesAreAvailable.call(this, rentedDates) ? false : true}
+        title="book"
+        type="submit"
+      >
         Boka
       </button>
     </form>

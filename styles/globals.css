@@ -85,6 +85,7 @@ button {
   font-weight: bold;
 }
 
+
 button:active {
   opacity: 0.6;
 
@@ -92,6 +93,12 @@ button:active {
 
 button:hover {
   opacity: 0.8;
+}
+button:disabled {
+  background-color: #C8C6C5;
+}
+button:disabled:hover {
+  opacity:initial;
 }
 
 a {

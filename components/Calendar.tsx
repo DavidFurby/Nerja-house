@@ -70,20 +70,16 @@ export const Calendar = () => {
   const getDatesBetweenRentedDays = (from: Date, to: Date): Date[] => {
     const dates: Date[] = [];
     let currentDate = from;
-    if (from !== to) {
-      const addDays = function(days: number) {
-        const date = new Date(this.valueOf());
-        date.setDate(date.getDate() + days);
-        return date;
-      };
-      while (currentDate <= to) {
-        dates.push(currentDate);
-        currentDate = addDays.call(currentDate, 1);
-      }
-    } else {
-      dates.push(from);
-      dates.push(to);
+    const addDays = function(days: number) {
+      const date = new Date(this.valueOf());
+      date.setDate(date.getDate() + days);
+      return date;
+    };
+    while (currentDate <= to) {
+      dates.push(currentDate);
+      currentDate = addDays.call(currentDate, 1);
     }
+    console.log(dates);
     return dates;
   };
 
@@ -177,7 +173,7 @@ export const Calendar = () => {
   return (
     <div className={classes.container}>
       {router.pathname === "/admin" ? (
-        <BookingForm getDatesBetweenRentedDays={getDatesBetweenRentedDays} />
+        <BookingForm rentedDates={rentedDates} />
       ) : (
         <Booking />
       )}
