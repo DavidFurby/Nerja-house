@@ -28,7 +28,8 @@ export default function BookingForm({ rentedDates }) {
   return (
     <form
       className={classes.bookingForm}
-      onSubmit={() => {
+      onSubmit={(e) => {
+        e.preventDefault();
         addNewBooking({ from: fromDate, to: toDate });
         alert("bokad tid");
       }}
