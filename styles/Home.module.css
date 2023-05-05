@@ -16,7 +16,7 @@
   flex-direction: column;
   justify-content: flex-end;
   height: 100vh;
-  animation: fadeIn 1s;
+  animation: fadeIn 2s;
 }
 
 .description {
@@ -33,6 +33,7 @@
   align-items: center;
   justify-content: center;
   background: linear-gradient(hsl(0 0% 0% / 0), hsl(0 0% 0% / 0.6));
+  animation: fadeIn 4s;
 }
 
 .cardGrid {
