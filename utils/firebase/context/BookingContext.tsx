@@ -39,7 +39,7 @@ const UseBooking = () => {
       });
   };
 
-  const addNewBooking = async (booking: Booking) : Promise<AddBookingResult> => {
+  const addNewBooking = async (booking: Booking): Promise<AddBookingResult> => {
     booking;
     try {
       await firebase
@@ -53,7 +53,7 @@ const UseBooking = () => {
   };
 
   useEffect(() => {
-    let mounted = true;
+    let mounted: boolean = true;
     if (mounted) {
       fetchBookings();
     }

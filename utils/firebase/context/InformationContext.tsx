@@ -18,8 +18,8 @@ interface ContactInformation {
 }
 
 const UseInformation = () => {
-  const [introductionImage, setIntroductionImage] = useState("");
-  const [frontPageImages, setFrontPageImages] = useState([]);
+  const [introductionImage, setIntroductionImage] = useState<string>("");
+  const [frontPageImages, setFrontPageImages] = useState<[]>([]);
   const [contactInformation, setContactInformation] = useState<
     ContactInformation
   >({ email: "", phone: "", phoneSecondary: "" });
@@ -57,7 +57,7 @@ const UseInformation = () => {
       fetchData("contactInformation", (data) => {
         setContactInformation({
           email: data[0].email,
-          phone: data[0].mobil,
+          phone: data[0].phone,
           phoneSecondary: data[0].phoneSecondary,
         });
       }),

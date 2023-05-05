@@ -37,7 +37,7 @@ export default function Contact() {
         <h1>Kontakta oss</h1>
         <div style={{ display: "flex" }}>
           <input
-            style={{ width: "12.5em" }}
+            style={{ width: "12.5rem" }}
             placeholder="Namn"
             value={form.name}
             onChange={(event) => setForm({ ...form, name: event.target.value })}
@@ -45,7 +45,7 @@ export default function Contact() {
 
           <br />
           <input
-            style={{ width: "12.2em" }}
+            style={{ width: "12.2rem" }}
             placeholder="Mail"
             value={form.email}
             onChange={(event) =>
@@ -55,7 +55,7 @@ export default function Contact() {
         </div>
         <div>
           <input
-            style={{ width: "25em" }}
+            style={{ width: "25rem" }}
             placeholder="Ämne"
             value={form.subject}
             onChange={(event) =>
@@ -64,7 +64,7 @@ export default function Contact() {
           ></input>
           <br />
           <textarea
-            style={{ width: "25em", height: "100px", resize: "none" }}
+            style={{ width: "25rem", height: "100px", resize: "none" }}
             placeholder="Meddelande"
             value={form.message}
             onChange={(event) =>
@@ -73,7 +73,7 @@ export default function Contact() {
           ></textarea>
         </div>
         <button
-        title="send"
+          title="send"
           style={{
             width: "12.5rem",
             display: "flex",
