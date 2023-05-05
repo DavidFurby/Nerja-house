@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useState, useContext } from "react";
 import ScreenContext from "../utils/context/ScreenContext";
-import { useRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 import { UseAuth } from "../utils/firebase/context/AuthContext";
 import Link from "next/link";
 const DrawerButton = ({ toggleSidebar, sidebarOpen }) => {
@@ -25,15 +25,16 @@ const DrawerButton = ({ toggleSidebar, sidebarOpen }) => {
 const NavBar = ({ isMobile, toggleSidebar, sidebar }) => {
   let { currentUser, logout } = UseAuth();
 
-  const router = useRouter();
+  const router: NextRouter = useRouter();
   const { asPath } = router;
+
   const handleNavigation = (
     sidebarState: boolean | ((prevState: boolean) => boolean),
     section: undefined
   ) => {
     if (asPath == "/") {
       if (section != null) {
-        const target = document.querySelector(`#${section}`);
+        const target: Element = document.querySelector(`#${section}`);
         target.scrollIntoView({ behavior: "smooth" });
       }
     } else {
@@ -42,13 +43,7 @@ const NavBar = ({ isMobile, toggleSidebar, sidebar }) => {
 
     toggleSidebar();
   };
-  const listItems = document.querySelectorAll("li");
 
-  listItems.forEach((item) => {
-    item.addEventListener("click", () => {
-      item.classList.toggle("hideSidebar");
-    });
-  });
   return (
     <nav
       className={
@@ -57,16 +52,18 @@ const NavBar = ({ isMobile, toggleSidebar, sidebar }) => {
           : classes.nav
       }
     >
-     {isMobile && <button
-        style={{
-          alignSelf: "start",
-        }}
-        title="close"
-        className="button"
-        onClick={() => toggleSidebar()}
-      >
-        <FontAwesomeIcon icon={faTimes} />
-      </button>}
+      {isMobile && (
+        <button
+          style={{
+            alignSelf: "start",
+          }}
+          title="close"
+          className="button"
+          onClick={() => toggleSidebar()}
+        >
+          <FontAwesomeIcon icon={faTimes} />
+        </button>
+      )}
 
       <ul>
         <NavItem name={"Casa Anna"} section={"introduction"} />
@@ -104,8 +101,8 @@ const NavBar = ({ isMobile, toggleSidebar, sidebar }) => {
   }
 };
 const NavigationBar = () => {
-  const isMobile = useContext(ScreenContext);
-  let [sidebar, setSidebar] = useState(false);
+  const isMobile: boolean = useContext(ScreenContext);
+  let [sidebar, setSidebar] = useState<boolean>(false);
   const toggleSidebar = () => {
     setSidebar(!sidebar);
   };
