@@ -14,7 +14,7 @@ export const Calendar = () => {
   let [loading, setLoading] = useState<boolean>(true);
   let [currentDate, setCurrentDate] = useState<Date>(new Date());
   const hasFetchedData = useRef<boolean>(false);
-  const weekDays: string[] = ["mån", "tis", "ons", "tors", "fre", "lör", "sön"];
+  const week: string[] = ["mån", "tis", "ons", "tors", "fre", "lör", "sön"];
   const weeksInMonth: number[] = [0, 1, 2, 3, 4, 5];
   const monthNames: string[] = [
     "Januari",
@@ -84,31 +84,31 @@ export const Calendar = () => {
   };
 
   const setEmptyDates = () => {
-    const daysInMonth = months[currentDate.getMonth()];
+    const daysInMonth: Date[] = months[currentDate.getMonth()];
     let dayList: Date[] = [];
 
     // Add filler days from previous month
-    const firstDay = daysInMonth[0];
+    const firstDay: Date = daysInMonth[0];
     if (firstDay.getDay() !== 1) {
-      const fillerPositions =
+      const fillerPositions: number =
         firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1;
-      const prevMonthIndex =
+      const prevMonthIndex: number =
         currentDate.getMonth() === 0
           ? currentDate.getMonth() + 11
           : currentDate.getMonth() - 1;
 
-      const prevMonthDays = months[prevMonthIndex];
+      const prevMonthDays: Date[] = months[prevMonthIndex];
       dayList.push(...prevMonthDays.slice(-fillerPositions));
     }
     // Add days from current month
     dayList.push(...daysInMonth);
 
     // Add remaining days from next month
-    const lastDay = daysInMonth[daysInMonth.length - 1];
+    const lastDay: Date = daysInMonth[daysInMonth.length - 1];
 
-    const remainingDays = 7 - lastDay.getDay();
-    const nextMonthIndex = currentDate.getMonth() + 1;
-    const nextMonthDays = months[nextMonthIndex];
+    const remainingDays: number = 7 - lastDay.getDay();
+    const nextMonthIndex: number = currentDate.getMonth() + 1;
+    const nextMonthDays: Date[] = months[nextMonthIndex];
 
     dayList.push(...nextMonthDays.slice(0, remainingDays));
     return dayList;
@@ -179,16 +179,14 @@ export const Calendar = () => {
       )}
       {!loading ? (
         <div className={classes.calendarContainer}>
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <h1 style={{ fontWeight: "lighter" }}>
-              {currentDate.getFullYear()}
-            </h1>
+          <div>
+            <h1>{currentDate.getFullYear()}</h1>
           </div>
           <SelectMonthButtons />
           <table className={classes.calendar}>
             <thead>
               <tr>
-                {weekDays.map((weekDay, index) => {
+                {week.map((weekDay, index) => {
                   return (
                     <th key={index}>
                       <h4 style={{ fontWeight: "normal" }}>{weekDay}</h4>
@@ -198,15 +196,15 @@ export const Calendar = () => {
               </tr>
             </thead>
             <tbody>
-              {weeksInMonth.map((_weekDay, index) => {
+              {weeksInMonth.map((week, index) => {
                 const dayList = setEmptyDates();
-                const sliceDaysInWeeks = dayList.slice(
+                const daysInWeek = dayList.slice(
                   index === 0 ? 0 : 7 * index,
                   index === 0 ? 7 : 7 * index + 7
                 );
                 return (
                   <tr key={index}>
-                    {sliceDaysInWeeks.map((day, dayIndex) => {
+                    {daysInWeek.map((day, dayIndex) => {
                       return (
                         <th key={dayIndex}>
                           <p
