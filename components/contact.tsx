@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-
+import React, { useRef } from "react";
+import * as emailjs from "emailjs-com";
 interface Form {
   name: string;
   email: string;
@@ -8,15 +8,27 @@ interface Form {
 }
 
 export default function Contact() {
-  const [form, setForm] = useState<Form>({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
+  const form = useRef(null);
 
-  const handleSubmit = (event: { preventDefault: () => void }) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
+
+    emailjs
+      .sendForm(
+        "service_qpx3kpi",
+        "template_8cl2wep",
+        form.current,
+        "XxswbXg2wEYUUrAq2"
+      )
+      .then(
+        function() {
+          form.current.reset();
+          alert("Meddelandet har skickats");
+        },
+        function() {
+          alert("Meddelandet kunde inte skickas");
+        }
+      );
   };
   return (
     <div
@@ -26,6 +38,7 @@ export default function Contact() {
       }}
     >
       <form
+        ref={form}
         style={{
           padding: "25px",
           display: "grid",
@@ -37,39 +50,29 @@ export default function Contact() {
         <h1>Kontakta oss</h1>
         <div style={{ display: "flex" }}>
           <input
-            style={{ width: "12.5rem" }}
+            style={{ width: "10rem" }}
             placeholder="Namn"
-            value={form.name}
-            onChange={(event) => setForm({ ...form, name: event.target.value })}
+            name="user_name"
           ></input>
 
           <br />
           <input
-            style={{ width: "12.2rem" }}
+            style={{ width: "10rem" }}
             placeholder="Mail"
-            value={form.email}
-            onChange={(event) =>
-              setForm({ ...form, email: event.target.value })
-            }
+            name="user_email"
           ></input>
         </div>
         <div>
           <input
-            style={{ width: "25rem" }}
+            style={{ width: "20rem" }}
             placeholder="Ämne"
-            value={form.subject}
-            onChange={(event) =>
-              setForm({ ...form, subject: event.target.value })
-            }
+            name="subject"
           ></input>
           <br />
           <textarea
-            style={{ width: "25rem", height: "100px", resize: "none" }}
+            style={{ width: "20rem", height: "100px", resize: "none" }}
             placeholder="Meddelande"
-            value={form.message}
-            onChange={(event) =>
-              setForm({ ...form, message: event.target.value })
-            }
+            name="message"
           ></textarea>
         </div>
         <button

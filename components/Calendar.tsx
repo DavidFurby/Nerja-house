@@ -79,7 +79,6 @@ export const Calendar = () => {
       dates.push(currentDate);
       currentDate = addDays.call(currentDate, 1);
     }
-    console.log(dates);
     return dates;
   };
 
