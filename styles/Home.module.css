@@ -38,13 +38,12 @@
 
 .cardGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(45vw, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(25vw, 1fr));
 
 }
 
 .card {
-  width: 45vw;
-  height: 40vh;
+  height: 45vh;
   border-radius: 10px;
   color: var(--clr-neutral-100);
   background-size: cover;
